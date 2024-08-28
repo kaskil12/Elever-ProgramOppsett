@@ -1,16 +1,25 @@
 //import windows and all things needed to install vs code and python on a system
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <windows.h>
-
-using namespace std;
-
+#include "main.h"
+bool VsCodeInstalled = false;
+bool PythonInstalled = false;
 //main function
 int main(){
-    if(system("code --version") == 1){
-        std::cout<<"VS Code is not installed"<<std::endl;
+    //test to see if check is working
+    std::cout << "Checking if VS Code is installed..." << std::endl;
+    //check if vs code is installed
+    isVSCodeInstalled();
+    //test to see if check is working
+    std::cout << "Checking if Python is installed..." << std::endl;
+    //check if python is installed
+    isPythonInstalled();
+    //create a folder and file for python and open in vscode and create a python file
+    if (VsCodeInstalled && PythonInstalled){
+        createFolderAndFile();
+    }else{
+        std::cout <<"Innstallation failed" << std::endl;
     }
+    //return 0
+    return 0;
 
 }
 void isVSCodeInstalled(){
@@ -22,10 +31,6 @@ void isVSCodeInstalled(){
         installVSCode();
     }
 }
-void installVSCode(){
-    //install vs code
-    system("VSCodeSetup-x64-1.56.2.exe");
-}
 void isPythonInstalled(){
     //check if python is installed
     system("python --version");
@@ -33,9 +38,71 @@ void isPythonInstalled(){
     if(system("python --version") == 1){
         //install python
         installPython();
+    }else{
+        //remove python
+        removePython();
     }
 }
-void installPython(){
-    //install python
-    system("python-3.9.5-amd64.exe");
+void installVSCode() {
+    // Step 1: Download the latest VS Code installer
+    std::system("powershell -Command \"Invoke-WebRequest -Uri 'https://update.code.visualstudio.com/latest/win32-x64-user/stable' -OutFile 'C:\\vscode_installer.exe'\"");
+
+    // Step 2: Install VS Code silently with PATH modification
+    std::system("C:\\vscode_installer.exe /verysilent /mergetasks=!runcode,addtopath");
+
+    // Step 3: Clean up by removing the installer file
+    std::system("del C:\\vscode_installer.exe");
+
+    // Step 4: Verify installation by checking VS Code version
+    std::system("code --version");
+    VsCodeInstalled = true;
+}
+void removeVSCode() {
+    // Step 1: Locate the VS Code uninstaller (assumes default install location)
+    std::system("powershell -Command \"& {Get-ItemProperty HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Where-Object { $_.DisplayName -eq 'Microsoft Visual Studio Code' } | Select-Object -ExpandProperty UninstallString}\" > uninstall_vscode.cmd");
+
+    // Step 2: Run the uninstaller silently
+    std::system("uninstall_vscode.cmd /verysilent");
+
+    // Step 3: Clean up by removing the uninstaller script
+    std::system("del uninstall_vscode.cmd");
+
+    // Step 4: Verify uninstallation by checking if VS Code is still in PATH
+    std::system("code --version");
+    isVSCodeInstalled();
+}
+void installPython() {
+    // Step 1: Download the latest Python installer
+    std::system("powershell -Command \"Invoke-WebRequest -Uri 'https://www.python.org/ftp/python/3.11.4/python-3.11.4-amd64.exe' -OutFile 'C:\\python_installer.exe'\"");
+
+    // Step 2: Install Python silently with PATH modification
+    std::system("C:\\python_installer.exe /quiet InstallAllUsers=1 PrependPath=1");
+
+    // Step 3: Clean up by removing the installer file
+    std::system("del C:\\python_installer.exe");
+
+    // Step 4: Verify installation by checking Python version
+    std::system("python --version");
+    PythonInstalled = true;
+}
+void removePython() {
+    // Step 1: Locate the installed Python version (assumes Python 3.x)
+    std::system("powershell -Command \"& {Get-ItemProperty HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Where-Object { $_.DisplayName -like 'Python 3*' } | Select-Object -ExpandProperty UninstallString}\" > uninstall_python.cmd");
+
+    // Step 2: Run the uninstaller silently
+    std::system("uninstall_python.cmd /quiet");
+
+    // Step 3: Clean up by removing the uninstaller script
+    std::system("del uninstall_python.cmd");
+
+    // Step 4: Verify uninstallation by checking if Python is still in PATH
+    std::system("python --version");
+    isPythonInstalled();
+}
+void createFolderAndFile(){
+    //create a folder and file for python and open in vscode and create a python file
+    std::string desktopPath = std::getenv("USERPROFILE");
+    desktopPath += "\\Desktop";
+    std::string command = "cd " + desktopPath + " && mkdir PythonFolder && cd PythonFolder && mkdir PythonFile.py && code .";
+    system(command.c_str());
 }
