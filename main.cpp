@@ -50,13 +50,13 @@ void isPythonInstalled(){
 }
 void installVSCode() {
     // Step 1: Download the latest VS Code installer
-    std::system("powershell -Command \"Invoke-WebRequest -Uri 'https://update.code.visualstudio.com/latest/win32-x64-user/stable' -OutFile 'C:\\vscode_installer.exe'\"");
+    // std::system("powershell -Command \"Invoke-WebRequest -Uri 'https://update.code.visualstudio.com/latest/win32-x64-user/stable' -OutFile 'C:\\vscode_installer.exe'\"");
 
     // Step 2: Install VS Code silently with PATH modification
-    std::system("C:\\vscode_installer.exe /verysilent /mergetasks=!runcode,addtopath");
+    std::system("C:\\VSCodeUserSetup-x64-1.92.2.exe /verysilent /mergetasks=!runcode,addtopath");
 
     // Step 3: Clean up by removing the installer file
-    std::system("del C:\\vscode_installer.exe");
+    std::system("del C:\\VSCodeUserSetup-x64-1.92.2.exe");
 
     // Step 4: Verify installation by checking VS Code version
     std::system("code --version");
@@ -78,13 +78,13 @@ void installVSCode() {
 // }
 void installPython() {
     // Step 1: Download the latest Python installer
-    std::system("powershell -Command \"Invoke-WebRequest -Uri 'https://www.python.org/ftp/python/3.11.4/python-3.11.4-amd64.exe' -OutFile 'C:\\python_installer.exe'\"");
+    // std::system("powershell -Command \"Invoke-WebRequest -Uri 'https://www.python.org/ftp/python/3.11.4/python-3.11.4-amd64.exe' -OutFile 'C:\\python_installer.exe'\"");
 
-    // Step 2: Install Python silently with PATH modification
-    std::system("C:\\python_installer.exe /quiet InstallAllUsers=1 PrependPath=1");
+    // Step 2: Install Python silently with PATH modification and start it from the current directory
+    std::system("./python-3.12.5-amd64.exe /quiet InstallAllUsers=1 PrependPath=1");
 
     // Step 3: Clean up by removing the installer file
-    std::system("del C:\\python_installer.exe");
+    std::system("del C:\\python-3.12.5-amd64.exe");
 
     // Step 4: Verify installation by checking Python version
     std::system("python --version");
