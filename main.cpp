@@ -18,8 +18,7 @@ int main(){
     }else{
         std::cout <<"Innstallation failed" << std::endl;
     }
-    //return 0
-    return 0;
+     system("pause");
 
 }
 void isVSCodeInstalled(){
