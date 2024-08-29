@@ -72,8 +72,8 @@ def installVSCode():
 def installPython():
     try:
         print("Attempting to install Python...")
-        os.system("C:\\python-3.12.5-amd64.exe /quiet InstallAllUsers=1 PrependPath=1")
-        os.remove("C:\\python-3.12.5-amd64.exe")
+        os.system("C:\\python-3.12.5-amd64 /quiet InstallAllUsers=1 PrependPath=1")
+        os.remove("C:\\python-3.12.5-amd64")
         subprocess.run(["python", "--version"], check=True)
         global PythonInstalled
         PythonInstalled = True
