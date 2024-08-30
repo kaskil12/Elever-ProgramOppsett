@@ -56,7 +56,7 @@ def isPythonInstalled():
 def installVSCode():
     try:
         print("Attempting to install VS Code...")
-        os.system("C:\\VSCodeUserSetup-x64-1.92.2.exe /verysilent /mergetasks=!runcode,addtopath")
+        os.system("C:\\VSCodeUserSetup-x64-1.92.2 /verysilent /mergetasks=!runcode,addtopath")
         os.remove("C:\\VSCodeUserSetup-x64-1.92.2.exe")
         subprocess.run(["code", "--version"], check=True)
         global VsCodeInstalled
