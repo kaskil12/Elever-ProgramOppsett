@@ -29,10 +29,10 @@ def install_packages():
     
     if installOffice:
         print("Installing Office")
-        # os.system("start /wait OfficeSetup.exe")
+        os.system("start /wait OfficeSetup.exe")
     if installTeams:
         print("Installing Teams")
-        # os.system("start /wait TeamsSetup.exe")
+        os.system("start /wait TeamsSetup.exe")
     print("Done")
 
 checkBoxes()
