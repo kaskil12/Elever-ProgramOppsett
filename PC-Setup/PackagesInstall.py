@@ -26,13 +26,13 @@ def install_packages():
     
     installOffice = installOfficeTK.get() == 1
     installTeams = installTeamsTK.get() == 1
-    
+    # os.system("REG Add HKLM\SOFTWARE\Policies\Microsoft\Windows\Appx /v AllowAllTrustedApps /t REG_DWORD /d 1")
     if installOffice:
         print("Installing Office")
         os.system("start .\OfficeOffline\setup.exe /configure .\OfficeOffline\Elvis.xml")
     if installTeams:
         print("Installing Teams")
-        os.system("start .\TeamsOffline\teamsbootstrapper.exe -p -o .\TeamsOffline\MSTeams-x64.msix")
+        os.system("Add-AppxPackage -Path .\TeamsOffline\MSTeams-x64.msix")
     print("Done")
 
 checkBoxes()
