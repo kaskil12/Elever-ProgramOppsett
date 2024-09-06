@@ -63,6 +63,8 @@ def checkBoxes():
 
 def install_packages():
     global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox
+    
+    print(DriveLetter)
 
     installOffice = installOfficeTK.get() == 1
     installTeams = installTeamsTK.get() == 1
