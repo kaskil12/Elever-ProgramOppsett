@@ -14,7 +14,6 @@ installOrdnettTK = tk.IntVar()
 def checkBoxes():
     global installOffice, installTeams
     
-    #have a dropdown of letters to choose the drive letter but the standard is D: and show it in the input field but the user can change it
     infotext = tk.Label(window, text="Choose the drive letter of the USB drive")
     infotext.pack()
     DriveLetter = tk.Entry(window)
