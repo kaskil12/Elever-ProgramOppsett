@@ -14,12 +14,12 @@ installOrdnettTK = tk.IntVar()
 def checkBoxes():
     global installOffice, installTeams
     
-    #choose drive letter
-    driveLabel = tk.Label(window, text="Choose drive letter")
-    #text field for drive letter
-    driveLetterEntry = tk.Entry(window)
-    driveLabel.pack()
-    driveLetterEntry.pack()
+    #have a dropdown of letters to choose the drive letter but the standard is D: and show it in the input field but the user can change it
+    infotext = tk.Label(window, text="Choose the drive letter of the USB drive")
+    infotext.pack()
+    DriveLetter = tk.Entry(window)
+    DriveLetter.pack()
+    DriveLetter.insert(0, "D:")
     
     officeCheck = tk.Checkbutton(window, text="Office", variable=installOfficeTK)
     teamsCheck = tk.Checkbutton(window, text="Teams", variable=installTeamsTK)
@@ -32,7 +32,6 @@ def checkBoxes():
     installButton.pack()
 
     window.mainloop()
-
 def install_packages():
     global installOffice, installTeams, installOrdnett
 
@@ -46,10 +45,10 @@ def install_packages():
         os.system("start .\OfficeOffline\setup.exe /configure .\OfficeOffline\Elvis.xml")
     if installTeams:
         print("Installing Teams")
-        os.system(r'start .\TeamsOffline\teamsbootstrapper.exe -p -o "D:\TeamsOffline\MSTeams-x64.msix"')
+        os.system(r'start .\TeamsOffline\teamsbootstrapper.exe -p -o "{drive_letter}\TeamsOffline\MSTeams-x64.msix"')
     if installOrdnett:
         print("Installing Ordnett")
-        os.system(r'msiexec /i "D:\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb')
+        os.system(r'msiexec /i "{drive_letter}\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb')
     print("Done")
 
 checkBoxes()
