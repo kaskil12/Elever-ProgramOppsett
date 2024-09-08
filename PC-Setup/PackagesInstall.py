@@ -12,6 +12,7 @@ installOrdnett = False
 installVsCode = False
 installChrome = False
 installFirefox = False
+installPython = False
 
 installTeamsTK = tk.IntVar()
 installOfficeTK = tk.IntVar()
@@ -19,6 +20,7 @@ installOrdnettTK = tk.IntVar()
 installVsCodeTK = tk.IntVar()
 installChromeTK = tk.IntVar()
 installFirefoxTK = tk.IntVar()
+installPythonTK = tk.IntVar()
 
 def update_progress(total, current):
     percent = (current / total) * 100
@@ -27,7 +29,7 @@ def update_progress(total, current):
     window.update_idletasks()
 
 def checkBoxes():
-    global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox
+    global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, DriveLetter, installPython
     
     infotext = tk.Label(window, text="Choose the drive letter of the USB drive")
     infotext.pack()
@@ -41,6 +43,7 @@ def checkBoxes():
     vsCodeCheck = tk.Checkbutton(window, text="Visual Studio Code", variable=installVsCodeTK)
     chromeCheck = tk.Checkbutton(window, text="Google Chrome", variable=installChromeTK)
     firefoxCheck = tk.Checkbutton(window, text="Mozilla Firefox", variable=installFirefoxTK)
+    pythonCheck = tk.Checkbutton(window, text="Python", variable=installPythonTK)
     
     officeCheck.pack()
     teamsCheck.pack()
@@ -48,6 +51,7 @@ def checkBoxes():
     vsCodeCheck.pack()
     chromeCheck.pack()
     firefoxCheck.pack()
+    pythonCheck.pack()
 
     global progress_bar, progress_label
     progress_bar = ttk.Progressbar(window, orient='horizontal', length=300, mode='determinate')
@@ -62,7 +66,7 @@ def checkBoxes():
     window.mainloop()
 
 def install_packages():
-    global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox
+    global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, DriveLetter, installPython
     
     print(DriveLetter)
 
@@ -72,8 +76,9 @@ def install_packages():
     installVsCode = installVsCodeTK.get() == 1
     installChrome = installChromeTK.get() == 1
     installFirefox = installFirefoxTK.get() == 1
+    installPython = installPythonTK.get() == 1
 
-    selected_count = sum([installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox])
+    selected_count = sum([installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, installPython])
     current_step = 0
 
     if installOffice:
@@ -109,6 +114,11 @@ def install_packages():
     if installFirefox:
         print("Installing Mozilla Firefox")
         os.system(r'msiexec /i "{drive_letter}\FireFoxOffline\Firefox Setup 130.0.msi" ALLUSERS=2 /qb')
+        current_step += 1
+        update_progress(selected_count, current_step)
+    if installPython:
+        print("Installing Python")
+        os.system(r'start .\PythonOffline\python-3.12.6-amd64.exe')
         current_step += 1
         update_progress(selected_count, current_step)
     
