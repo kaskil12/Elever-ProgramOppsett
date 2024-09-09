@@ -124,7 +124,7 @@ def install_packages():
     
     if installFirefox:
         print("Installing Mozilla Firefox")
-        os.system(rf'start /wait .\FirefoxOffline\FireFoxInstall.exe.exe')
+        os.system(rf'start /wait .\FirefoxOffline\FireFoxInstall.exe')
         current_step += 1
         update_progress(selected_count, current_step)
 
