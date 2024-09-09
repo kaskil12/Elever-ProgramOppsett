@@ -5,7 +5,7 @@ from tkinter import ttk
 window = tk.Tk()
 window.title("Installer")
 
-DriveLetter = "D:"
+DriveLetter = tk.StringVar(value="D:")  # Using StringVar to bind the value
 installOffice = False
 installTeams = False
 installOrdnett = False
@@ -13,6 +13,8 @@ installVsCode = False
 installChrome = False
 installFirefox = False
 installPython = False
+installGeoGebra = False
+createWebShortcut = False
 
 installTeamsTK = tk.IntVar()
 installOfficeTK = tk.IntVar()
@@ -21,6 +23,8 @@ installVsCodeTK = tk.IntVar()
 installChromeTK = tk.IntVar()
 installFirefoxTK = tk.IntVar()
 installPythonTK = tk.IntVar()
+installGeoGebraTK = tk.IntVar()
+createWebShortcutTK = tk.IntVar()
 
 def update_progress(total, current):
     percent = (current / total) * 100
@@ -29,13 +33,13 @@ def update_progress(total, current):
     window.update_idletasks()
 
 def checkBoxes():
-    global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, DriveLetter, installPython
+    global progress_bar, progress_label
     
     infotext = tk.Label(window, text="Choose the drive letter of the USB drive")
     infotext.pack()
-    drive_entry = tk.Entry(window)
+    
+    drive_entry = tk.Entry(window, textvariable=DriveLetter)
     drive_entry.pack()
-    drive_entry.insert(0, "D:")
     
     officeCheck = tk.Checkbutton(window, text="Office", variable=installOfficeTK)
     teamsCheck = tk.Checkbutton(window, text="Teams", variable=installTeamsTK)
@@ -44,6 +48,9 @@ def checkBoxes():
     chromeCheck = tk.Checkbutton(window, text="Google Chrome", variable=installChromeTK)
     firefoxCheck = tk.Checkbutton(window, text="Mozilla Firefox", variable=installFirefoxTK)
     pythonCheck = tk.Checkbutton(window, text="Python", variable=installPythonTK)
+    geogebraCheck = tk.Checkbutton(window, text="GeoGebra", variable=installGeoGebraTK)
+    WebShortcutCheck = tk.Checkbutton(window, text="Create Web Shortcut", variable=createWebShortcutTK)
+
     
     officeCheck.pack()
     teamsCheck.pack()
@@ -52,8 +59,9 @@ def checkBoxes():
     chromeCheck.pack()
     firefoxCheck.pack()
     pythonCheck.pack()
+    geogebraCheck.pack()
+    WebShortcutCheck.pack()
 
-    global progress_bar, progress_label
     progress_bar = ttk.Progressbar(window, orient='horizontal', length=300, mode='determinate')
     progress_bar.pack(pady=10)
     
@@ -66,9 +74,10 @@ def checkBoxes():
     window.mainloop()
 
 def install_packages():
-    global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, DriveLetter, installPython
+    global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, installPython, installGeoGebra, createWebShortcut
     
-    print(DriveLetter)
+    current_drive_letter = DriveLetter.get()
+    print(f"Selected Drive: {current_drive_letter}")
 
     installOffice = installOfficeTK.get() == 1
     installTeams = installTeamsTK.get() == 1
@@ -77,51 +86,71 @@ def install_packages():
     installChrome = installChromeTK.get() == 1
     installFirefox = installFirefoxTK.get() == 1
     installPython = installPythonTK.get() == 1
+    installGeoGebra = installGeoGebraTK.get() == 1
+    createWebShortcut = createWebShortcutTK.get() == 1
 
-    selected_count = sum([installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, installPython])
+    selected_count = sum([installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, installPython, installGeoGebra, createWebShortcut])
     current_step = 0
 
     if installOffice:
         print("Installing Office")
-        os.system("start .\OfficeOffline\setup.exe /configure .\OfficeOffline\Elvis.xml")
+        os.system("start /wait .\OfficeOffline\setup.exe /configure .\OfficeOffline\Elvis.xml")
         current_step += 1
         update_progress(selected_count, current_step)
     
     if installTeams:
         print("Installing Teams")
-        os.system(r'start .\TeamsOffline\teamsbootstrapper.exe -p -o "{drive_letter}\TeamsOffline\MSTeams-x64.msix"')
+        os.system(rf'start /wait .\TeamsOffline\teamsbootstrapper.exe -p -o "{current_drive_letter}\TeamsOffline\MSTeams-x64.msix"')
         current_step += 1
         update_progress(selected_count, current_step)
     
     if installOrdnett:
         print("Installing Ordnett")
-        os.system(r'msiexec /i "{drive_letter}\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb')
+        os.system(rf'msiexec /i "{current_drive_letter}\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb')
         current_step += 1
         update_progress(selected_count, current_step)
     
     if installVsCode:
         print("Installing Visual Studio Code")
-        os.system(r'start .\VsCodeOffline\Code.exe')
+        os.system(rf'start /wait .\VsCodeOffline\Code.exe')
         current_step += 1
         update_progress(selected_count, current_step)
     
     if installChrome:
         print("Installing Google Chrome")
-        os.system(r'start .\ChromeOffline\ChromeStandaloneSetup64.exe')
+        os.system(rf'start /wait .\ChromeOffline\ChromeStandaloneSetup64.exe')
         current_step += 1
         update_progress(selected_count, current_step)
     
     if installFirefox:
         print("Installing Mozilla Firefox")
-        os.system(r'msiexec /i "{drive_letter}\FireFoxOffline\Firefox Setup 130.0.msi" ALLUSERS=2 /qb')
+        os.system(rf'start /wait .\FirefoxOffline\FireFoxInstall.exe.exe')
         current_step += 1
         update_progress(selected_count, current_step)
+
     if installPython:
         print("Installing Python")
-        os.system(r'start .\PythonOffline\python-3.12.6-amd64.exe')
+        os.system(rf'start /wait .\PythonOffline\python-3.12.6-amd64.exe')
         current_step += 1
         update_progress(selected_count, current_step)
-    
+        
+    if installGeoGebra:
+        print("Installing GeoGebra")
+        os.system(rf'msiexec /i "{current_drive_letter}\GeogebraOffline\GeoGebra-Windows-Installer-6-0-848-0.msi" ALLUSERS=2 /qb')
+        current_step += 1
+        update_progress(selected_count, current_step)
+    if createWebShortcut:
+        print("Creating Web Shortcut")
+        # Create a shortcut for Elverum VGS
+        os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\ElverumVGS.url');$s.TargetPath='http://elverum.vgs.no';$s.Save()"''')
+
+        # Create a shortcut for SharePoint
+        os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\SharePoint.url');$s.TargetPath='https://innlandet.sharepoint.com';$s.Save()"''')
+
+        # Create a shortcut for Visma InSchool
+        os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\VismaInSchool.url');$s.TargetPath='https://elverum-vgs.inschool.visma.no/Login.jsp';$s.Save()"''')
+        current_step += 1
+        update_progress(selected_count, current_step)
     print("Installation Complete")
 
 checkBoxes()
