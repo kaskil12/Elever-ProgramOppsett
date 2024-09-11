@@ -124,13 +124,13 @@ def install_packages():
     
     if installFirefox:
         print("Installing Mozilla Firefox")
-        os.system(rf'start /wait .\FirefoxOffline\FireFoxInstall.exe')
+        os.system(r'start /wait .\FirefoxOffline\FireFoxInstall.exe /S')
         current_step += 1
         update_progress(selected_count, current_step)
 
     if installPython:
         print("Installing Python")
-        os.system(rf'start /wait .\PythonOffline\python-3.12.6-amd64.exe')
+        os.system(r'start /wait .\PythonOffline\python-3.12.6-amd64.exe /quiet PrependPath=1')
         current_step += 1
         update_progress(selected_count, current_step)
         
@@ -141,13 +141,10 @@ def install_packages():
         update_progress(selected_count, current_step)
     if createWebShortcut:
         print("Creating Web Shortcut")
-        # Create a shortcut for Elverum VGS
         os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\ElverumVGS.url');$s.TargetPath='http://elverum.vgs.no';$s.Save()"''')
 
-        # Create a shortcut for SharePoint
         os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\SharePoint.url');$s.TargetPath='https://innlandet.sharepoint.com';$s.Save()"''')
 
-        # Create a shortcut for Visma InSchool
         os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\VismaInSchool.url');$s.TargetPath='https://elverum-vgs.inschool.visma.no/Login.jsp';$s.Save()"''')
         current_step += 1
         update_progress(selected_count, current_step)
