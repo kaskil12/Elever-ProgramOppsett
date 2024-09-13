@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import ttk
+import subprocess
 
 window = tk.Tk()
 window.title("Installer")
@@ -26,8 +27,37 @@ installPythonTK = tk.IntVar()
 installGeoGebraTK = tk.IntVar()
 createWebShortcutTK = tk.IntVar()
 
+isOfficeInstalled = False
+isTeamsInstalled = False
+isOrdnettInstalled = False
+isVsCodeInstalled = False
+isChromeInstalled = False
+isFirefoxInstalled = False
+isPythonInstalled = False
+isGeoGebraInstalled = False
+
 uncheckedBox = tk.PhotoImage(file=".\\PC-Setup\\Bilder\\unchecked.png")
 checkedBox = tk.PhotoImage(file=".\\PC-Setup\\Bilder\\checked.png")
+
+def is_installed(powershell_command):
+    return "True" if subprocess.run(
+        ["powershell", "-Command", powershell_command], 
+        capture_output=True, text=True
+    ).stdout.strip() else "False"
+
+def check_installed_packages():
+    global isOfficeInstalled, isTeamsInstalled, isOrdnettInstalled, isVsCodeInstalled, isChromeInstalled, isFirefoxInstalled, isPythonInstalled, isGeoGebraInstalled
+    
+    isOfficeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Office*" }') == "True"
+    isTeamsInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Teams*" }') == "True"
+    isOrdnettInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Ordnett*" }') == "True"
+    isVsCodeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Visual Studio Code*" }') == "True"
+    isChromeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Chrome*" }') == "True"
+    isFirefoxInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Firefox*" }') == "True"
+    isPythonInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Python*" }') == "True"
+    isGeoGebraInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*GeoGebra*" }') == "True"
+    print(isOfficeInstalled, isTeamsInstalled, isOrdnettInstalled, isVsCodeInstalled, isChromeInstalled, isFirefoxInstalled, isPythonInstalled, isGeoGebraInstalled)
+
 def update_progress(total, current):
     percent = (current / total) * 100
     progress_bar['value'] = percent
@@ -43,26 +73,26 @@ def checkBoxes():
     drive_entry = tk.Entry(window, textvariable=DriveLetter)
     drive_entry.pack()
     
-    officeCheck = tk.Checkbutton(window, text="Office", variable=installOfficeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, width=200,)
-    teamsCheck = tk.Checkbutton(window, text="Teams", variable=installTeamsTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, width=200,)
-    ordnettCheck = tk.Checkbutton(window, text="Ordnett", variable=installOrdnettTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, width=200,)
-    vsCodeCheck = tk.Checkbutton(window, text="Visual Studio Code", variable=installVsCodeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, width=200,)
-    chromeCheck = tk.Checkbutton(window, text="Google Chrome", variable=installChromeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, width=200,)
-    firefoxCheck = tk.Checkbutton(window, text="Mozilla Firefox", variable=installFirefoxTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, width=200,)
-    pythonCheck = tk.Checkbutton(window, text="Python", variable=installPythonTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, width=200,)
-    geogebraCheck = tk.Checkbutton(window, text="GeoGebra", variable=installGeoGebraTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, width=200,)
-    WebShortcutCheck = tk.Checkbutton(window, text="Create Web Shortcut", variable=createWebShortcutTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, width=200,)
+    officeCheck = tk.Checkbutton(window, text="Office", variable=installOfficeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    teamsCheck = tk.Checkbutton(window, text="Teams", variable=installTeamsTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    ordnettCheck = tk.Checkbutton(window, text="Ordnett", variable=installOrdnettTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    vsCodeCheck = tk.Checkbutton(window, text="Visual Studio Code", variable=installVsCodeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    chromeCheck = tk.Checkbutton(window, text="Google Chrome", variable=installChromeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    firefoxCheck = tk.Checkbutton(window, text="Mozilla Firefox", variable=installFirefoxTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    pythonCheck = tk.Checkbutton(window, text="Python", variable=installPythonTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    geogebraCheck = tk.Checkbutton(window, text="GeoGebra", variable=installGeoGebraTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    WebShortcutCheck = tk.Checkbutton(window, text="Nettside snarveier", variable=createWebShortcutTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
 
     
-    officeCheck.pack(anchor='s', side='top')
-    teamsCheck.pack(anchor='s', side='top')
-    ordnettCheck.pack(anchor='s', side='top')
-    vsCodeCheck.pack(anchor='s', side='top')
-    chromeCheck.pack(anchor='s', side='top')
-    firefoxCheck.pack(anchor='s', side='top')
-    pythonCheck.pack(anchor='s', side='top')
-    geogebraCheck.pack(anchor='s', side='top')
-    WebShortcutCheck.pack(anchor='s', side='top')
+    officeCheck.pack(anchor='w', side='top')
+    teamsCheck.pack(anchor='w', side='top')
+    ordnettCheck.pack(anchor='w', side='top')
+    vsCodeCheck.pack(anchor='w', side='top')
+    chromeCheck.pack(anchor='w', side='top')
+    firefoxCheck.pack(anchor='w', side='top')
+    pythonCheck.pack(anchor='w', side='top')
+    geogebraCheck.pack(anchor='w', side='top')
+    WebShortcutCheck.pack(anchor='w', side='top')
 
     progress_bar = ttk.Progressbar(window, orient='horizontal', length=300, mode='determinate')
     progress_bar.pack(pady=10)
