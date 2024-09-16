@@ -39,6 +39,8 @@ isGeoGebraInstalled = False
 uncheckedBox = tk.PhotoImage(file=".\\PC-Setup\\Bilder\\unchecked.png")
 checkedBox = tk.PhotoImage(file=".\\PC-Setup\\Bilder\\checked.png")
 
+trashIcon = tk.PhotoImage(file=".\\PC-Setup\\Bilder\\trash.png")
+
 def is_installed(powershell_command):
     return "True" if subprocess.run(
         ["powershell", "-Command", powershell_command], 
