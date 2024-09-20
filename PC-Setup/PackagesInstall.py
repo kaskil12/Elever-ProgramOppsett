@@ -5,8 +5,7 @@ import subprocess
 
 window = tk.Tk()
 window.title("Installer")
-
-DriveLetter = tk.StringVar(value="D:")  # Using StringVar to bind the value
+DriveLetter = tk.StringVar(value="D:")
 installOffice = False
 installTeams = False
 installOrdnett = False
@@ -35,11 +34,10 @@ isChromeInstalled = False
 isFirefoxInstalled = False
 isPythonInstalled = False
 isGeoGebraInstalled = False
+uncheckedBox = tk.PhotoImage(file="./Bilder/unchecked.png")
+checkedBox = tk.PhotoImage(file="./Bilder/checked.png")
 
-uncheckedBox = tk.PhotoImage(file=".\\PC-Setup\\Bilder\\unchecked.png")
-checkedBox = tk.PhotoImage(file=".\\PC-Setup\\Bilder\\checked.png")
-
-trashIcon = tk.PhotoImage(file=".\\PC-Setup\\Bilder\\trash.png")
+trashIcon = tk.PhotoImage(file="./Bilder/trash.png")
 
 def is_installed(powershell_command):
     return "True" if subprocess.run(
@@ -107,6 +105,23 @@ def checkBoxes():
 
     window.mainloop()
 
+def uninstall_packages():
+    if isOfficeInstalled:
+        os.system('start /wait .\OfficeOffline\setup.exe /configure .\OfficeOffline\ElvisUninstall.xml')
+    if isTeamsInstalled:
+        os.system('start /wait msiexec /x {D2A6D8A1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
+    if isOrdnettInstalled:
+        os.system('start /wait msiexec /x {E4A7C8F5-8C6F-4C9C-8E3D-4F0A4C1A3D3C} /quiet')
+    if isVsCodeInstalled:
+        os.system('start /wait msiexec /x {B2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
+    if isChromeInstalled:
+        os.system('start /wait msiexec /x {A2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
+    if isFirefoxInstalled:
+        os.system('start /wait msiexec /x {C2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
+    if isPythonInstalled:
+        os.system('start /wait msiexec /x {D2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
+    if isGeoGebraInstalled:
+        os.system('start /wait msiexec /x {E2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
 def install_packages():
     global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, installPython, installGeoGebra, createWebShortcut
     
