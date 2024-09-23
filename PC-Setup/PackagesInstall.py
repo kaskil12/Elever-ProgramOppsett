@@ -60,6 +60,7 @@ def is_installed(powershell_command):
         print(f"Unexpected error: {e}")
         return "False"
 
+
 def check_installed_packages():
     global isOfficeInstalled, isTeamsInstalled, isOrdnettInstalled, isVsCodeInstalled, isChromeInstalled, isFirefoxInstalled, isPythonInstalled, isGeoGebraInstalled
     print("Checking installed packages")
@@ -85,6 +86,8 @@ def update_progress(total, current):
     progress_bar['value'] = percent
     progress_label.config(text=f"Progress: {int(percent)}%")
     window.update_idletasks()
+
+
 def checkBoxes():
     global progress_bar, progress_label
     check_installed_packages()
@@ -137,6 +140,7 @@ def checkBoxes():
 
     window.mainloop()
 
+
 def uninstall_packages(program):
     current_drive_letter = DriveLetter.get()
     if program == "Office":
@@ -155,6 +159,8 @@ def uninstall_packages(program):
         os.system(r'start /wait .\PythonOffline\python-3.12.6-amd64.exe /quiet PrependPath=1')
     elif program == "GeoGebra":
         os.system(rf'msiexec /x "{current_drive_letter}\GeogebraOffline\GeoGebra.msi" /qb')
+
+
 def install_packages():
     global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, installPython, installGeoGebra, createWebShortcut
     
@@ -232,6 +238,9 @@ def install_packages():
         update_progress(selected_count, current_step)
     print("Installation Complete")
 
+    progress_label.config(text="Installation Complete")
+
+    
 try:
     checkBoxes()
 except Exception as e:
