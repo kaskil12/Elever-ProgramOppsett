@@ -40,88 +40,121 @@ checkedBox = tk.PhotoImage(file="./Bilder/checked.png")
 trashIcon = tk.PhotoImage(file="./Bilder/trash.png")
 
 def is_installed(powershell_command):
-    return "True" if subprocess.run(
-        ["powershell", "-Command", powershell_command], 
-        capture_output=True, text=True
-    ).stdout.strip() else "False"
+    try:
+        result = subprocess.run(
+            ["powershell", "-Command", powershell_command], 
+            capture_output=True, text=True, check=True
+        )
+
+        # Check the output
+        if result.returncode == 0 and result.stdout.strip():
+            return "True"
+        else:
+            return "False"
+    
+    except subprocess.CalledProcessError as e:
+        print(f"Error checking installed packages: {e}")
+        return "False"
+
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return "False"
 
 def check_installed_packages():
     global isOfficeInstalled, isTeamsInstalled, isOrdnettInstalled, isVsCodeInstalled, isChromeInstalled, isFirefoxInstalled, isPythonInstalled, isGeoGebraInstalled
-    
+    print("Checking installed packages")
     isOfficeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Office*" }') == "True"
     isTeamsInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Teams*" }') == "True"
     isOrdnettInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Ordnett*" }') == "True"
     isVsCodeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Visual Studio Code*" }') == "True"
     isChromeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Chrome*" }') == "True"
-    isFirefoxInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Firefox*" }') == "True"
+    isFirefoxInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Mozilla Firefox*" }') == "True"
     isPythonInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Python*" }') == "True"
     isGeoGebraInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*GeoGebra*" }') == "True"
-    print(isOfficeInstalled, isTeamsInstalled, isOrdnettInstalled, isVsCodeInstalled, isChromeInstalled, isFirefoxInstalled, isPythonInstalled, isGeoGebraInstalled)
+    print("Office: " + str(isOfficeInstalled))
+    print("Teams: " + str(isTeamsInstalled))
+    print("Ordnett: " + str(isOrdnettInstalled))
+    print("VsCode: " + str(isVsCodeInstalled))
+    print("Chrome: " + str(isChromeInstalled))
+    print("Firefox: " + str(isFirefoxInstalled))
+    print("Python: " + str(isPythonInstalled))
+    print("GeoGebra: " + str(isGeoGebraInstalled))
 
 def update_progress(total, current):
     percent = (current / total) * 100
     progress_bar['value'] = percent
     progress_label.config(text=f"Progress: {int(percent)}%")
     window.update_idletasks()
-
 def checkBoxes():
     global progress_bar, progress_label
-    
+    check_installed_packages()
+
     infotext = tk.Label(window, text="Choose the drive letter of the USB drive")
-    infotext.pack()
+    infotext.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky='w')
     
     drive_entry = tk.Entry(window, textvariable=DriveLetter)
-    drive_entry.pack()
-    
-    officeCheck = tk.Checkbutton(window, text="Office", variable=installOfficeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
-    teamsCheck = tk.Checkbutton(window, text="Teams", variable=installTeamsTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
-    ordnettCheck = tk.Checkbutton(window, text="Ordnett", variable=installOrdnettTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
-    vsCodeCheck = tk.Checkbutton(window, text="Visual Studio Code", variable=installVsCodeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
-    chromeCheck = tk.Checkbutton(window, text="Google Chrome", variable=installChromeTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
-    firefoxCheck = tk.Checkbutton(window, text="Mozilla Firefox", variable=installFirefoxTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
-    pythonCheck = tk.Checkbutton(window, text="Python", variable=installPythonTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
-    geogebraCheck = tk.Checkbutton(window, text="GeoGebra", variable=installGeoGebraTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
-    WebShortcutCheck = tk.Checkbutton(window, text="Nettside snarveier", variable=createWebShortcutTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left",padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg")  )
+    drive_entry.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky='w')
 
-    
-    officeCheck.pack(anchor='w', side='top')
-    teamsCheck.pack(anchor='w', side='top')
-    ordnettCheck.pack(anchor='w', side='top')
-    vsCodeCheck.pack(anchor='w', side='top')
-    chromeCheck.pack(anchor='w', side='top')
-    firefoxCheck.pack(anchor='w', side='top')
-    pythonCheck.pack(anchor='w', side='top')
-    geogebraCheck.pack(anchor='w', side='top')
-    WebShortcutCheck.pack(anchor='w', side='top')
+    row_num = 2
 
+    def add_check_and_trash(row, label_text, install_var, is_installed_var, uninstall_command):
+        check = tk.Checkbutton(window, text=label_text, variable=install_var, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg"))
+        check.grid(row=row, column=0, padx=10, pady=5, sticky='w')
+
+        if is_installed_var:
+            trash_button = tk.Button(window, image=trashIcon, command=lambda: uninstall_packages(uninstall_command))
+            trash_button.grid(row=row, column=1, padx=10, pady=5, sticky='e')
+
+    # Add the checkboxes with the trash buttons
+    add_check_and_trash(row_num, "Office", installOfficeTK, isOfficeInstalled, "Office")
+    row_num += 1
+    add_check_and_trash(row_num, "Teams", installTeamsTK, isTeamsInstalled, "Teams")
+    row_num += 1
+    add_check_and_trash(row_num, "Ordnett", installOrdnettTK, isOrdnettInstalled, "Ordnett")
+    row_num += 1
+    add_check_and_trash(row_num, "Visual Studio Code", installVsCodeTK, isVsCodeInstalled, "VsCode")
+    row_num += 1
+    add_check_and_trash(row_num, "Google Chrome", installChromeTK, isChromeInstalled, "Chrome")
+    row_num += 1
+    add_check_and_trash(row_num, "Mozilla Firefox", installFirefoxTK, isFirefoxInstalled, "Firefox")
+    row_num += 1
+    add_check_and_trash(row_num, "Python", installPythonTK, isPythonInstalled, "Python")
+    row_num += 1
+    add_check_and_trash(row_num, "GeoGebra", installGeoGebraTK, isGeoGebraInstalled, "GeoGebra")
+
+    WebShortcutCheck = tk.Checkbutton(window, text="Nettside snarveier", variable=createWebShortcutTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg"))
+    WebShortcutCheck.grid(row=row_num, column=0, padx=10, pady=5, sticky='w')
+
+    # Progress bar and installation button
     progress_bar = ttk.Progressbar(window, orient='horizontal', length=300, mode='determinate')
-    progress_bar.pack(pady=10)
-    
+    progress_bar.grid(row=row_num+1, column=0, columnspan=2, padx=10, pady=10)
+
     progress_label = tk.Label(window, text="Progress: 0%")
-    progress_label.pack()
+    progress_label.grid(row=row_num+2, column=0, columnspan=2, padx=10, pady=5)
 
     installButton = tk.Button(window, text="Install", command=install_packages)
-    installButton.pack()
+    installButton.grid(row=row_num+3, column=0, columnspan=2, padx=10, pady=10)
 
     window.mainloop()
 
-def uninstall_packages():
-    if isOfficeInstalled:
+def uninstall_packages(program):
+    current_drive_letter = DriveLetter.get()
+    if program == "Office":
         os.system('start /wait .\OfficeOffline\setup.exe /configure .\OfficeOffline\ElvisUninstall.xml')
-    if isTeamsInstalled:
-        os.system('start /wait msiexec /x {D2A6D8A1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
-    if isOrdnettInstalled:
-        os.system('start /wait msiexec /x {E4A7C8F5-8C6F-4C9C-8E3D-4F0A4C1A3D3C} /quiet')
-    if isVsCodeInstalled:
-        os.system('start /wait msiexec /x {B2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
-    if isChromeInstalled:
-        os.system('start /wait msiexec /x {A2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
-    if isFirefoxInstalled:
-        os.system('start /wait msiexec /x {C2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
-    if isPythonInstalled:
-        os.system('start /wait msiexec /x {D2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
-    if isGeoGebraInstalled:
-        os.system('start /wait msiexec /x {E2D8A2E1-7D8E-48A8-9D3C-1E0A5F8C2D9C} /quiet')
+    elif program == "Teams":
+        os.system(rf'start /wait .\TeamsOffline\teamsbootstrapper.exe -p -o "{current_drive_letter}\TeamsOffline\MSTeams-x64.msix"')
+    elif program == "Ordnett":
+        os.system(rf'msiexec /x "{current_drive_letter}\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" /qb')
+    elif program == "VsCode":
+        os.system(rf'start /wait .\VsCodeOffline\Code.exe')
+    elif program == "Chrome":
+        os.system(rf'start /wait .\ChromeOffline\ChromeStandaloneSetup64.exe')
+    elif program == "Firefox":
+        os.system(r'start /wait .\FirefoxOffline\FireFoxInstall.exe /S')
+    elif program == "Python":
+        os.system(r'start /wait .\PythonOffline\python-3.12.6-amd64.exe /quiet PrependPath=1')
+    elif program == "GeoGebra":
+        os.system(rf'msiexec /x "{current_drive_letter}\GeogebraOffline\GeoGebra.msi" /qb')
 def install_packages():
     global installOffice, installTeams, installOrdnett, installVsCode, installChrome, installFirefox, installPython, installGeoGebra, createWebShortcut
     
@@ -199,4 +232,8 @@ def install_packages():
         update_progress(selected_count, current_step)
     print("Installation Complete")
 
-checkBoxes()
+try:
+    checkBoxes()
+except Exception as e:
+    print(f"An error occurred: {e}")
+    input("Press Enter to exit...")
