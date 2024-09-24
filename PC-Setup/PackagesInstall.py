@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk
 import subprocess
+import winreg
 
 window = tk.Tk()
 window.title("Installer")
@@ -39,39 +40,18 @@ checkedBox = tk.PhotoImage(file="./Bilder/checked.png")
 
 trashIcon = tk.PhotoImage(file="./Bilder/trash.png")
 
-def is_installed(powershell_command):
-    try:
-        result = subprocess.run(
-            ["powershell", "-Command", powershell_command], 
-            capture_output=True, text=True, check=True
-        )
-
-        # Check the output
-        if result.returncode == 0 and result.stdout.strip():
-            return "True"
-        else:
-            return "False"
-    
-    except subprocess.CalledProcessError as e:
-        print(f"Error checking installed packages: {e}")
-        return "False"
-
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        return "False"
-
-
 def check_installed_packages():
     global isOfficeInstalled, isTeamsInstalled, isOrdnettInstalled, isVsCodeInstalled, isChromeInstalled, isFirefoxInstalled, isPythonInstalled, isGeoGebraInstalled
+    print(os.path.exists("C:/Program Files/Mozilla Firefox/"))
     print("Checking installed packages")
-    isOfficeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Office*" }') == "True"
-    isTeamsInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Teams*" }') == "True"
-    isOrdnettInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Ordnett*" }') == "True"
-    isVsCodeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Visual Studio Code*" }') == "True"
-    isChromeInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Chrome*" }') == "True"
-    isFirefoxInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Mozilla Firefox*" }') == "True"
-    isPythonInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Python*" }') == "True"
-    isGeoGebraInstalled = is_installed('Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*GeoGebra*" }') == "True"
+    isOfficeInstalled = os.path.exists(os.path.join(os.path.expanduser('~'), 'AppData', 'Local', 'Microsoft', 'Office'))
+    isTeamsInstalled = os.path.exists(os.path.join(os.path.expanduser('~'), 'AppData', 'Local', 'Programs', 'Microsoft VS Code'))
+    isOrdnettInstalled = os.path.exists(r"C:/Program Files (x86)/Kunnskapsforlaget/Ordnett Pluss")
+    isVsCodeInstalled = os.path.exists(os.path.join(os.path.expanduser('~'), 'AppData', 'Local', 'Programs', 'Microsoft VS Code'))
+    isChromeInstalled = os.path.exists("C:\Program Files (x86)\Google\Chrome\Application")
+    isFirefoxInstalled = os.path.exists("C:/Program Files/Mozilla Firefox/")
+    isPythonInstalled = os.path.exists('C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Python 3.12')
+    isGeoGebraInstalled = os.path.exists(os.path.join(os.path.expanduser('~'), 'AppData', 'Roaming', 'GeoGebra'))
     print("Office: " + str(isOfficeInstalled))
     print("Teams: " + str(isTeamsInstalled))
     print("Ordnett: " + str(isOrdnettInstalled))
@@ -144,21 +124,22 @@ def checkBoxes():
 def uninstall_packages(program):
     current_drive_letter = DriveLetter.get()
     if program == "Office":
-        os.system('start /wait .\OfficeOffline\setup.exe /configure .\OfficeOffline\ElvisUninstall.xml')
+        # os.system('start /wait .\OfficeOffline\setup.exe /configure .\OfficeOffline\ElvisUninstall.xml')
+        os.system(r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE \'Microsoft Office%\'" | ForEach-Object { $_.Uninstall() }')
     elif program == "Teams":
-        os.system(rf'start /wait .\TeamsOffline\teamsbootstrapper.exe -p -o "{current_drive_letter}\TeamsOffline\MSTeams-x64.msix"')
+        os.system(r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Microsoft Teams\'" | ForEach-Object { $_.Uninstall() }')
     elif program == "Ordnett":
-        os.system(rf'msiexec /x "{current_drive_letter}\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" /qb')
+        os.system(r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Ordnett\'" | ForEach-Object { $_.Uninstall() }')
     elif program == "VsCode":
-        os.system(rf'start /wait .\VsCodeOffline\Code.exe')
+        os.system(r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Microsoft Visual Studio Code\'" | ForEach-Object { $_.Uninstall() }')
     elif program == "Chrome":
-        os.system(rf'start /wait .\ChromeOffline\ChromeStandaloneSetup64.exe')
+        os.system(r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Google Chrome\'" | ForEach-Object { $_.Uninstall() }')
     elif program == "Firefox":
-        os.system(r'start /wait .\FirefoxOffline\FireFoxInstall.exe /S')
+        os.system(r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Mozilla Firefox\'" | ForEach-Object { $_.Uninstall() }')
     elif program == "Python":
-        os.system(r'start /wait .\PythonOffline\python-3.12.6-amd64.exe /quiet PrependPath=1')
+        os.system(r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE \'Python%\'" | ForEach-Object { $_.Uninstall() }')
     elif program == "GeoGebra":
-        os.system(rf'msiexec /x "{current_drive_letter}\GeogebraOffline\GeoGebra.msi" /qb')
+        os.system(r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE \'GeoGebra%\'" | ForEach-Object { $_.Uninstall() }')
 
 
 def install_packages():
