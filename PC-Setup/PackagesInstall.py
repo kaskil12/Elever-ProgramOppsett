@@ -22,6 +22,7 @@ installFirefox = False
 installPython = False
 installGeoGebra = False
 createWebShortcut = False
+createWebShortcutKI = False
 
 installTeamsTK = tk.IntVar()
 installOfficeTK = tk.IntVar()
@@ -32,6 +33,7 @@ installFirefoxTK = tk.IntVar()
 installPythonTK = tk.IntVar()
 installGeoGebraTK = tk.IntVar()
 createWebShortcutTK = tk.IntVar()
+createWebShortcutTKKI = tk.IntVar()
 
 isOfficeInstalled = False
 isTeamsInstalled = False
@@ -140,6 +142,9 @@ if ProgramsInstaller:
 
         WebShortcutCheck = tk.Checkbutton(window, text="Nettside snarveier", variable=createWebShortcutTK, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg"))
         WebShortcutCheck.grid(row=row_num, column=0, padx=10, pady=5, sticky='w')
+        row_num += 1
+        WebShortcutCheckKI = tk.Checkbutton(window, text="Nettside snarveier Karriere", variable=createWebShortcutTKKI, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg"))
+        WebShortcutCheckKI.grid(row=row_num, column=0, padx=10, pady=5, sticky='w')
 
         # Progress bar and installation button
         progress_bar = ttk.Progressbar(window, orient='horizontal', length=300, mode='determinate')
@@ -250,6 +255,14 @@ if ProgramsInstaller:
             os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\VismaInSchool.url');$s.TargetPath='https://elverum-vgs.inschool.visma.no/Login.jsp';$s.Save()"''')
             current_step += 1
             update_progress(selected_count, current_step)
+        if createWebShortcutKI:
+            print("Creating Web Shortcut For KI")
+            #creating karriere innlandet shortcut
+            os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\KarriereInnlandet.url');$s.TargetPath='https://www.karriereinnlandet.no/';$s.Save()"''')
+            #creating karriere innsia shortcut
+            os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\KarriereInnsia.url');$s.TargetPath='https://innlandet.sharepoint.com/sites/Voksnedeltakere';$s.Save()"''')
+            #creating karriere visma shortcut
+            os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\KarriereVisma.url');$s.TargetPath='https://karriere-innlandet.inschool.visma.no/';$s.Save()"''')
         print("Installation Complete")
 
         progress_label.config(text="Installation Complete")
