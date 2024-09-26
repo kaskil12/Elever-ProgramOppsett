@@ -105,8 +105,8 @@ if ProgramsInstaller:
         infotext = tk.Label(window, text="Choose the drive letter of the USB drive")
         infotext.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky='w')
 
-        ejectCheckBox = tk.Checkbutton(window, text="Eject USB Drive", variable=EjectDrive, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg"))
-        ejectCheckBox.grid(row=0, column=2, padx=10, pady=5, sticky='w')
+        ejectCheckBox = tk.Checkbutton(window, text="Eject USB Drive", variable=EjectDrive, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg"))
+        ejectCheckBox.grid(row=1, column=1, padx=10, pady=5)
 
         drive_entry = tk.Entry(window, textvariable=DriveLetter)
         drive_entry.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky='w')
