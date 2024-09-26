@@ -36,6 +36,10 @@ uncheckedBox = tk.PhotoImage(file="./Bilder/unchecked.png")
 checkedBox = tk.PhotoImage(file="./Bilder/checked.png")
 trashIcon = tk.PhotoImage(file="./Bilder/trash.png")
 
+#Eject USB Drive if wanted
+EjectDrive = False
+EjectDriveTK = tk.IntVar()
+
 # Tab switch function
 def switch():
     global Fixes, ProgramsInstaller
@@ -101,6 +105,9 @@ if ProgramsInstaller:
         infotext = tk.Label(window, text="Choose the drive letter of the USB drive")
         infotext.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky='w')
 
+        ejectCheckBox = tk.Checkbutton(window, text="Eject USB Drive", variable=EjectDrive, image=uncheckedBox, indicatoron=False, selectimage=checkedBox, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat", selectcolor=window.cget("bg"))
+        ejectCheckBox.grid(row=0, column=2, padx=10, pady=5, sticky='w')
+
         drive_entry = tk.Entry(window, textvariable=DriveLetter)
         drive_entry.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky='w')
 
@@ -145,7 +152,7 @@ if ProgramsInstaller:
     def uninstall_packages(program):
         current_drive_letter = DriveLetter.get()
         uninstall_commands = {
-            "Office": r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE \'Microsoft Office%\'" | ForEach-Object { $_.Uninstall() }',
+            "Office": "start /wait {current_drive_letter}/OfficeOffline/setup.exe /configure {current_drive_letter}/OfficeOffline/ElvisUninstall.xml",
             "Teams": r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Microsoft Teams\'" | ForEach-Object { $_.Uninstall() }',
             "Ordnett": r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Ordnett\'" | ForEach-Object { $_.Uninstall() }',
             "VsCode": r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Microsoft Visual Studio Code\'" | ForEach-Object { $_.Uninstall() }',
@@ -265,5 +272,9 @@ if ProgramsInstaller:
             #creating karriere visma shortcut
             os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\KarriereVisma.url');$s.TargetPath='https://karriere-innlandet.inschool.visma.no/';$s.Save()"''')
         print("Installation Complete")
+        if EjectDrive:
+            os._exit(0)
+            os.system(f"powershell -command \"$driveEject = New-Object -comObject Shell.Application; $driveEject.Namespace(17).ParseName('{current_drive_letter}').InvokeVerb('Eject')\"")
+        
 
     checkBoxes()
