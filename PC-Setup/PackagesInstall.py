@@ -9,7 +9,7 @@ Fixes = False
 #root window
 root = tk.Tk()
 root.title("PC Setup")
-
+root.iconbitmap("./icon/ikon.ico")
 # Programs Installer tab variables
 DriveLetter = tk.StringVar(value="D:")
 installOffice = installTeams = installOrdnett = installVsCode = False
