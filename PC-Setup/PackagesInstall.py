@@ -63,7 +63,7 @@ def FixesTab(tab):
 def ProgramsInstallerTab(tab):
     label = tk.Label(tab, text="Programs Installer")
     label.grid(padx=20, pady=20)
-    def check_installed_gridages(tab):
+    def check_installed_packages(tab):
         global isOfficeInstalled, isTeamsInstalled, isOrdnettInstalled, isVsCodeInstalled
         global isChromeInstalled, isFirefoxInstalled, isPythonInstalled, isGeoGebraInstalled
 
@@ -90,13 +90,15 @@ def ProgramsInstallerTab(tab):
         check.grid(row=row, column=0, padx=10, pady=5, sticky='w')
 
         if is_installed_var:
-            trash_button = tk.Button(tab, image=trashIcon, command=lambda: uninstall_gridages(uninstall_command, tab))
+            trash_button = tk.Button(tab, image=trashIcon, command=lambda: uninstall_packages(uninstall_command, tab))
             trash_button.grid(row=row, column=1, padx=10, pady=5, sticky='e')
 
     def checkBoxes(tab):
         global progress_bar, progress_label
+        
 
-        check_installed_gridages(tab)
+
+        check_installed_packages(tab)
 
         infotext = tk.Label(tab, text="Choose the drive letter of the USB drive")
         infotext.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky='w')
@@ -140,10 +142,10 @@ def ProgramsInstallerTab(tab):
         progress_label = tk.Label(tab, text="Progress: 0%")
         progress_label.grid(row=row_num+2, column=0, columnspan=2, padx=10, pady=5)
 
-        installButton = tk.Button(tab, text="Install", command=install_gridages)
+        installButton = tk.Button(tab, text="Install", command=lambda: install_packages(tab))
         installButton.grid(row=row_num+3, column=0, columnspan=2, padx=10, pady=10)
 
-    def uninstall_gridages(program, tab):
+    def uninstall_packages(program, tab):
         current_drive_letter = DriveLetter.get()
         uninstall_commands = {
             "Office": "start /wait {current_drive_letter}/OfficeOffline/setup.exe /configure {current_drive_letter}/OfficeOffline/ElvisUninstall.xml",
@@ -160,7 +162,7 @@ def ProgramsInstallerTab(tab):
         if uninstall_command:
             os.system(f"powershell.exe -ExecutionPolicy Bypass -Command {uninstall_command}")
 
-    def install_gridages(tab):
+    def install_packages(tab):
         total_installations = 8
         current_installation = 0
         current_drive_letter = DriveLetter.get()
