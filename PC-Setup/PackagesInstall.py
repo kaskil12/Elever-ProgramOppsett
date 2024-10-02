@@ -108,6 +108,7 @@ def ProgramsInstallerTab(tab):
         global installOffice, installTeams, installOrdnett, installVsCode
         global installChrome, installFirefox, installPython, installGeoGebra
         global createWebShortcut, createWebShortcutKI
+        global EjectDrive
 
 
         check_installed_packages(tab)
@@ -188,7 +189,7 @@ def ProgramsInstallerTab(tab):
         installPython = installPythonTK.get()
         installGeoGebra = installGeoGebraTK.get()
         createWebShortcut = createWebShortcutTK.get()
-
+        EjectDrive = EjectDriveTK.get()
         total_installations = 8
         current_installation = 0
         current_drive_letter = DriveLetter.get()
