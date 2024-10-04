@@ -161,7 +161,7 @@ def ProgramsInstallerTab(tab):
     def uninstall_packages(program, tab):
         current_drive_letter = DriveLetter.get()
         uninstall_commands = {
-            "Office": "start /wait {current_drive_letter}/OfficeOffline/setup.exe /configure {current_drive_letter}/OfficeOffline/ElvisUninstall.xml",
+            "Office": "start /wait {current_drive_letter}\pkgs\OfficeOffline\setup.exe /configure {current_drive_letter}\pkgs\OfficeOffline\ElvisUninstall.xml",
             "Teams": r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Microsoft Teams\'" | ForEach-Object { $_.Uninstall() }',
             "Ordnett": r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Ordnett\'" | ForEach-Object { $_.Uninstall() }',
             "VsCode": r'Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = \'Microsoft Visual Studio Code\'" | ForEach-Object { $_.Uninstall() }',
@@ -278,7 +278,7 @@ def shutdown_program():
     os._exit(0)
 
 def run_bat_file():
-    os.system(f"start /b ./pkgs/UtilsBats/Eject")
+    os.system("start /b .\pkgs\UtilsBats\Eject")
         
 
 def main():
