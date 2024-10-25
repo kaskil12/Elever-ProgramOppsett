@@ -116,7 +116,7 @@ def ProgramsInstallerTab(tab):
         infotext = tk.Label(tab, text="Choose the drive letter of the USB drive")
         infotext.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky='w')
 
-        ejectCheckBox = tk.Checkbutton(tab, text="Eject USB Drive", variable=EjectDrive, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat",selectcolor="white")
+        ejectCheckBox = tk.Checkbutton(tab, text="Eject USB Drive", variable=EjectDriveTK, compound="left", padx=10, borderwidth=0, highlightthickness=0, relief="flat",selectcolor="white")
         ejectCheckBox.grid(row=1, column=1, padx=10, pady=5)
 
         drive_entry = tk.Entry(tab, textvariable=DriveLetter)
@@ -179,6 +179,7 @@ def ProgramsInstallerTab(tab):
         global installOffice, installTeams, installOrdnett, installVsCode
         global installChrome, installFirefox, installPython, installGeoGebra
         global createWebShortcut, createWebShortcutKI
+        global EjectDrive
 
         installOffice = installOfficeTK.get()
         installTeams = installTeamsTK.get()
@@ -190,69 +191,82 @@ def ProgramsInstallerTab(tab):
         installGeoGebra = installGeoGebraTK.get()
         createWebShortcut = createWebShortcutTK.get()
         EjectDrive = EjectDriveTK.get()
-        total_installations = 8
+        total_installations = 0
         current_installation = 0
         current_drive_letter = DriveLetter.get()
         if installOffice:
             print("Installing Office")
+            total_installations += 1
             os.system("start /wait .\pkgs\OfficeOffline\setup.exe /configure .\pkgs\OfficeOffline\Elvis.xml")
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
         
         if installTeams:
             print("Installing Teams")
+            total_installations += 1
             os.system(rf'start /wait .\pkgs\TeamsOffline\teamsbootstrapper.exe -p -o "{current_drive_letter}\pkgs\TeamsOffline\MSTeams-x64.msix"')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
 
         if installOrdnett:
             print("Installing Ordnett")
+            total_installations += 1
             os.system(rf'msiexec /i "{current_drive_letter}\pkgs\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
         
         if installVsCode:
             print("Installing Visual Studio Code")
+            total_installations += 1
             os.system(rf'start /wait .\pkgs\VsCodeOffline\Code.exe')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
         
         if installChrome:
             print("Installing Google Chrome")
+            total_installations += 1
             os.system(rf'start /wait .\pkgs\ChromeOffline\ChromeStandaloneSetup64.exe')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
 
         if installVsCode:
             print("Installing VS Code")
+            total_installations += 1
             os.system(rf'start /wait .\pkgs\VsCodeOffline\Code.exe')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
 
         if installChrome:
             print("Installing Google Chrome")
+            total_installations += 1
             os.system(rf'start /wait .\pkgs\ChromeOffline\ChromeStandaloneSetup64.exe')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
         
         if installFirefox:
             print("Installing Mozilla Firefox")
+            total_installations += 1
             os.system(r'start /wait .\pkgs\FirefoxOffline\FireFoxInstall.exe /S')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
 
         if installPython:
+            print("Installing Python")
+            total_installations += 1
             os.system(r'start /wait .\pkgs\PythonOffline\python-3.12.6-amd64.exe /quiet PrependPath=1')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
             
         if installGeoGebra:
+            print("Installing GeoGebra")
+            total_installations += 1
             os.system(rf'msiexec /i "{current_drive_letter}\pkgs\GeogebraOffline\GeoGebra-Windows-Installer-6-0-848-0.msi" ALLUSERS=2 /qb')
             current_installation += 1
             update_progress(total_installations, current_installation + 1, tab)
 
         if createWebShortcut:
             print("Creating Web Shortcut")
+            total_installations += 1
             os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\ElverumVGS.url');$s.TargetPath='http://elverum.vgs.no';$s.Save()"''')
 
             os.system(r'''powershell -command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Desktop\SharePoint.url');$s.TargetPath='https://innlandet.sharepoint.com';$s.Save()"''')
@@ -278,8 +292,13 @@ def shutdown_program():
     os._exit(0)
 
 def run_bat_file():
-    os.system("start /b .\pkgs\UtilsBats\Eject")
-        
+    current_drive_letter = DriveLetter.get()
+    print("Running Eject.bat")
+    try:
+        os.system(rf"start /b {current_drive_letter}/pkgs/UtilsBats/Eject.bat")
+    except Exception as e:
+        print("Error running Eject.bat")
+        print(e)
 
 def main():
     notebook = ttk.Notebook(root)
