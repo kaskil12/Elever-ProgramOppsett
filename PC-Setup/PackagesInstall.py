@@ -110,7 +110,6 @@ def ProgramsInstallerTab(tab):
         global createWebShortcut, createWebShortcutKI
         global EjectDrive
 
-
         check_installed_packages(tab)
 
         infotext = tk.Label(tab, text="Choose the drive letter of the USB drive")
