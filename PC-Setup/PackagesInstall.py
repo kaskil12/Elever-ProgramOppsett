@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk
 import sys
+import ctypes
 
 # Tab control variables
 ProgramsInstaller = True
@@ -41,6 +42,18 @@ trashIcon = tk.PhotoImage(file="./pkgs/Bilder/trash.png")
 EjectDrive = False
 EjectDriveTK = tk.IntVar()
 
+#request admin rights
+def is_admin():
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return False
+
+if not is_admin():
+    # Re-run the program with admin rights
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, ' '.join(sys.argv), None, 1)
+    sys.exit()
+
 # Tab switch function
 
 # Fixes Tab
@@ -60,6 +73,7 @@ def FixesTab(tab):
         os.system("sfc /scannow")
 
     FixButtons()
+
 # Programs Installer tab
 def ProgramsInstallerTab(tab):
     label = tk.Label(tab, text="Programs Installer")
@@ -286,6 +300,9 @@ def ProgramsInstallerTab(tab):
             run_bat_file()
             shutdown_program() 
     checkBoxes(tab)
+
+
+
 def shutdown_program():
     print("Shutting down the program...")
     os._exit(0)
@@ -318,4 +335,5 @@ def main():
     root.rowconfigure(0, weight=1)
     root.mainloop()
 if __name__ == "__main__":
+
     main()
