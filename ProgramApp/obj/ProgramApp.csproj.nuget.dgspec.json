@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/ProgramApp.csproj": {}
+  },
+  "projects": {
+    "/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/ProgramApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/ProgramApp.csproj",
+        "projectName": "ProgramApp",
+        "projectPath": "/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/ProgramApp.csproj",
+        "packagesPath": "/home/kaskil/.nuget/packages/",
+        "outputPath": "/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/kaskil/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Avalonia": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Desktop": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Diagnostics": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Fonts.Inter": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Themes.Fluent": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

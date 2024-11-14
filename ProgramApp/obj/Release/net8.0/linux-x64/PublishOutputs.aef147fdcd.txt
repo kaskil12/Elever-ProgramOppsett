@@ -1,0 +1,4 @@
+/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/bin/Release/net8.0/linux-x64/publish/ProgramApp.pdb
+/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/bin/Release/net8.0/linux-x64/publish/libHarfBuzzSharp.so
+/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/bin/Release/net8.0/linux-x64/publish/libSkiaSharp.so
+/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/bin/Release/net8.0/linux-x64/publish/ProgramApp

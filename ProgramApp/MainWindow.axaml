@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ProgramApp.MainWindow"
+        Title="ProgramApp"
+        Width="500" Height="400"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True">
+    <StackPanel Margin="20">
+        <CheckBox x:Name="OfficeCheckBox" Content="Office"/>
+        <CheckBox x:Name="TeamsCheckBox" Content="Teams"/>
+        <CheckBox x:Name="OrdnettCheckBox" Content="Ordnett"/>
+        <CheckBox x:Name="VsCodeCheckBox" Content="VsCode"/>
+        <CheckBox x:Name="ChromeCheckBox" Content="Chrome"/>
+        <CheckBox x:Name="FirefoxCheckBox" Content="FireFox"/>
+        <CheckBox x:Name="PythonCheckBox" Content="Python"/>
+        <CheckBox x:Name="GeoGebraCheckBox" Content="GeoGebra"/>
+        <CheckBox x:Name="WebShortcutCheckBox" Content="WebShortcut"/>
+        <CheckBox x:Name="WebShortcutKICheckBox" Content="WebShortcutKI"/>
+
+        <Button Content="Install" Click="InstallButton"/>
+    </StackPanel>
+</Window>
