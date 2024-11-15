@@ -265,9 +265,10 @@ public partial class MainWindow : Window
         //Eject Disk
         if (EjectDisk)
         {
-            CMDText = @"/c timeout /t 1 >nul && for /f ""tokens=2 delims=="" %U in ('wmic logicaldisk where ""drivetype=2"" get DeviceID /value ^| find ""=""') do (echo list volume > diskpart_script.txt && echo select volume %U >> diskpart_script.txt && echo remove >> diskpart_script.txt && diskpart /s diskpart_script.txt && del diskpart_script.txt)";
+            CMDText = @"/c timeout /t 1 >nul && powershell -Command ""Start-Sleep -Seconds 1; $drive = Get-Volume | Where-Object { $_.DriveType -eq 'Removable' } | Select-Object -First 1; if ($drive) { $driveLetter = $drive.DriveLetter; [System.IO.DriveInfo]::GetDrives() | Where-Object { $_.Name -eq ($driveLetter + ':\\') } | ForEach-Object { $_.Eject(); Start-Sleep -Seconds 1 } }"" && timeout /t 1 >nul";
             System.Diagnostics.Process.Start("cmd.exe", CMDText);
             Environment.Exit(0);
         }
+
     }
 }
