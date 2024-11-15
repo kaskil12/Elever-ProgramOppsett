@@ -5,11 +5,34 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ProgramApp.MainWindow"
         Title="ProgramApp"
-        Width="500" Height="400"
-        TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent"
+        Width="500" Height="600"
+        Background="#F5F5F5"
+        TransparencyLevelHint="None"
         ExtendClientAreaToDecorationsHint="True">
-    <StackPanel Margin="20">
+
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Background" Value="#005BAC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        <Style Selector="CheckBox">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+        </Style>
+    </Window.Styles>
+
+    <StackPanel Margin="20" Spacing="5">
+        <TextBlock Text="Select Programs to Install" 
+                   FontSize="18" 
+                   FontWeight="Bold" 
+                   Margin="0,0,0,20"
+                   Foreground="#333333"/>
+        
         <CheckBox x:Name="OfficeCheckBox" Content="Office"/>
         <CheckBox x:Name="TeamsCheckBox" Content="Teams"/>
         <CheckBox x:Name="OrdnettCheckBox" Content="Ordnett"/>
@@ -21,6 +44,6 @@
         <CheckBox x:Name="WebShortcutCheckBox" Content="WebShortcut"/>
         <CheckBox x:Name="WebShortcutKICheckBox" Content="WebShortcutKI"/>
 
-        <Button Content="Install" Click="InstallButton"/>
+        <Button Content="Install" HorizontalAlignment="Right" Margin="0,20,0,0"/>
     </StackPanel>
 </Window>

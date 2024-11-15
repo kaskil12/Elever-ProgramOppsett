@@ -3,6 +3,8 @@ using Avalonia.Interactivity;
 using System;
 using System.Diagnostics;
 namespace ProgramApp;
+using System.IO;
+using Avalonia;
 
 public partial class MainWindow : Window
 {
@@ -20,10 +22,22 @@ public partial class MainWindow : Window
     public bool GeoGebraDownload = false;
     public bool WebShortcut = false;
     public bool WebShortcutKI = false;
+    public string currentDriveLetter = "D:"; // Replace with the actual drive letter if known
 
     public MainWindow()
     {
         InitializeComponent();
+        this.WindowStartupLocation = WindowStartupLocation.Manual;
+
+        this.Opened += (sender, e) =>
+        {
+            var screen = Screens.Primary;
+            var screenWidth = screen.Bounds.Width;
+            var windowWidth = this.Width;
+
+            // Center horizontally, position at the top
+            this.Position = new PixelPoint((int)((screenWidth - windowWidth) / 2), 0);
+        };
     }
     public void InstallButton(object sender, RoutedEventArgs e)
     {
@@ -92,62 +106,123 @@ public partial class MainWindow : Window
     }
     public void InstallPrograms()
     {
+        foreach (var drive in DriveInfo.GetDrives())
+        {
+            if (drive.IsReady && drive.DriveType == DriveType.Removable)
+            {
+                currentDriveLetter = drive.Name; 
+                break; 
+            }
+        }
         string CMDText = "";
-        //If user wants to download Office
+        ProcessStartInfo processStartInfo = new ProcessStartInfo
+        {
+            FileName = "cmd.exe",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true
+        };
+
+        // If user wants to download Office
         if (OfficeDownload)
         {
-            //Download Office
-            CMDText = "start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml";
-            System.Diagnostics.Process.Start("CMD.exe", CMDText);
+            // Download Office
+            CMDText = "/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
         }
-        //If user wants to download Teams
+
+        // If user wants to download Teams
         if (TeamsDownload)
         {
-            //Download Teams
-            CMDText = "start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{current_drive_letter}/pkgs/TeamsOffline/MSTeams-x64.msix\"";
-            System.Diagnostics.Process.Start("CMD.exe", CMDText);
+            // Download Teams
+            CMDText = $"/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{currentDriveLetter}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
         }
-        //If user wants to download Ordnett
+
+        // If user wants to download Ordnett
         if (OrdnettDownload)
         {
-            //Download Ordnett
-            CMDText = "msiexec /i \"{current_drive_letter}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb";
-            System.Diagnostics.Process.Start("CMD.exe", CMDText);
+            // Download Ordnett
+            CMDText = $"/c msiexec /i \"{currentDriveLetter}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
         }
-        //If user wants to download VsCode
+
+        // If user wants to download VsCode
         if (VsCodeDownload)
         {
-            //Download VsCode
-            CMDText = "start /wait .\\pkgs\\VsCodeOffline\\Code.exe";
-            System.Diagnostics.Process.Start("CMD.exe", CMDText);
+            // Download VsCode
+            CMDText = "/c start /wait .\\pkgs\\VsCodeOffline\\Code.exe";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
         }
+
         //If user wants to download Chrome
         if (ChromeDownload)
         {
             //Download Chrome
-            CMDText = "start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe";
-            System.Diagnostics.Process.Start("CMD.exe", CMDText);
+            CMDText = $"/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
         }
         //If user wants to download Firefox
         if (FirefoxDownload)
         {
             //Download Firefox
-            CMDText = "start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S";
-            System.Diagnostics.Process.Start("CMD.exe", CMDText);
+            CMDText = $"/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
         }
         //If user wants to download Python
         if (PythonDownload)
         {
             //Download Python
-            CMDText = "start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1";
-            System.Diagnostics.Process.Start("CMD.exe", CMDText);
+            CMDText = $"/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
         }
         //If user wants to download GeoGebra
         if (GeoGebraDownload)
         {
             //Download GeoGebra
-            CMDText = "msiexec /i \"{current_drive_letter}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb";
-            System.Diagnostics.Process.Start("CMD.exe", CMDText);
+            CMDText = $"/c msiexec /i \"{currentDriveLetter}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
         }
         //If user wants to create a web shortcut
         if (WebShortcut)
