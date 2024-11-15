@@ -32,7 +32,7 @@ public partial class MainWindow : Window
 
         this.Opened += (sender, e) =>
         {
-            var screen = Screens.Primary;
+            var screen = Screens.Primary ?? throw new InvalidOperationException("No primary screen detected.");
             var screenWidth = screen.Bounds.Width;
             var windowWidth = this.Width;
 
