@@ -22,6 +22,10 @@
       },
       "runtimepack.Microsoft.NETCore.App.Runtime.win-x64/8.0.11": {
         "runtime": {
+          "Microsoft.Win32.Registry.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1124.51707"
+          },
           "System.Collections.Concurrent.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1124.51707"
@@ -62,6 +66,10 @@
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1124.51707"
           },
+          "System.Diagnostics.Process.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1124.51707"
+          },
           "System.Diagnostics.StackTrace.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1124.51707"
@@ -71,6 +79,10 @@
             "fileVersion": "8.0.1124.51707"
           },
           "System.IO.Compression.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1124.51707"
+          },
+          "System.IO.FileSystem.DriveInfo.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1124.51707"
           },

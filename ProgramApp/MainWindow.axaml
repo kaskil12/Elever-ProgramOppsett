@@ -44,6 +44,6 @@
         <CheckBox x:Name="WebShortcutCheckBox" Content="WebShortcut"/>
         <CheckBox x:Name="WebShortcutKICheckBox" Content="WebShortcutKI"/>
         <CheckBox x:Name="EjectDiskCheckBox" Content="Eject" HorizontalAlignment="Right"/>
-        <Button Content="Install" HorizontalAlignment="Right" Margin="0,20,0,0"/>
+        <Button Content="Install" Click="InstallButton" HorizontalAlignment="Right" Margin="0,20,0,0"/>
     </StackPanel>
 </Window>
