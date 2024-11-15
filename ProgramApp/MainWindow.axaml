@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ProgramApp.MainWindow"
         Title="ProgramApp"
-        Width="500" Height="600"
+        Width="500" Height="650"
         Background="#F5F5F5"
         TransparencyLevelHint="None"
         ExtendClientAreaToDecorationsHint="True">
@@ -43,7 +43,7 @@
         <CheckBox x:Name="GeoGebraCheckBox" Content="GeoGebra"/>
         <CheckBox x:Name="WebShortcutCheckBox" Content="WebShortcut"/>
         <CheckBox x:Name="WebShortcutKICheckBox" Content="WebShortcutKI"/>
-
+        <CheckBox x:Name="EjectDiskCheckBox" Content="Eject" HorizontalAlignment="Right"/>
         <Button Content="Install" HorizontalAlignment="Right" Margin="0,20,0,0"/>
     </StackPanel>
 </Window>

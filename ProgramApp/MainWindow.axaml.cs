@@ -22,6 +22,7 @@ public partial class MainWindow : Window
     public bool GeoGebraDownload = false;
     public bool WebShortcut = false;
     public bool WebShortcutKI = false;
+    public bool EjectDisk = false;
     public string currentDriveLetter = "D:"; // Replace with the actual drive letter if known
 
     public MainWindow()
@@ -41,6 +42,17 @@ public partial class MainWindow : Window
     }
     public void InstallButton(object sender, RoutedEventArgs e)
     {
+        OfficeDownload = false;
+        TeamsDownload = false;
+        OrdnettDownload = false;
+        VsCodeDownload = false;
+        ChromeDownload = false;
+        FirefoxDownload = false;
+        PythonDownload = false;
+        GeoGebraDownload = false;
+        WebShortcut = false;
+        WebShortcutKI = false;
+        EjectDisk = false;
         //If user wants to download Office
         if (OfficeCheckBox.IsChecked == true)
         {
@@ -100,6 +112,9 @@ public partial class MainWindow : Window
         {
             //Set WebShortcutKI to true
             WebShortcutKI = true;
+        }
+        if(EjectDiskCheckBox.IsChecked == true){
+            EjectDisk = true;
         }
         //Install the programs
         InstallPrograms();
@@ -246,6 +261,17 @@ public partial class MainWindow : Window
             System.Diagnostics.Process.Start("powershell.exe", CMDText);
             CMDText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereVisma.url');$s.TargetPath='https://karriere-innlandet.inschool.visma.no/';$s.Save()\"";
             System.Diagnostics.Process.Start("powershell.exe", CMDText);
+        }
+        //Eject Disk
+        if (EjectDisk){
+            CMDText = $"/c start .\\pkgs\\UtilsBats\\Eject.bat";
+            processStartInfo.Arguments = CMDText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
+            Environment.Exit(0);
         }
     }
 }

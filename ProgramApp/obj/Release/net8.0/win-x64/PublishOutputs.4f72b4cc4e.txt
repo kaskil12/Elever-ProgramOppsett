@@ -1,0 +1,2 @@
+C:\Users\kaspe\Documents\GitHub\Elever-ProgramOppsett\ProgramApp\bin\Release\net8.0\win-x64\publish\ProgramApp.pdb
+C:\Users\kaspe\Documents\GitHub\Elever-ProgramOppsett\ProgramApp\bin\Release\net8.0\win-x64\publish\ProgramApp.exe
