@@ -263,14 +263,10 @@ public partial class MainWindow : Window
             System.Diagnostics.Process.Start("powershell.exe", CMDText);
         }
         //Eject Disk
-        if (EjectDisk){
-            CMDText = $"/c start .\\pkgs\\UtilsBats\\Eject.bat";
-            processStartInfo.Arguments = CMDText;
-            var process = Process.Start(processStartInfo);
-            if (process != null)
-            {
-                process.WaitForExit();
-            }
+        if (EjectDisk)
+        {
+            CMDText = @"/c timeout /t 1 >nul && for /f ""tokens=2 delims=="" %U in ('wmic logicaldisk where ""drivetype=2"" get DeviceID /value ^| find ""=""') do (echo list volume > diskpart_script.txt && echo select volume %U >> diskpart_script.txt && echo remove >> diskpart_script.txt && diskpart /s diskpart_script.txt && del diskpart_script.txt)";
+            System.Diagnostics.Process.Start("cmd.exe", CMDText);
             Environment.Exit(0);
         }
     }
