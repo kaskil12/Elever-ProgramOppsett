@@ -5,8 +5,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ProgramApp.MainWindow"
         Title="ProgramApp"
-        Width="500" Height="810"
-        Background="#F5F5F5"
+        Width="500" Height="500"
+        Background="#2C2F33"
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="SystemChrome, PreferSystemChrome">
@@ -16,22 +16,22 @@
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="Background" Value="#005850"/>
+            <Setter Property="Background" Value="#7289DA"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
 
         <Style Selector="CheckBox">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="Margin" Value="0,8,0,8"/>
-            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
         </Style>
 
         <Style Selector="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="Foreground" Value="#3d4543"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
         </Style>
     </Window.Styles>
 
@@ -40,23 +40,44 @@
                    FontSize="20"
                    FontWeight="Bold"
                    Margin="0,0,0,20"
-                   Foreground="#005850"/>
+                   Foreground="#7289DA"
+                   HorizontalAlignment="Center"/>
 
-        <CheckBox x:Name="OfficeCheckBox" Content="Office"/>
-        <CheckBox x:Name="TeamsCheckBox" Content="Teams"/>
-        <CheckBox x:Name="OrdnettCheckBox" Content="Ordnett"/>
-        <CheckBox x:Name="VsCodeCheckBox" Content="VsCode"/>
-        <CheckBox x:Name="ChromeCheckBox" Content="Chrome"/>
-        <CheckBox x:Name="FirefoxCheckBox" Content="FireFox"/>
-        <CheckBox x:Name="PythonCheckBox" Content="Python"/>
-        <CheckBox x:Name="GeoGebraCheckBox" Content="GeoGebra"/>
-        <CheckBox x:Name="WebShortcutCheckBox" Content="WebShortcut"/>
-        <CheckBox x:Name="WebShortcutKICheckBox" Content="WebShortcutKI"/>
-        <CheckBox x:Name="EjectDiskCheckBox" Content="Close When Done" HorizontalAlignment="Right"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <ProgressBar Minimum="0" Maximum="100" Height="10" IsIndeterminate="True" Margin="0,10,0,0" Background="#cfd2d3"/>
+            <!-- First Row -->
+            <CheckBox x:Name="OfficeCheckBox" Content="Office" Grid.Row="0" Grid.Column="0"/>
+            <CheckBox x:Name="TeamsCheckBox" Content="Teams" Grid.Row="0" Grid.Column="1"/>
+            <CheckBox x:Name="VsCodeCheckBox" Content="VSCode" Grid.Row="0" Grid.Column="2"/>
 
-        <Button Content="Install" Click="InstallButton" Margin="0,20,0,0"/>
+            <!-- Second Row -->
+            <CheckBox x:Name="GeoGebraCheckBox" Content="GeoGebra" Grid.Row="1" Grid.Column="0"/>
+            <CheckBox x:Name="OrdnettCheckBox" Content="Ordnett" Grid.Row="1" Grid.Column="1"/>
+            <CheckBox x:Name="ChromeCheckBox" Content="Chrome" Grid.Row="1" Grid.Column="2"/>
+
+            <!-- Third Row -->
+            <CheckBox x:Name="FirefoxCheckBox" Content="FireFox" Grid.Row="2" Grid.Column="0"/>
+            <CheckBox x:Name="PythonCheckBox" Content="Python" Grid.Row="2" Grid.Column="1"/>
+            <CheckBox x:Name="WebShortcutCheckBox" Content="Web Shortcut" Grid.Row="2" Grid.Column="2"/>
+
+            <!-- Fourth Row -->
+            <CheckBox x:Name="WebShortcutKICheckBox" Content="Web Shortcut KI" Grid.Row="3" Grid.Column="0"/>
+        </Grid>
+
+        <CheckBox x:Name="EjectDiskCheckBox" HorizontalAlignment="Center" Content="Eject Disk"/>
+        <Button Content="Install" Click="InstallButton" Margin="0,20,0,0" HorizontalAlignment="Center"/>
 
         <TextBlock Text="© 2024 ProgramApp Inc. All rights reserved."
                    FontSize="12"
