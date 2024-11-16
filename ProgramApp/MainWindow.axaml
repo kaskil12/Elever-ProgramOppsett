@@ -5,34 +5,43 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ProgramApp.MainWindow"
         Title="ProgramApp"
-        Width="500" Height="650"
+        Width="500" Height="810"
         Background="#F5F5F5"
-        TransparencyLevelHint="None"
-        ExtendClientAreaToDecorationsHint="True">
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="SystemChrome, PreferSystemChrome">
 
     <Window.Styles>
         <Style Selector="Button">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="Padding" Value="10,5"/>
-            <Setter Property="Background" Value="#005BAC"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Background" Value="#005850"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
         </Style>
+
         <Style Selector="CheckBox">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="Margin" Value="0,8,0,8"/>
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="Foreground" Value="#3d4543"/>
         </Style>
     </Window.Styles>
 
-    <StackPanel Margin="20" Spacing="5">
-        <TextBlock Text="Select Programs to Install" 
-                   FontSize="18" 
-                   FontWeight="Bold" 
+    <StackPanel Margin="10" Spacing="5">
+        <TextBlock Text="Select Programs to Install"
+                   FontSize="20"
+                   FontWeight="Bold"
                    Margin="0,0,0,20"
-                   Foreground="#333333"/>
-        
+                   Foreground="#005850"/>
+
         <CheckBox x:Name="OfficeCheckBox" Content="Office"/>
         <CheckBox x:Name="TeamsCheckBox" Content="Teams"/>
         <CheckBox x:Name="OrdnettCheckBox" Content="Ordnett"/>
@@ -43,7 +52,16 @@
         <CheckBox x:Name="GeoGebraCheckBox" Content="GeoGebra"/>
         <CheckBox x:Name="WebShortcutCheckBox" Content="WebShortcut"/>
         <CheckBox x:Name="WebShortcutKICheckBox" Content="WebShortcutKI"/>
-        <CheckBox x:Name="EjectDiskCheckBox" Content="Eject" HorizontalAlignment="Right"/>
-        <Button Content="Install" Click="InstallButton" HorizontalAlignment="Right" Margin="0,20,0,0"/>
+        <CheckBox x:Name="EjectDiskCheckBox" Content="Close When Done" HorizontalAlignment="Right"/>
+
+        <ProgressBar Minimum="0" Maximum="100" Height="10" IsIndeterminate="True" Margin="0,10,0,0" Background="#cfd2d3"/>
+
+        <Button Content="Install" Click="InstallButton" Margin="0,20,0,0"/>
+
+        <TextBlock Text="© 2024 ProgramApp Inc. All rights reserved."
+                   FontSize="12"
+                   Margin="0,20,0,0"
+                   HorizontalAlignment="Center"
+                   Foreground="#6f7271"/>
     </StackPanel>
 </Window>
