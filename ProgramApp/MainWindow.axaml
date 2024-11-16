@@ -35,54 +35,73 @@
         </Style>
     </Window.Styles>
 
-    <StackPanel Margin="10" Spacing="5">
-        <TextBlock Text="Select Programs to Install"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   Margin="0,0,0,20"
-                   Foreground="#7289DA"
-                   HorizontalAlignment="Center"/>
+    <TabControl>
+        <TabItem Header="Programs">
+            <StackPanel Margin="10" Spacing="5">
+                <TextBlock Text="Select Programs to Install"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"
+                           Foreground="#7289DA"
+                           HorizontalAlignment="Center"/>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-            <!-- First Row -->
-            <CheckBox x:Name="OfficeCheckBox" Content="Office" Grid.Row="0" Grid.Column="0"/>
-            <CheckBox x:Name="TeamsCheckBox" Content="Teams" Grid.Row="0" Grid.Column="1"/>
-            <CheckBox x:Name="VsCodeCheckBox" Content="VSCode" Grid.Row="0" Grid.Column="2"/>
+                    <!-- First Row -->
+                    <CheckBox x:Name="OfficeCheckBox" Content="Office" Grid.Row="0" Grid.Column="0"/>
+                    <CheckBox x:Name="TeamsCheckBox" Content="Teams" Grid.Row="0" Grid.Column="1"/>
+                    <CheckBox x:Name="VsCodeCheckBox" Content="VSCode" Grid.Row="0" Grid.Column="2"/>
 
-            <!-- Second Row -->
-            <CheckBox x:Name="GeoGebraCheckBox" Content="GeoGebra" Grid.Row="1" Grid.Column="0"/>
-            <CheckBox x:Name="OrdnettCheckBox" Content="Ordnett" Grid.Row="1" Grid.Column="1"/>
-            <CheckBox x:Name="ChromeCheckBox" Content="Chrome" Grid.Row="1" Grid.Column="2"/>
+                    <!-- Second Row -->
+                    <CheckBox x:Name="GeoGebraCheckBox" Content="GeoGebra" Grid.Row="1" Grid.Column="0"/>
+                    <CheckBox x:Name="OrdnettCheckBox" Content="Ordnett" Grid.Row="1" Grid.Column="1"/>
+                    <CheckBox x:Name="ChromeCheckBox" Content="Chrome" Grid.Row="1" Grid.Column="2"/>
 
-            <!-- Third Row -->
-            <CheckBox x:Name="FirefoxCheckBox" Content="FireFox" Grid.Row="2" Grid.Column="0"/>
-            <CheckBox x:Name="PythonCheckBox" Content="Python" Grid.Row="2" Grid.Column="1"/>
-            <CheckBox x:Name="WebShortcutCheckBox" Content="Web Shortcut" Grid.Row="2" Grid.Column="2"/>
+                    <!-- Third Row -->
+                    <CheckBox x:Name="FirefoxCheckBox" Content="FireFox" Grid.Row="2" Grid.Column="0"/>
+                    <CheckBox x:Name="PythonCheckBox" Content="Python" Grid.Row="2" Grid.Column="1"/>
+                    <CheckBox x:Name="WebShortcutCheckBox" Content="Web Shortcut" Grid.Row="2" Grid.Column="2"/>
 
-            <!-- Fourth Row -->
-            <CheckBox x:Name="WebShortcutKICheckBox" Content="Web Shortcut KI" Grid.Row="3" Grid.Column="0"/>
-        </Grid>
+                    <!-- Fourth Row -->
+                    <CheckBox x:Name="WebShortcutKICheckBox" Content="Web Shortcut KI" Grid.Row="3" Grid.Column="0"/>
+                </Grid>
 
-        <CheckBox x:Name="EjectDiskCheckBox" HorizontalAlignment="Center" Content="Eject Disk"/>
-        <Button Content="Install" Click="InstallButton" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+                <CheckBox x:Name="EjectDiskCheckBox" HorizontalAlignment="Center" Content="Eject Disk"/>
+                <Button Content="Install" Click="InstallButton" Margin="0,20,0,0" HorizontalAlignment="Center"/>
 
-        <TextBlock Text="© 2024 ProgramApp Inc. All rights reserved."
-                   FontSize="12"
-                   Margin="0,20,0,0"
-                   HorizontalAlignment="Center"
-                   Foreground="#6f7271"/>
-    </StackPanel>
+                <TextBlock Text="© 2024 KasperKilde Inc. All rights reserved."
+                           FontSize="12"
+                           Margin="0,20,0,0"
+                           HorizontalAlignment="Center"
+                           Foreground="#6f7271"/>
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="Fixes">
+            <StackPanel Margin="10" Spacing="5">
+                <TextBlock Text="Fixes and Updates"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"
+                           Foreground="#7289DA"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="No fixes available at the moment."
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           Foreground="#FFFFFF"/>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
 </Window>
