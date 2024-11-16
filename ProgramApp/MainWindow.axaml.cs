@@ -8,18 +8,18 @@ using Avalonia;
 
 public partial class MainWindow : Window
 {
-    public bool OfficeDownload = false;
-    public bool TeamsDownload = false;
-    public bool OrdnettDownload = false;
-    public bool VsCodeDownload = false;
-    public bool ChromeDownload = false;
-    public bool FirefoxDownload = false;
-    public bool PythonDownload = false;
-    public bool GeoGebraDownload = false;
-    public bool WebShortcut = false;
-    public bool WebShortcutKI = false;
-    public bool EjectDisk = false;
-    public string currentDriveLetter = "D:";
+    private bool _officeDownload;
+    private bool _teamsDownload;
+    private bool _ordnettDownload;
+    private bool _vsCodeDownload;
+    private bool _chromeDownload;
+    private bool _firefoxDownload;
+    private bool _pythonDownload;
+    private bool _geoGebraDownload;
+    private bool _webShortcut;
+    private bool _webShortcutKi;
+    private bool _ejectDisk;
+    private string _currentDriveLetter = "D:";
 
     public MainWindow()
     {
@@ -37,73 +37,73 @@ public partial class MainWindow : Window
     }
     public void InstallButton(object sender, RoutedEventArgs e)
     {
-        OfficeDownload = false;
-        TeamsDownload = false;
-        OrdnettDownload = false;
-        VsCodeDownload = false;
-        ChromeDownload = false;
-        FirefoxDownload = false;
-        PythonDownload = false;
-        GeoGebraDownload = false;
-        WebShortcut = false;
-        WebShortcutKI = false;
-        EjectDisk = false;
+        _officeDownload = false;
+        _teamsDownload = false;
+        _ordnettDownload = false;
+        _vsCodeDownload = false;
+        _chromeDownload = false;
+        _firefoxDownload = false;
+        _pythonDownload = false;
+        _geoGebraDownload = false;
+        _webShortcut = false;
+        _webShortcutKi = false;
+        _ejectDisk = false;
         if (OfficeCheckBox.IsChecked == true)
         {
-            OfficeDownload = true;
+            _officeDownload = true;
         }
         if (TeamsCheckBox.IsChecked == true)
         {
-            TeamsDownload = true;
+            _teamsDownload = true;
         }
         if (OrdnettCheckBox.IsChecked == true)
         {
-            OrdnettDownload = true;
+            _ordnettDownload = true;
         }
         if (VsCodeCheckBox.IsChecked == true)
         {
-            VsCodeDownload = true;
+            _vsCodeDownload = true;
         }
         if (ChromeCheckBox.IsChecked == true)
         {
-            ChromeDownload = true;
+            _chromeDownload = true;
         }
         if (FirefoxCheckBox.IsChecked == true)
         {
-            FirefoxDownload = true;
+            _firefoxDownload = true;
         }
         if (PythonCheckBox.IsChecked == true)
         {
-            PythonDownload = true;
+            _pythonDownload = true;
         }
         if (GeoGebraCheckBox.IsChecked == true)
         {
-            GeoGebraDownload = true;
+            _geoGebraDownload = true;
         }
         if (WebShortcutCheckBox.IsChecked == true)
         {
-            WebShortcut = true;
+            _webShortcut = true;
         }
         if (WebShortcutKICheckBox.IsChecked == true)
         {
-            WebShortcutKI = true;
+            _webShortcutKi = true;
         }
         if(EjectDiskCheckBox.IsChecked == true){
-            EjectDisk = true;
+            _ejectDisk = true;
         }
         InstallPrograms();
     }
-    public void InstallPrograms()
+    private void InstallPrograms()
     {
         foreach (var drive in DriveInfo.GetDrives())
         {
             if (drive.IsReady && drive.DriveType == DriveType.Removable)
             {
-                currentDriveLetter = drive.Name; 
+                _currentDriveLetter = drive.Name; 
                 break; 
             }
         }
-        string CMDText = "";
+        string cmdText = "";
         ProcessStartInfo processStartInfo = new ProcessStartInfo
         {
             FileName = "cmd.exe",
@@ -113,10 +113,10 @@ public partial class MainWindow : Window
             CreateNoWindow = true
         };
 
-        if (OfficeDownload)
+        if (_officeDownload)
         {
-            CMDText = "/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml";
-            processStartInfo.Arguments = CMDText;
+            cmdText = $"/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml";
+            processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
             {
@@ -124,10 +124,10 @@ public partial class MainWindow : Window
             }
         }
 
-        if (TeamsDownload)
+        if (_teamsDownload)
         {
-            CMDText = $"/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{currentDriveLetter}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"";
-            processStartInfo.Arguments = CMDText;
+            cmdText = $"/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{_currentDriveLetter}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"";
+            processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
             {
@@ -135,10 +135,10 @@ public partial class MainWindow : Window
             }
         }
 
-        if (OrdnettDownload)
+        if (_ordnettDownload)
         {
-            CMDText = $"/c msiexec /i \"{currentDriveLetter}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb";
-            processStartInfo.Arguments = CMDText;
+            cmdText = $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb";
+            processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
             {
@@ -146,10 +146,10 @@ public partial class MainWindow : Window
             }
         }
 
-        if (VsCodeDownload)
+        if (_vsCodeDownload)
         {
-            CMDText = "/c start /wait .\\pkgs\\VsCodeOffline\\Code.exe";
-            processStartInfo.Arguments = CMDText;
+            cmdText = "/c start /wait .\\pkgs\\VsCodeOffline\\Code.exe";
+            processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
             {
@@ -157,67 +157,67 @@ public partial class MainWindow : Window
             }
         }
 
-        if (ChromeDownload)
+        if (_chromeDownload)
         {
-            CMDText = $"/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe";
-            processStartInfo.Arguments = CMDText;
+            cmdText = $"/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe";
+            processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
             {
                 process.WaitForExit();
             }
         }
-        if (FirefoxDownload)
+        if (_firefoxDownload)
         {
-            CMDText = $"/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S";
-            processStartInfo.Arguments = CMDText;
+            cmdText = $"/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S";
+            processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
             {
                 process.WaitForExit();
             }
         }
-        if (PythonDownload)
+        if (_pythonDownload)
         {
-            CMDText = $"/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1";
-            processStartInfo.Arguments = CMDText;
+            cmdText = $"/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1";
+            processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
             {
                 process.WaitForExit();
             }
         }
-        if (GeoGebraDownload)
+        if (_geoGebraDownload)
         {
-            CMDText = $"/c msiexec /i \"{currentDriveLetter}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb";
-            processStartInfo.Arguments = CMDText;
+            cmdText = $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb";
+            processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
             {
                 process.WaitForExit();
             }
         }
-        if (WebShortcut)
+        if (_webShortcut)
         {
-            CMDText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\SharePoint.url');$s.TargetPath='https://innlandet.sharepoint.com';$s.Save()\"";
-            System.Diagnostics.Process.Start("powershell.exe", CMDText);
-            CMDText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\VismaInSchool.url');$s.TargetPath='https://elverum-vgs.inschool.visma.no/Login.jsp';$s.Save()\"";
-            System.Diagnostics.Process.Start("powershell.exe", CMDText);
-            CMDText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\ElverumVGS.url');$s.TargetPath='http://elverum.vgs.no';$s.Save()\"";
-            System.Diagnostics.Process.Start("powershell.exe", CMDText);
+            cmdText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\SharePoint.url');$s.TargetPath='https://innlandet.sharepoint.com';$s.Save()\"";
+            System.Diagnostics.Process.Start("powershell.exe", cmdText);
+            cmdText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\VismaInSchool.url');$s.TargetPath='https://elverum-vgs.inschool.visma.no/Login.jsp';$s.Save()\"";
+            System.Diagnostics.Process.Start("powershell.exe", cmdText);
+            cmdText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\ElverumVGS.url');$s.TargetPath='http://elverum.vgs.no';$s.Save()\"";
+            System.Diagnostics.Process.Start("powershell.exe", cmdText);
 
         }
-        if (WebShortcutKI)
+        if (_webShortcutKi)
         {
-            CMDText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereInnlandet.url');$s.TargetPath='https://www.karriereinnlandet.no/';$s.Save()\"";
-            System.Diagnostics.Process.Start("powershell.exe", CMDText);
-            CMDText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereInnsia.url');$s.TargetPath='https://innlandet.sharepoint.com/sites/Voksnedeltakere';$s.Save()\"";
-            System.Diagnostics.Process.Start("powershell.exe", CMDText);
-            CMDText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereVisma.url');$s.TargetPath='https://karriere-innlandet.inschool.visma.no/';$s.Save()\"";
-            System.Diagnostics.Process.Start("powershell.exe", CMDText);
+            cmdText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereInnlandet.url');$s.TargetPath='https://www.karriereinnlandet.no/';$s.Save()\"";
+            System.Diagnostics.Process.Start("powershell.exe", cmdText);
+            cmdText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereInnsia.url');$s.TargetPath='https://innlandet.sharepoint.com/sites/Voksnedeltakere';$s.Save()\"";
+            System.Diagnostics.Process.Start("powershell.exe", cmdText);
+            cmdText = "powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereVisma.url');$s.TargetPath='https://karriere-innlandet.inschool.visma.no/';$s.Save()\"";
+            System.Diagnostics.Process.Start("powershell.exe", cmdText);
         }
         //eject disk currently works as a shutdown checkbutton when the program is done installing
-        if (EjectDisk)
+        if (_ejectDisk)
         {
             // CMDText = @"/c timeout /t 1 >nul && powershell -Command ""Start-Sleep -Seconds 1; $drive = Get-Volume | Where-Object { $_.DriveType -eq 'Removable' } | Select-Object -First 1; if ($drive) { $driveLetter = $drive.DriveLetter; [System.IO.DriveInfo]::GetDrives() | Where-Object { $_.Name -eq ($driveLetter + ':\\') } | ForEach-Object { $_.Eject(); Start-Sleep -Seconds 1 } }"" && timeout /t 1 >nul";
             // System.Diagnostics.Process.Start("cmd.exe", CMDText);
