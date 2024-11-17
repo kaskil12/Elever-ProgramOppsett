@@ -45,45 +45,95 @@
                            Foreground="#7289DA"
                            HorizontalAlignment="Center"/>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+               <Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
 
-                    <!-- First Row -->
-                    <CheckBox x:Name="OfficeCheckBox" Content="Office" Grid.Row="0" Grid.Column="0"/>
-                    <CheckBox x:Name="TeamsCheckBox" Content="Teams" Grid.Row="0" Grid.Column="1"/>
-                    <CheckBox x:Name="VsCodeCheckBox" Content="VSCode" Grid.Row="0" Grid.Column="2"/>
+    <!-- First Row -->
+    <CheckBox x:Name="OfficeCheckBox" Grid.Row="0" Grid.Column="0">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/OfficeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="Office" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
+    <CheckBox x:Name="TeamsCheckBox" Grid.Row="0" Grid.Column="1">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/TeamsIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="Teams" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
+    <CheckBox x:Name="VsCodeCheckBox" Grid.Row="0" Grid.Column="2">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/VSCodeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="VSCode" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
 
-                    <!-- Second Row -->
-                    <CheckBox x:Name="GeoGebraCheckBox" Content="GeoGebra" Grid.Row="1" Grid.Column="0"/>
-                    <CheckBox x:Name="OrdnettCheckBox" Content="Ordnett" Grid.Row="1" Grid.Column="1"/>
-                    <CheckBox x:Name="ChromeCheckBox" Content="Chrome" Grid.Row="1" Grid.Column="2"/>
+    <!-- Second Row -->
+    <CheckBox x:Name="GeoGebraCheckBox" Grid.Row="1" Grid.Column="0">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/GeoGebraIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="GeoGebra" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
+    <CheckBox x:Name="OrdnettCheckBox" Grid.Row="1" Grid.Column="1">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/OrdnettIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="Ordnett" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
+    <CheckBox x:Name="ChromeCheckBox" Grid.Row="1" Grid.Column="2">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/ChromeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="Chrome" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
 
-                    <!-- Third Row -->
-                    <CheckBox x:Name="FirefoxCheckBox" Content="FireFox" Grid.Row="2" Grid.Column="0"/>
-                    <CheckBox x:Name="PythonCheckBox" Content="Python" Grid.Row="2" Grid.Column="1"/>
-                    <CheckBox x:Name="WebShortcutCheckBox" Content="Web Shortcut" Grid.Row="2" Grid.Column="2"/>
+    <!-- Third Row -->
+    <CheckBox x:Name="FirefoxCheckBox" Grid.Row="2" Grid.Column="0">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/FirefoxIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="FireFox" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
+    <CheckBox x:Name="PythonCheckBox" Grid.Row="2" Grid.Column="1">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/PythonIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="Python" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
+    <CheckBox x:Name="WebShortcutCheckBox" Grid.Row="2" Grid.Column="2">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/WebShortcutIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="Elvis Lenker" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
 
-                    <!-- Fourth Row -->
-                    <CheckBox x:Name="WebShortcutKICheckBox" Content="Web Shortcut KI" Grid.Row="3" Grid.Column="0"/>
-                </Grid>
+    <!-- Fourth Row -->
+    <CheckBox x:Name="WebShortcutKICheckBox" Grid.Row="3" Grid.Column="0">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="./Assets/WebShortcutKIIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <TextBlock Text="Karriere Lenker" VerticalAlignment="Center"/>
+        </StackPanel>
+    </CheckBox>
+</Grid>
 
-                <CheckBox x:Name="EjectDiskCheckBox" HorizontalAlignment="Center" Content="Eject Disk"/>
-                <Button Content="Install" Click="InstallButton" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+                <CheckBox x:Name="EjectDiskCheckBox" HorizontalAlignment="Center" Content="Exit"/>
+                <Button Content="Install" Click="InstallButton" Margin="0,10,0,0" HorizontalAlignment="Center"/>
 
                 <TextBlock Text="© 2024 KasperKilde Inc. All rights reserved."
                            FontSize="12"
-                           Margin="0,20,0,0"
+                           Margin="0,10,0,0"
                            HorizontalAlignment="Center"
                            Foreground="#6f7271"/>
             </StackPanel>
@@ -101,6 +151,11 @@
                            FontSize="14"
                            HorizontalAlignment="Center"
                            Foreground="#FFFFFF"/>
+                <TextBlock Text="© 2024 KasperKilde Inc. All rights reserved."
+                           FontSize="12"
+                           Margin="0,20,0,0"
+                           HorizontalAlignment="Center"
+                           Foreground="#6f7271"/>
             </StackPanel>
         </TabItem>
     </TabControl>
