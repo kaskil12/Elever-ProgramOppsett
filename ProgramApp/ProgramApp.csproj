@@ -23,4 +23,27 @@
   <ItemGroup>
     <Folder Include="Assets\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\ChromeIcon.png" />
+    <Resource Include="Assets\ChromeIcon.png" />
+    <None Remove="Assets\FirefoxIcon.png" />
+    <Resource Include="Assets\FirefoxIcon.png" />
+    <None Remove="Assets\GeoGebraIcon.png" />
+    <Resource Include="Assets\GeoGebraIcon.png" />
+    <None Remove="Assets\OfficeIcon.png" />
+    <Resource Include="Assets\OfficeIcon.png" />
+    <None Remove="Assets\OrdnettIcon.png" />
+    <Resource Include="Assets\OrdnettIcon.png" />
+    <None Remove="Assets\PythonIcon.png" />
+    <Resource Include="Assets\PythonIcon.png" />
+    <None Remove="Assets\TeamsIcon.png" />
+    <Resource Include="Assets\TeamsIcon.png" />
+    <None Remove="Assets\VSCodeIcon.png" />
+    <Resource Include="Assets\VSCodeIcon.png" />
+    <None Remove="Assets\WebShortcutIcon.png" />
+    <Resource Include="Assets\WebShortcutIcon.png" />
+    <None Remove="Assets\WebShortcutKIIcon.png" />
+    <Resource Include="Assets\WebShortcutKIIcon.png" />
+  </ItemGroup>
 </Project>
