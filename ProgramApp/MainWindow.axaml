@@ -62,19 +62,19 @@
     <!-- First Row -->
     <CheckBox x:Name="OfficeCheckBox" Grid.Row="0" Grid.Column="0">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/OfficeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/OfficeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="Office" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
     <CheckBox x:Name="TeamsCheckBox" Grid.Row="0" Grid.Column="1">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/TeamsIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/TeamsIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="Teams" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
     <CheckBox x:Name="VsCodeCheckBox" Grid.Row="0" Grid.Column="2">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/VSCodeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/VSCodeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="VSCode" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
@@ -82,19 +82,19 @@
     <!-- Second Row -->
     <CheckBox x:Name="GeoGebraCheckBox" Grid.Row="1" Grid.Column="0">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/GeoGebraIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/GeoGebraIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="GeoGebra" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
     <CheckBox x:Name="OrdnettCheckBox" Grid.Row="1" Grid.Column="1">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/OrdnettIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/OrdnettIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="Ordnett" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
     <CheckBox x:Name="ChromeCheckBox" Grid.Row="1" Grid.Column="2">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/ChromeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/ChromeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="Chrome" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
@@ -102,19 +102,19 @@
     <!-- Third Row -->
     <CheckBox x:Name="FirefoxCheckBox" Grid.Row="2" Grid.Column="0">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/FirefoxIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/FirefoxIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="FireFox" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
     <CheckBox x:Name="PythonCheckBox" Grid.Row="2" Grid.Column="1">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/PythonIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/PythonIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="Python" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
     <CheckBox x:Name="WebShortcutCheckBox" Grid.Row="2" Grid.Column="2">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/WebShortcutIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/WebShortcutIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="Elvis Lenker" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
@@ -122,7 +122,7 @@
     <!-- Fourth Row -->
     <CheckBox x:Name="WebShortcutKICheckBox" Grid.Row="3" Grid.Column="0">
         <StackPanel Orientation="Horizontal">
-            <Image Source="./Assets/WebShortcutKIIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/WebShortcutKIIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="Karriere Lenker" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>

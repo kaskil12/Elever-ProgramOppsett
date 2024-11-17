@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
+    <AssemblyName>ProgramApp</AssemblyName>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
@@ -16,34 +18,8 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.1.0" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.0" />
-    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.0" />
-  </ItemGroup>
+    <AvaloniaResource Include="Assets\**"/>
+  </ItemGroup>  
 
-  <ItemGroup>
-    <Folder Include="Assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Assets\ChromeIcon.png" />
-    <Resource Include="Assets\ChromeIcon.png" />
-    <None Remove="Assets\FirefoxIcon.png" />
-    <Resource Include="Assets\FirefoxIcon.png" />
-    <None Remove="Assets\GeoGebraIcon.png" />
-    <Resource Include="Assets\GeoGebraIcon.png" />
-    <None Remove="Assets\OfficeIcon.png" />
-    <Resource Include="Assets\OfficeIcon.png" />
-    <None Remove="Assets\OrdnettIcon.png" />
-    <Resource Include="Assets\OrdnettIcon.png" />
-    <None Remove="Assets\PythonIcon.png" />
-    <Resource Include="Assets\PythonIcon.png" />
-    <None Remove="Assets\TeamsIcon.png" />
-    <Resource Include="Assets\TeamsIcon.png" />
-    <None Remove="Assets\VSCodeIcon.png" />
-    <Resource Include="Assets\VSCodeIcon.png" />
-    <None Remove="Assets\WebShortcutIcon.png" />
-    <Resource Include="Assets\WebShortcutIcon.png" />
-    <None Remove="Assets\WebShortcutKIIcon.png" />
-    <Resource Include="Assets\WebShortcutKIIcon.png" />
-  </ItemGroup>
 </Project>
