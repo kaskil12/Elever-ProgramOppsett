@@ -176,7 +176,7 @@
       "Avalonia.Angle.Windows.Natives/2.1.22045.20230930": {
         "native": {
           "runtimes/win-x64/native/av_libglesv2.dll": {
-            "fileVersion": "2.1.22045.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },

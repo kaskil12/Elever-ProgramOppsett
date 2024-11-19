@@ -38,6 +38,7 @@ public partial class MainWindow : Window
     }
     public void InstallButton(object sender, RoutedEventArgs e)
     {
+        ProgressBarInstall.Value = 0;
         _officeDownload = false;
         _teamsDownload = false;
         _ordnettDownload = false;
@@ -116,6 +117,7 @@ public partial class MainWindow : Window
 
         if (_officeDownload)
         {
+            ProgressBarInstall.Value = 0;
             cmdText = $"/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
@@ -127,6 +129,7 @@ public partial class MainWindow : Window
 
         if (_teamsDownload)
         {
+            ProgressBarInstall.Value = 0;
             cmdText = $"/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{_currentDriveLetter}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
@@ -138,6 +141,7 @@ public partial class MainWindow : Window
 
         if (_ordnettDownload)
         {
+            ProgressBarInstall.Value = 0;
             cmdText = $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
@@ -149,6 +153,7 @@ public partial class MainWindow : Window
 
         if (_vsCodeDownload)
         {
+            ProgressBarInstall.Value = 0;
             cmdText = "/c start /wait .\\pkgs\\VsCodeOffline\\Code.exe";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
@@ -160,6 +165,7 @@ public partial class MainWindow : Window
 
         if (_chromeDownload)
         {
+            ProgressBarInstall.Value = 0;
             cmdText = $"/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
@@ -170,6 +176,7 @@ public partial class MainWindow : Window
         }
         if (_firefoxDownload)
         {
+            ProgressBarInstall.Value = 0;
             cmdText = $"/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
@@ -180,6 +187,7 @@ public partial class MainWindow : Window
         }
         if (_pythonDownload)
         {
+            ProgressBarInstall.Value = 0;
             cmdText = $"/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
@@ -190,6 +198,7 @@ public partial class MainWindow : Window
         }
         if (_geoGebraDownload)
         {
+            ProgressBarInstall.Value = 0;
             cmdText = $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
@@ -200,21 +209,27 @@ public partial class MainWindow : Window
         }
         if (_webShortcut)
         {
-            cmdText = $"powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\SharePoint.url');$s.TargetPath='https://innlandet.sharepoint.com';$s.Save()\"";
-            System.Diagnostics.Process.Start("powershell.exe", cmdText);
-            cmdText = $"powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\VismaInSchool.url');$s.TargetPath='https://elverum-vgs.inschool.visma.no/Login.jsp';$s.Save()\"";
-            System.Diagnostics.Process.Start("powershell.exe", cmdText);
-            cmdText = $"powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\ElverumVGS.url');$s.TargetPath='http://elverum.vgs.no';$s.Save()\"";
+            ProgressBarInstall.Value = 0;
+            cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\SharePoint.url\"); $s.TargetPath = 'https://innlandet.sharepoint.com'; $s.Save()";
             System.Diagnostics.Process.Start("powershell.exe", cmdText);
 
+            cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\VismaInSchool.url\"); $s.TargetPath = 'https://elverum-vgs.inschool.visma.no/Login.jsp'; $s.Save()";
+            System.Diagnostics.Process.Start("powershell.exe", cmdText);
+
+            cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\ElverumVGS.url\"); $s.TargetPath = 'http://elverum.vgs.no'; $s.Save()";
+            System.Diagnostics.Process.Start("powershell.exe", cmdText);
         }
+
         if (_webShortcutKi)
         {
-            cmdText = $"powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereInnlandet.url');$s.TargetPath='https://www.karriereinnlandet.no/';$s.Save()\"";
+            ProgressBarInstall.Value = 0;
+            cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereInnlandet.url\"); $s.TargetPath = 'https://www.karriereinnlandet.no/'; $s.Save()";
             System.Diagnostics.Process.Start("powershell.exe", cmdText);
-            cmdText = $"powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereInnsia.url');$s.TargetPath='https://innlandet.sharepoint.com/sites/Voksnedeltakere';$s.Save()\"";
+
+            cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereInnsia.url\"); $s.TargetPath = 'https://innlandet.sharepoint.com/sites/Voksnedeltakere'; $s.Save()";
             System.Diagnostics.Process.Start("powershell.exe", cmdText);
-            cmdText = $"powershell -command \"$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\\Desktop\\KarriereVisma.url');$s.TargetPath='https://karriere-innlandet.inschool.visma.no/';$s.Save()\"";
+
+            cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereVisma.url\"); $s.TargetPath = 'https://karriere-innlandet.inschool.visma.no/'; $s.Save()";
             System.Diagnostics.Process.Start("powershell.exe", cmdText);
         }
         //eject disk currently works as a shutdown checkbutton when the program is done installing
@@ -224,6 +239,8 @@ public partial class MainWindow : Window
             // System.Diagnostics.Process.Start("cmd.exe", CMDText);
             Environment.Exit(0);
         }
+
+        ProgressBarInstall.Value = 100;
         OfficeCheckBox.IsChecked = false;
         TeamsCheckBox.IsChecked = false;
         OrdnettCheckBox.IsChecked = false;
@@ -237,4 +254,26 @@ public partial class MainWindow : Window
         EjectDiskCheckBox.IsChecked = false;
 
     }
+    
+    //Fixes
+    public void FaktorKnapp(object sender, RoutedEventArgs e)
+    {
+        System.Diagnostics.Process.Start("https://aka.ms/mfasetup");
+    }
+
+    public void ResetPassord(object sender, RoutedEventArgs e)
+    {
+        System.Diagnostics.Process.Start("https://start.innlandetfylke.no/");
+    }
+
+    public void SkrivUt(object sender, RoutedEventArgs e)
+    {
+        System.Diagnostics.Process.Start("https://innlandetfylke.eu.uniflowonline.com/");
+    }
+
+    public void Dism(object sender, RoutedEventArgs e)
+    {
+        System.Diagnostics.Process.Start("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth");
+    }
+    
 }

@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ProgramApp.MainWindow"
         Title="ProgramApp"
-        Width="500" Height="500"
+        Width="550" Height="525"
         Background="#2C2F33"
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True"
@@ -21,7 +21,10 @@
             <Setter Property="CornerRadius" Value="6"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
-
+        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="LawnGreen"/>
+            <Setter Property="TextBlock.Foreground" Value="{DynamicResource Button.Foreground}"/>
+        </Style>
         <Style Selector="CheckBox">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -114,7 +117,7 @@
     </CheckBox>
     <CheckBox x:Name="WebShortcutCheckBox" Grid.Row="2" Grid.Column="2">
         <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/WebShortcutIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
+            <Image Source="Assets/WebShortcutKIIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
             <TextBlock Text="Elvis Lenker" VerticalAlignment="Center"/>
         </StackPanel>
     </CheckBox>
@@ -130,7 +133,9 @@
 
                 <CheckBox x:Name="EjectDiskCheckBox" HorizontalAlignment="Center" Content="Exit"/>
                 <Button Content="Install" Click="InstallButton" Margin="0,10,0,0" HorizontalAlignment="Center"/>
-
+                <ProgressBar  x:Name="ProgressBarInstall" Margin="0 10" Height="20" 
+                              Minimum="0" Maximum="100" Value="0"
+                              ShowProgressText="True"/>
                 <TextBlock Text="© 2024 KasperKilde Inc. All rights reserved."
                            FontSize="12"
                            Margin="0,10,0,0"
@@ -147,7 +152,30 @@
                            Margin="0,0,0,20"
                            Foreground="#7289DA"
                            HorizontalAlignment="Center"/>
-                <TextBlock Text="No fixes available at the moment."
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--First Row-->
+                    <Button Grid.Row="0" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Remove ADD</Button>
+                    <Button Grid.Row="0" Grid.Column="1" Width="150" HorizontalContentAlignment="Center">SFC Scan</Button>
+                    <Button Grid.Row="0" Grid.Column="2" Width="150" HorizontalContentAlignment="Center">Update PC</Button>
+                    <!--Second Row-->
+                    <Button Click="FaktorKnapp" Grid.Row="1" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Aka.ms/mfasetup</Button>
+                    <Button Click="SkrivUt" Grid.Row="1" Grid.Column="1" Width="150" HorizontalContentAlignment="Center">Skriv Ut</Button>
+                    <Button Click="ResetPassord" Grid.Row="1" Grid.Column="2" Width="150" HorizontalContentAlignment="Center">Reset Passord</Button>
+                </Grid>
+                <TextBlock Text="Ingen av disse har funksjoner ennå"
                            FontSize="14"
                            HorizontalAlignment="Center"
                            Foreground="#FFFFFF"/>

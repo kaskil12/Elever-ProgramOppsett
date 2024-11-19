@@ -1818,19 +1818,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kaspe\\.nuget\\packages\\": {}
+    "/home/kaskil/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kaspe\\Documents\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj",
+      "projectUniqueName": "/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/ProgramApp.csproj",
       "projectName": "ProgramApp",
-      "projectPath": "C:\\Users\\kaspe\\Documents\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj",
-      "packagesPath": "C:\\Users\\kaspe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kaspe\\Documents\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\obj\\",
+      "projectPath": "/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/ProgramApp.csproj",
+      "packagesPath": "/home/kaskil/.nuget/packages/",
+      "outputPath": "/home/kaskil/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kaspe\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/kaskil/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1852,9 +1852,8 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+        "auditMode": "direct"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -1896,10 +1895,6 @@
         "warn": true,
         "downloadDependencies": [
           {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
             "version": "[8.0.11, 8.0.11]"
           },
@@ -1908,19 +1903,7 @@
             "version": "[8.0.11, 8.0.11]"
           },
           {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
             "version": "[8.0.11, 8.0.11]"
           }
         ],
@@ -1929,7 +1912,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
