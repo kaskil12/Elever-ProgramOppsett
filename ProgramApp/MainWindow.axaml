@@ -167,13 +167,15 @@
                     </Grid.RowDefinitions>
                     
                     <!--First Row-->
-                    <Button Grid.Row="0" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Remove ADD</Button>
-                    <Button Grid.Row="0" Grid.Column="1" Width="150" HorizontalContentAlignment="Center">SFC Scan</Button>
-                    <Button Grid.Row="0" Grid.Column="2" Width="150" HorizontalContentAlignment="Center">Update PC</Button>
+                    <Button Click="RemoveAdd" Grid.Row="0" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Remove ADD</Button>
+                    <Button Click="SfcScan" Grid.Row="0" Grid.Column="1" Width="150" HorizontalContentAlignment="Center">SFC Scan</Button>
+                    <Button Click="UpdatePc" Grid.Row="0" Grid.Column="2" Width="150" HorizontalContentAlignment="Center">Update PC</Button>
                     <!--Second Row-->
                     <Button Click="FaktorKnapp" Grid.Row="1" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Aka.ms/mfasetup</Button>
                     <Button Click="SkrivUt" Grid.Row="1" Grid.Column="1" Width="150" HorizontalContentAlignment="Center">Skriv Ut</Button>
                     <Button Click="ResetPassord" Grid.Row="1" Grid.Column="2" Width="150" HorizontalContentAlignment="Center">Reset Passord</Button>
+                    <!--Third Row-->
+                    <Button Click="Dism" Grid.Row="2" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Dism</Button>
                 </Grid>
                 <TextBlock Text="Ingen av disse har funksjoner ennå"
                            FontSize="14"

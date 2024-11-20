@@ -275,5 +275,18 @@ public partial class MainWindow : Window
     {
         System.Diagnostics.Process.Start("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth");
     }
+
+    public void UpdatePc(object sender, RoutedEventArgs e)
+    {
+        //Update PC FUNCTION
+    }
+    public void RemoveAdd(object sender, RoutedEventArgs e)
+    {
+        //Remove ADD
+    }
+    public void SfcScan(object sender, RoutedEventArgs e)
+    {
+        System.Diagnostics.Process.Start("cmd.exe", $"sfc /Scannow");
+    }
     
 }
