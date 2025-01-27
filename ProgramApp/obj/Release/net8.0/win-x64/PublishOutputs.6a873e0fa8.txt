@@ -1,0 +1,2 @@
+C:\Users\kasper\OneDrive - Innlandet fylkeskommune\Dokumenter\GitHub\Elever-ProgramOppsett\ProgramApp\bin\Release\net8.0\win-x64\publish\ProgramApp.pdb
+C:\Users\kasper\OneDrive - Innlandet fylkeskommune\Dokumenter\GitHub\Elever-ProgramOppsett\ProgramApp\bin\Release\net8.0\win-x64\publish\ProgramApp.exe

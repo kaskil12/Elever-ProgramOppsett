@@ -697,46 +697,46 @@
         },
         "native": {
           "Microsoft.DiaSymReader.Native.amd64.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "14.40.33810.0"
           },
           "System.IO.Compression.Native.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "clretwrc.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "clrgc.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "clrjit.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "coreclr.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "createdump.exe": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "hostfxr.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "hostpolicy.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "mscordaccore.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "mscordaccore_amd64_amd64_8.0.1124.51707.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "mscordbi.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "mscorrc.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "8.0.1124.51707"
           },
           "msquic.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "2.3.5.0"
           }
         }
       },
@@ -796,7 +796,7 @@
       "Avalonia.Angle.Windows.Natives/2.1.22045.20230930": {
         "native": {
           "runtimes/win-x64/native/av_libglesv2.dll": {
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "2.1.22045.0"
           }
         }
       },

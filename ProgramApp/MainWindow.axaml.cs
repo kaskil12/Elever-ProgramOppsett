@@ -12,6 +12,7 @@ public partial class MainWindow : Window
     private bool _teamsDownload;
     private bool _ordnettDownload;
     private bool _vsCodeDownload;
+    private bool _thonnyDownload;
     private bool _chromeDownload;
     private bool _firefoxDownload;
     private bool _pythonDownload;
@@ -43,6 +44,7 @@ public partial class MainWindow : Window
         _teamsDownload = false;
         _ordnettDownload = false;
         _vsCodeDownload = false;
+        _thonnyDownload = false;
         _chromeDownload = false;
         _firefoxDownload = false;
         _pythonDownload = false;
@@ -65,6 +67,10 @@ public partial class MainWindow : Window
         if (VsCodeCheckBox.IsChecked == true)
         {
             _vsCodeDownload = true;
+        }
+        if (ThonnyCheckBox.IsChecked == true)
+        {
+            _thonnyDownload = true;
         }
         if (ChromeCheckBox.IsChecked == true)
         {
@@ -154,7 +160,18 @@ public partial class MainWindow : Window
         if (_vsCodeDownload)
         {
             ProgressBarInstall.Value = 0;
-            cmdText = "/c start /wait .\\pkgs\\VsCodeOffline\\Code.exe";
+            cmdText = "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode";
+            processStartInfo.Arguments = cmdText;
+            var process = Process.Start(processStartInfo);
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
+        }
+        if(_thonnyDownload)
+        {
+            ProgressBarInstall.Value = 0;
+            cmdText = "/c start /wait .\\pkgs\\ThonnyOffline\\thonny-4.0.0 - 64bit.exe /S";
             processStartInfo.Arguments = cmdText;
             var process = Process.Start(processStartInfo);
             if (process != null)
@@ -245,6 +262,7 @@ public partial class MainWindow : Window
         TeamsCheckBox.IsChecked = false;
         OrdnettCheckBox.IsChecked = false;
         VsCodeCheckBox.IsChecked = false;
+        ThonnyCheckBox.IsChecked = false;
         ChromeCheckBox.IsChecked = false;
         FirefoxCheckBox.IsChecked = false;
         PythonCheckBox.IsChecked = false;
