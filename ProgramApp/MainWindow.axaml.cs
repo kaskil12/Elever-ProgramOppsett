@@ -178,6 +178,7 @@ public partial class MainWindow : Window
             {
                 process.WaitForExit();
             }
+            System.Diagnostics.Process.Start("https://micropython.org/");
         }
 
         if (_chromeDownload)
