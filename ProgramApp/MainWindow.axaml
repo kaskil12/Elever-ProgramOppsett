@@ -1,198 +1,1105 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="ProgramApp.MainWindow"
-        Title="ProgramApp"
-        Width="550" Height="525"
-        Background="#2C2F33"
-        TransparencyLevelHint="AcrylicBlur"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="SystemChrome, PreferSystemChrome">
+<Window
+    x:Class="ProgramApp.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Enterprise Installation Suite"
+    Width="900"
+    Height="650"
+    d:DesignHeight="650"
+    d:DesignWidth="900"
+    Background="#1E1E1E"
+    ExtendClientAreaChromeHints="SystemChrome, PreferSystemChrome"
+    ExtendClientAreaToDecorationsHint="True"
+    TransparencyLevelHint="AcrylicBlur"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Offset="0" Color="#4B6EAF" />
+            <GradientStop Offset="1" Color="#5D54A4" />
+        </LinearGradientBrush>
+    </Window.Resources>
 
     <Window.Styles>
-        <Style Selector="Button">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="Background" Value="#7289DA"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Style Selector="Button.primary">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="Background" Value="#4B6EAF" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
+                </Transitions>
+            </Setter>
         </Style>
-        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="LawnGreen"/>
-            <Setter Property="TextBlock.Foreground" Value="{DynamicResource Button.Foreground}"/>
+
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#5D7DC0" />
+            <Setter Property="RenderTransform" Value="scale(1.02)" />
         </Style>
+
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#3B5998" />
+            <Setter Property="RenderTransform" Value="scale(0.98)" />
+        </Style>
+
         <Style Selector="CheckBox">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="Margin" Value="0,8,0,8"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Margin" Value="5,10,5,10" />
+            <Setter Property="Foreground" Value="#E0E0E0" />
+        </Style>
+
+        <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
+            <Setter Property="Background" Value="#4B6EAF" />
+            <Setter Property="BorderBrush" Value="#4B6EAF" />
         </Style>
 
         <Style Selector="TextBlock">
-            <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Foreground" Value="#E0E0E0" />
+        </Style>
+
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="15,10" />
+            <Setter Property="Margin" Value="0,0,1,0" />
+            <Setter Property="Foreground" Value="#E0E0E0" />
+            <Setter Property="Background" Value="#2D2D30" />
+        </Style>
+
+        <Style Selector="TabItem:selected">
+            <Setter Property="Background" Value="#3E3E42" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="ProgressBar">
+            <Setter Property="Height" Value="8" />
+            <Setter Property="Foreground" Value="#4B6EAF" />
+            <Setter Property="Background" Value="#333337" />
         </Style>
     </Window.Styles>
 
-    <TabControl>
-        <TabItem Header="Programs">
-            <StackPanel Margin="10" Spacing="5">
-                <TextBlock Text="Select Programs to Install"
-                           FontSize="20"
-                           FontWeight="Bold"
-                           Margin="0,0,0,20"
-                           Foreground="#7289DA"
-                           HorizontalAlignment="Center"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-               <Grid>
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
+        <!--  Header Banner  -->
+        <Border
+            Grid.Row="0"
+            Height="80"
+            Background="{StaticResource HeaderGradient}"
+            BoxShadow="0 2 10 0 #15000000">
+            <Grid>
+                <StackPanel
+                    Margin="20,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <!-- <Image
+                        Width="48"
+                        Height="48"
+                        Margin="0,0,15,0"
+                        Source="Assets/CompanyLogo.png" />-->
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="24"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Text="Enterprise Installation Suite" />
+                        <TextBlock
+                            Margin="0,2,0,0"
+                            FontSize="14"
+                            Foreground="#DDFFFFFF"
+                            Text="Streamlined Software Deployment" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel
+                    Margin="0,0,20,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="40"
+                        Height="40"
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Classes="primary">
+                        <!-- <Image
+                            Width="20"
+                            Height="20"
+                            Source="Assets/SettingsIcon.png" />-->
+                    </Button>
+                    <Button
+                        Width="40"
+                        Height="40"
+                        Margin="10,0,0,0"
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Classes="primary">
+                        <!-- <Image
+                            Width="20"
+                            Height="20"
+                            Source="Assets/HelpIcon.png" />-->
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
 
-    <!-- First Row -->
-    <CheckBox x:Name="OfficeCheckBox" Grid.Row="0" Grid.Column="0">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/OfficeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="Office" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
-    <CheckBox x:Name="TeamsCheckBox" Grid.Row="0" Grid.Column="1">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/TeamsIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="Teams" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
-    <CheckBox x:Name="VsCodeCheckBox" Grid.Row="0" Grid.Column="2">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/VSCodeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="VSCode" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
+        <!--  Main Content  -->
+        <TabControl
+            Grid.Row="1"
+            Margin="0"
+            Padding="0"
+            Background="Transparent">
+            <TabItem Header="Software Installation">
+                <Grid Margin="20" RowDefinitions="Auto,*,Auto,Auto">
+                    <StackPanel Grid.Row="0">
+                        <TextBlock
+                            Margin="0,5,0,15"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Foreground="#4B6EAF"
+                            Text="Software Deployment Center" />
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            FontSize="14"
+                            Opacity="0.9"
+                            Text="Select software packages to install on this system. You can customize your installation by selecting only the applications needed."
+                            TextWrapping="Wrap" />
 
-    <!-- Second Row -->
-    <CheckBox x:Name="GeoGebraCheckBox" Grid.Row="1" Grid.Column="0">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/GeoGebraIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="GeoGebra" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
-    <CheckBox x:Name="OrdnettCheckBox" Grid.Row="1" Grid.Column="1">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/OrdnettIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="Ordnett" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
-    <CheckBox x:Name="ChromeCheckBox" Grid.Row="1" Grid.Column="2">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/ChromeIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="Chrome" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
+                        <Border
+                            Margin="0,0,0,15"
+                            Padding="15"
+                            Background="#252526"
+                            CornerRadius="4">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <!-- <Image
+                                        Width="20"
+                                        Height="20"
+                                        Source="Assets/InfoIcon.png" />-->
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="13"
+                                        Foreground="#CCCCCC"
+                                        Text="Recommended packages for this system are pre-selected based on hardware configuration and user profile."
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
 
-    <!-- Third Row -->
-    <CheckBox x:Name="FirefoxCheckBox" Grid.Row="2" Grid.Column="0">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/FirefoxIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="FireFox" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
-    <CheckBox x:Name="PythonCheckBox" Grid.Row="2" Grid.Column="1">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/PythonIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="Python" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
-    <CheckBox x:Name="WebShortcutCheckBox" Grid.Row="2" Grid.Column="2">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/WebShortcutKIIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="Elvis Lenker" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
+                    <ScrollViewer
+                        Grid.Row="1"
+                        Margin="0,10,0,20"
+                        VerticalScrollBarVisibility="Auto">
+                        <Grid Margin="0,5">
+                            <!--  Categories panel on the left  -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-    <!-- Fourth Row -->
-    <CheckBox x:Name="WebShortcutKICheckBox" Grid.Row="3" Grid.Column="0">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/WebShortcutKIIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="Karriere Lenker" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
-    <CheckBox x:Name="ThonnyCheckBox" Grid.Row="3" Grid.Column="1">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Assets/ThonnyIcon.png" Width="24" Height="24" Margin="0,0,5,0"/>
-            <TextBlock Text="Thonny" VerticalAlignment="Center"/>
-        </StackPanel>
-    </CheckBox>
-</Grid>
+                            <!--  Categories  -->
+                            <Border
+                                Grid.Column="0"
+                                Margin="0,0,15,0"
+                                Background="#252526"
+                                CornerRadius="4">
+                                <StackPanel Margin="10">
+                                    <TextBlock
+                                        Margin="5,5,5,10"
+                                        FontSize="14"
+                                        FontWeight="SemiBold"
+                                        Foreground="#4B6EAF"
+                                        Text="CATEGORIES" />
+                                    <Button
+                                        Padding="10"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Classes="primary"
+                                        FontWeight="SemiBold"
+                                        Foreground="#E0E0E0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <!-- <Image
+                                                Width="16"
+                                                Height="16"
+                                                Margin="0,0,10,0"
+                                                Source="Assets/ProductivityIcon.png" />-->
+                                            <TextBlock Text="Productivity" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Padding="10"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Classes="primary"
+                                        Foreground="#E0E0E0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <!-- <Image
+                                                Width="16"
+                                                Height="16"
+                                                Margin="0,0,10,0"
+                                                Source="Assets/DevelopmentIcon.png" />-->
+                                            <TextBlock Text="Development" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Padding="10"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Classes="primary"
+                                        Foreground="#E0E0E0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <!-- <Image
+                                                Width="16"
+                                                Height="16"
+                                                Margin="0,0,10,0"
+                                                Source="Assets/BrowsersIcon.png" />
+                                            <TextBlock Text="Browsers" />-->
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Padding="10"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Classes="primary"
+                                        Foreground="#E0E0E0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <!-- <Image
+                                                Width="16"
+                                                Height="16"
+                                                Margin="0,0,10,0"
+                                                Source="Assets/EducationIcon.png" />
+                                            <TextBlock Text="Education" />-->
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Padding="10"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Classes="primary"
+                                        Foreground="#E0E0E0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <!-- <Image
+                                                Width="16"
+                                                Height="16"
+                                                Margin="0,0,10,0"
+                                                Source="Assets/UtilityIcon.png" />-->
+                                            <TextBlock Text="Utilities" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
 
-                <CheckBox x:Name="EjectDiskCheckBox" HorizontalAlignment="Center" Content="Exit"/>
-                <Button Content="Install" Click="InstallButton" Margin="0,10,0,0" HorizontalAlignment="Center"/>
-                <ProgressBar  x:Name="ProgressBarInstall" Margin="0 10" Height="20" 
-                              Minimum="0" Maximum="100" Value="0"
-                              ShowProgressText="True"/>
-                <TextBlock Text="© 2024 KasperKilde Inc. All rights reserved."
-                           FontSize="12"
-                           Margin="0,10,0,0"
-                           HorizontalAlignment="Center"
-                           Foreground="#6f7271"/>
-            </StackPanel>
-        </TabItem>
+                            <!--  Software selection grid  -->
+                            <Border
+                                Grid.Column="1"
+                                Background="#252526"
+                                CornerRadius="4">
+                                <Grid Margin="15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
 
-        <TabItem Header="Fixes">
-            <StackPanel Margin="10" Spacing="5">
-                <TextBlock Text="Fixes and Updates"
-                           FontSize="20"
-                           FontWeight="Bold"
-                           Margin="0,0,0,20"
-                           Foreground="#7289DA"
-                           HorizontalAlignment="Center"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    
-                    <!--First Row-->
-                    <Button Click="RemoveAdd" Grid.Row="0" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Remove ADD</Button>
-                    <Button Click="SfcScan" Grid.Row="0" Grid.Column="1" Width="150" HorizontalContentAlignment="Center">SFC Scan</Button>
-                    <Button Click="UpdatePc" Grid.Row="0" Grid.Column="2" Width="150" HorizontalContentAlignment="Center">Update PC</Button>
-                    <!--Second Row-->
-                    <Button Click="FaktorKnapp" Grid.Row="1" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Aka.ms/mfasetup</Button>
-                    <Button Click="SkrivUt" Grid.Row="1" Grid.Column="1" Width="150" HorizontalContentAlignment="Center">Skriv Ut</Button>
-                    <Button Click="ResetPassord" Grid.Row="1" Grid.Column="2" Width="150" HorizontalContentAlignment="Center">Reset Passord</Button>
-                    <!--Third Row-->
-                    <Button Click="Dism" Grid.Row="2" Grid.Column="0" Width="150" HorizontalContentAlignment="Center">Dism</Button>
+                                    <!--  Search and filter  -->
+                                    <Grid Grid.Row="0" Margin="0,0,0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox
+                                            Grid.Column="0"
+                                            Margin="0,0,10,0"
+                                            Watermark="Search software..." />
+                                        <Button
+                                            Grid.Column="1"
+                                            Width="120"
+                                            Classes="primary"
+                                            Content="Quick Select" />
+                                    </Grid>
+
+                                    <!--  Software checkboxes in a WrapPanel  -->
+                                    <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                                        <!--  Office  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/OfficeIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Microsoft Office" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Word, Excel, PowerPoint, Outlook"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 2025 Enterprise" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="OfficeCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    IsChecked="True" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  Teams  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/TeamsIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Microsoft Teams" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Collaboration and communication platform"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 2025 Enterprise" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="TeamsCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    IsChecked="True" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  VSCode  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/VSCodeIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="VS Code" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Lightweight code editor for development"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 1.88.3" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="VsCodeCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  GeoGebra  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/GeoGebraIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="GeoGebra" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Dynamic mathematics software"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 6.0.784" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="GeoGebraCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  Ordnett  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/OrdnettIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Ordnett" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Dictionary and language tool"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 2025" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="OrdnettCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  Chrome  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/ChromeIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Google Chrome" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Fast and secure web browser"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 126.0.6478.65" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="ChromeCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    IsChecked="True" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  Firefox  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/FirefoxIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Mozilla Firefox" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Private and secure web browser"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 126.0" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="FirefoxCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  Python  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/PythonIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Python" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Programming language with scientific libraries"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 3.12.2" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="PythonCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  Web Shortcuts  -->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#2D2D30"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/WebShortcutKIIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Web Shortcuts" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Enterprise web portal shortcuts"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Elvis &amp; Karriere links" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="WebShortcutKICheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    IsChecked="True" />
+                                            </Grid>
+                                        </Border>
+                                    </WrapPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ScrollViewer>
+
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="0,10,0,15"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <CheckBox
+                            x:Name="CreateDesktopShortcutsCheckBox"
+                            Margin="0,0,15,0"
+                            Content="Create desktop shortcuts"
+                            IsChecked="True" />
+                        <CheckBox
+                            x:Name="LaunchOnCompleteCheckBox"
+                            Margin="0,0,15,0"
+                            Content="Launch applications when complete" />
+                        <CheckBox
+                            x:Name="EjectDiskCheckBox"
+                            Margin="0"
+                            Content="Exit after installation" />
+                    </StackPanel>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                            <TextBlock
+                                x:Name="StatusText"
+                                FontSize="13"
+                                Opacity="0.7"
+                                Text="Ready to install. 3 applications selected." />
+                            <ProgressBar
+                                x:Name="ProgressBarInstall"
+                                Width="350"
+                                Margin="0,8,20,0"
+                                HorizontalAlignment="Left"
+                                Maximum="100"
+                                Minimum="0"
+                                ShowProgressText="True"
+                                Value="0" />
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                            <Button
+                                Width="120"
+                                Margin="0,0,10,0"
+                                Background="Transparent"
+                                Classes="primary"
+                                Content="Cancel" />
+                            <Button
+                                Width="150"
+                                Classes="primary"
+                                Click="InstallButton"
+                                Content="Install Selected" />
+                            <Button Click="InstallButton" Content="Click Me" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-                <TextBlock Text="Ingen av disse har funksjoner ennå"
-                           FontSize="14"
-                           HorizontalAlignment="Center"
-                           Foreground="#FFFFFF"/>
-                <TextBlock Text="© 2024 KasperKilde Inc. All rights reserved."
-                           FontSize="12"
-                           Margin="0,20,0,0"
-                           HorizontalAlignment="Center"
-                           Foreground="#6f7271"/>
-            </StackPanel>
-        </TabItem>
-    </TabControl>
+            </TabItem>
+
+            <TabItem Header="System Maintenance">
+                <Grid Margin="20" RowDefinitions="Auto,*,Auto">
+                    <StackPanel Grid.Row="0">
+                        <TextBlock
+                            Margin="0,5,0,15"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Foreground="#4B6EAF"
+                            Text="System Tools and Maintenance" />
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            FontSize="14"
+                            Opacity="0.9"
+                            Text="Maintain system performance and stability with these diagnostic and repair tools."
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  System Tools  -->
+                            <Border
+                                Grid.Column="0"
+                                Margin="0,0,10,0"
+                                Padding="15"
+                                Background="#252526"
+                                CornerRadius="4">
+                                <StackPanel>
+                                    <StackPanel Margin="0,0,0,15" Orientation="Horizontal">
+                                        <!-- <Image
+                                            Width="24"
+                                            Height="24"
+                                            Margin="0,0,10,0"
+                                            Source="Assets/ToolsIcon.png" />-->
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="16"
+                                            FontWeight="SemiBold"
+                                            Foreground="#4B6EAF"
+                                            Text="SYSTEM TOOLS" />
+                                    </StackPanel>
+
+                                    <StackPanel Spacing="10">
+                                        <Button Classes="primary" Click="SfcScan">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- <Image
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,0,10,0"
+                                                    Source="Assets/ScanIcon.png" />-->
+                                                <TextBlock Text="System File Checker (SFC)" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Classes="primary" Click="Dism">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- <Image
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,0,10,0"
+                                                    Source="Assets/DismIcon.png" />-->
+                                                <TextBlock Text="Deployment Image Servicing (DISM)" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Classes="primary" Click="UpdatePc">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- <Image
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,0,10,0"
+                                                    Source="Assets/UpdateIcon.png" />-->
+                                                <TextBlock Text="Check for System Updates" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Classes="primary" Click="RemoveAdd">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- <Image
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,0,10,0"
+                                                    Source="Assets/CleanupIcon.png" />-->
+                                                <TextBlock Text="Remove Advertisements" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+
+                                    <TextBlock
+                                        Margin="0,25,0,15"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Foreground="#4B6EAF"
+                                        Text="System Information" />
+
+                                    <Border
+                                        Padding="10"
+                                        Background="#2D2D30"
+                                        CornerRadius="4">
+                                        <Grid
+                                            Margin="5"
+                                            ColumnDefinitions="Auto,*"
+                                            RowDefinitions="Auto,Auto,Auto,Auto">
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Margin="0,5,10,5"
+                                                Opacity="0.8"
+                                                Text="OS Version:" />
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Margin="0,5,0,5"
+                                                Text="Windows 11 Enterprise 24H1" />
+
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Margin="0,5,10,5"
+                                                Opacity="0.8"
+                                                Text="CPU:" />
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Margin="0,5,0,5"
+                                                Text="Intel Core i7-13700K" />
+
+                                            <TextBlock
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Margin="0,5,10,5"
+                                                Opacity="0.8"
+                                                Text="RAM:" />
+                                            <TextBlock
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Margin="0,5,0,5"
+                                                Text="32 GB DDR5-5600" />
+
+                                            <TextBlock
+                                                Grid.Row="3"
+                                                Grid.Column="0"
+                                                Margin="0,5,10,5"
+                                                Opacity="0.8"
+                                                Text="Storage:" />
+                                            <TextBlock
+                                                Grid.Row="3"
+                                                Grid.Column="1"
+                                                Margin="0,5,0,5"
+                                                Text="1TB NVMe SSD (58% free)" />
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <!--  User Tools  -->
+                            <Border
+                                Grid.Column="1"
+                                Margin="10,0,0,0"
+                                Padding="15"
+                                Background="#252526"
+                                CornerRadius="4">
+                                <StackPanel>
+                                    <StackPanel Margin="0,0,0,15" Orientation="Horizontal">
+                                        <!-- <Image
+                                            Width="24"
+                                            Height="24"
+                                            Margin="0,0,10,0"
+                                            Source="Assets/UserIcon.png" />-->
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="16"
+                                            FontWeight="SemiBold"
+                                            Foreground="#4B6EAF"
+                                            Text="USER ACCOUNT TOOLS" />
+                                    </StackPanel>
+
+                                    <StackPanel Spacing="10">
+                                        <Button Classes="primary" Click="FaktorKnapp">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- <Image
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,0,10,0"
+                                                    Source="Assets/SecurityIcon.png" />-->
+                                                <TextBlock Text="Configure Multi-Factor Authentication" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Classes="primary" Click="ResetPassord">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- <Image
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,0,10,0"
+                                                    Source="Assets/PasswordIcon.png" />-->
+                                                <TextBlock Text="Reset Password" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Classes="primary" Click="SkrivUt">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- <Image
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,0,10,0"
+                                                    Source="Assets/PrintIcon.png" />-->
+                                                <TextBlock Text="Print User Configuration" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Classes="primary" Click="BackupUserData">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- <Image
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,0,10,0"
+                                                    Source="Assets/BackupIcon.png" />-->
+                                                <TextBlock Text="Backup User Data" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+
+                                    <TextBlock
+                                        Margin="0,25,0,15"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Foreground="#4B6EAF"
+                                        Text="User Information" />
+
+                                    <Border
+                                        Padding="10"
+                                        Background="#2D2D30"
+                                        CornerRadius="4">
+                                        <Grid
+                                            Margin="5"
+                                            ColumnDefinitions="Auto,*"
+                                            RowDefinitions="Auto,Auto,Auto,Auto">
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Margin="0,5,10,5"
+                                                Opacity="0.8"
+                                                Text="Username:" />
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Margin="0,5,0,5"
+                                                Text="JohnDoe" />
+
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Margin="0,5,10,5"
+                                                Opacity="0.8"
+                                                Text="Email:" />
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Margin="0,5,0,5"
+                                                Text="john.doe@enterprise.com" />
+
+                                            <TextBlock
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Margin="0,5,10,5"
+                                                Opacity="0.8"
+                                                Text="Last Login:" />
+                                            <TextBlock
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Margin="0,5,0,5"
+                                                Text="2023-10-15 14:30" />
+
+                                            <TextBlock
+                                                Grid.Row="3"
+                                                Grid.Column="0"
+                                                Margin="0,5,10,5"
+                                                Opacity="0.8"
+                                                Text="Account Status:" />
+                                            <TextBlock
+                                                Grid.Row="3"
+                                                Grid.Column="1"
+                                                Margin="0,5,0,5"
+                                                Text="Active" />
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </ScrollViewer>
+
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="120"
+                            Margin="0,0,10,0"
+                            Classes="primary"
+                            Click="RefreshSystemInfo"
+                            Content="Refresh" />
+                        <Button
+                            Width="150"
+                            Classes="primary"
+                            Click="RunAllChecks"
+                            Content="Run All Checks" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!--  Footer  -->
+        <Border
+            Grid.Row="2"
+            Height="50"
+            Padding="10"
+            Background="#252526">
+            <Grid>
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Opacity="0.7"
+                    Text="Enterprise Installation Suite v1.0.0" />
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Opacity="0.7"
+                    Text="© 2025 Kasper. All rights reserved." />
+            </Grid>
+        </Border>
+    </Grid>
 </Window>
