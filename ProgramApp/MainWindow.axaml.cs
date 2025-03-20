@@ -213,7 +213,8 @@ namespace ProgramApp
 
                 if (_ejectDisk)
                 {
-                    EjectDrive();
+                    Environment.Exit(0);
+
                 }
 
                 ProgressBarInstall.Value = 100;
@@ -236,37 +237,37 @@ namespace ProgramApp
 
         private void EjectDrive()
         {
-            try
-            {
-                foreach (var drive in DriveInfo.GetDrives())
-                {
-                    if (drive.IsReady && drive.DriveType == DriveType.Removable)
-                    {
-                        string driveLetter = drive.Name.Substring(0, 2);
-                        ProcessStartInfo processStartInfo = new ProcessStartInfo
-                        {
-                            FileName = "cmd.exe",
-                            Arguments = $"/c echo {driveLetter} & echo y | diskpart /s eject.txt",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            RedirectStandardError = true,
-                            CreateNoWindow = true
-                        };
+            // try
+            // {
+            //     foreach (var drive in DriveInfo.GetDrives())
+            //     {
+            //         if (drive.IsReady && drive.DriveType == DriveType.Removable)
+            //         {
+            //             string driveLetter = drive.Name.Substring(0, 2);
+            //             ProcessStartInfo processStartInfo = new ProcessStartInfo
+            //             {
+            //                 FileName = "cmd.exe",
+            //                 Arguments = $"/c echo {driveLetter} & echo y | diskpart /s eject.txt",
+            //                 UseShellExecute = false,
+            //                 RedirectStandardOutput = true,
+            //                 RedirectStandardError = true,
+            //                 CreateNoWindow = true
+            //             };
 
-                        var process = Process.Start(processStartInfo);
-                        if (process != null)
-                        {
-                            process.WaitForExit();
-                            Console.WriteLine($"Ejected drive: {driveLetter}");
-                        }
-                        break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error ejecting drive: {ex.Message}");
-            }
+            //             var process = Process.Start(processStartInfo);
+            //             if (process != null)
+            //             {
+            //                 process.WaitForExit();
+            //                 Console.WriteLine($"Ejected drive: {driveLetter}");
+            //             }
+            //             break;
+            //         }
+            //     }
+            // }
+            // catch (Exception ex)
+            // {
+            //     Console.WriteLine($"Error ejecting drive: {ex.Message}");
+            // }
         }
 
         public void SearchButton_Click(object sender, RoutedEventArgs e)
