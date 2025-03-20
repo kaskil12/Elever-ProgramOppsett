@@ -23,6 +23,10 @@ namespace ProgramApp
         private bool _ejectDisk;
         private string _currentDriveLetter = "D:";
 
+        // Add these fields for search and sort
+        private string _searchText = string.Empty;
+        private bool _sortByCategory = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -61,12 +65,10 @@ namespace ProgramApp
                 if (TeamsCheckBox.IsChecked == true) _teamsDownload = true;
                 if (OrdnettCheckBox.IsChecked == true) _ordnettDownload = true;
                 if (VsCodeCheckBox.IsChecked == true) _vsCodeDownload = true;
-                // if (ThonnyCheckBox.IsChecked == true) _thonnyDownload = true;
                 if (ChromeCheckBox.IsChecked == true) _chromeDownload = true;
                 if (FirefoxCheckBox.IsChecked == true) _firefoxDownload = true;
                 if (PythonCheckBox.IsChecked == true) _pythonDownload = true;
                 if (GeoGebraCheckBox.IsChecked == true) _geoGebraDownload = true;
-                // if (WebShortcutCheckBox.IsChecked == true) _webShortcut = true;
                 if (WebShortcutKICheckBox.IsChecked == true) _webShortcutKi = true;
                 if (EjectDiskCheckBox.IsChecked == true) _ejectDisk = true;
 
@@ -211,7 +213,7 @@ namespace ProgramApp
 
                 if (_ejectDisk)
                 {
-                    Environment.Exit(0);
+                    EjectDrive();
                 }
 
                 ProgressBarInstall.Value = 100;
@@ -219,12 +221,10 @@ namespace ProgramApp
                 TeamsCheckBox.IsChecked = false;
                 OrdnettCheckBox.IsChecked = false;
                 VsCodeCheckBox.IsChecked = false;
-                // ThonnyCheckBox.IsChecked = false;
                 ChromeCheckBox.IsChecked = false;
                 FirefoxCheckBox.IsChecked = false;
                 PythonCheckBox.IsChecked = false;
                 GeoGebraCheckBox.IsChecked = false;
-                // WebShortcutCheckBox.IsChecked = false;
                 WebShortcutKICheckBox.IsChecked = false;
                 EjectDiskCheckBox.IsChecked = false;
             }
@@ -232,6 +232,65 @@ namespace ProgramApp
             {
                 Console.WriteLine($"Error in InstallPrograms: {ex.Message}");
             }
+        }
+
+        private void EjectDrive()
+        {
+            try
+            {
+                foreach (var drive in DriveInfo.GetDrives())
+                {
+                    if (drive.IsReady && drive.DriveType == DriveType.Removable)
+                    {
+                        string driveLetter = drive.Name.Substring(0, 2);
+                        ProcessStartInfo processStartInfo = new ProcessStartInfo
+                        {
+                            FileName = "cmd.exe",
+                            Arguments = $"/c echo {driveLetter} & echo y | diskpart /s eject.txt",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true
+                        };
+
+                        var process = Process.Start(processStartInfo);
+                        if (process != null)
+                        {
+                            process.WaitForExit();
+                            Console.WriteLine($"Ejected drive: {driveLetter}");
+                        }
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error ejecting drive: {ex.Message}");
+            }
+        }
+
+        public void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            _searchText = SearchTextBox.Text;
+            FilterSoftwareList();
+        }
+
+        public void SortButton_Click(object sender, RoutedEventArgs e)
+        {
+            _sortByCategory = !_sortByCategory;
+            SortSoftwareList();
+        }
+
+        private void FilterSoftwareList()
+        {
+            // Implement filtering logic based on _searchText
+            // Update the UI to show only the filtered items
+        }
+
+        private void SortSoftwareList()
+        {
+            // Implement sorting logic based on _sortByCategory
+            // Update the UI to show the sorted items
         }
 
         //Fixes
