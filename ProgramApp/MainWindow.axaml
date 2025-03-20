@@ -12,6 +12,7 @@
     Background="White"
     ExtendClientAreaChromeHints="SystemChrome, PreferSystemChrome"
     ExtendClientAreaToDecorationsHint="True"
+    Icon="/Assets/Innlandet.png"
     TransparencyLevelHint="AcrylicBlur"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -1016,7 +1017,7 @@
                                                 Grid.Row="0"
                                                 Grid.Column="1"
                                                 Margin="0,5,0,5"
-                                                Text="JohnDoe" />
+                                                Text="Navn" />
 
                                             <TextBlock
                                                 Grid.Row="1"
