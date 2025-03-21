@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Enterprise Installation Suite"
+    Title="ProgramvareBiblotek"
     Width="900"
     Height="1100"
     d:DesignHeight="650"
@@ -208,24 +208,7 @@
                                         Text="Foreslåtte Programvare er valgt ut spesefikt for utdanning."
                                         TextWrapping="Wrap" />
                                 </StackPanel>
-                                <TextBox
-                                    x:Name="SearchTextBox"
-                                    Grid.Column="1"
-                                    Margin="10,0,10,0"
-                                    Watermark="søk..." />
-                                <Button
-                                    Grid.Column="2"
-                                    Width="120"
-                                    Classes="primary"
-                                    Click="SearchButton_Click"
-                                    Content="Søk" />
-                                <Button
-                                    Grid.Column="3"
-                                    Width="120"
-                                    Margin="0,0,10,0"
-                                    Classes="primary"
-                                    Click="SortButton_Click"
-                                    Content="Sorter" />
+                                
                             </Grid>
                         </Border>
                     </StackPanel>

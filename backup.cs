@@ -24,6 +24,8 @@ namespace ProgramApp
         private string _currentDriveLetter = "D:";
 
         // Add these fields for search and sort
+        private string _searchText = string.Empty;
+        private bool _sortByCategory = false;
 
         public MainWindow()
         {
@@ -270,11 +272,13 @@ namespace ProgramApp
 
         public void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            _searchText = SearchTextBox.Text;
             FilterSoftwareList();
         }
 
         public void SortButton_Click(object sender, RoutedEventArgs e)
         {
+            _sortByCategory = !_sortByCategory;
             SortSoftwareList();
         }
 
@@ -303,7 +307,7 @@ namespace ProgramApp
             }
         }
 
-        public void ResetPassord(object sender, RoutedEventArgs e)
+        public void ResetPassord(object sender, RoutedEventArgs e) //Reset password
         {
             try
             {
