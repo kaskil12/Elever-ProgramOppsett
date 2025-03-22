@@ -1,1 +1,7 @@
 dotnet publish -c Release -r win-x64 --self-contained
+
+To add new programs in the future, you just need to:
+
+Add a new entry to the _programs dictionary with the program details
+Add a checkbox in your XAML file
+Add the checkbox check state to the CollectInstallOptions method
