@@ -1,9 +1,9 @@
-using Avalonia.Controls;
-using Avalonia.Interactivity;
 using System;
 using System.Diagnostics;
 using System.IO;
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
 
 namespace ProgramApp
 {
@@ -33,7 +33,9 @@ namespace ProgramApp
 
             this.Opened += (sender, e) =>
             {
-                var screen = Screens.Primary ?? throw new InvalidOperationException("No primary screen detected.");
+                var screen =
+                    Screens.Primary
+                    ?? throw new InvalidOperationException("No primary screen detected.");
                 var screenWidth = screen.Bounds.Width;
                 var windowWidth = this.Width;
 
@@ -59,16 +61,26 @@ namespace ProgramApp
                 _webShortcutKi = false;
                 _ejectDisk = false;
 
-                if (OfficeCheckBox.IsChecked == true) _officeDownload = true;
-                if (TeamsCheckBox.IsChecked == true) _teamsDownload = true;
-                if (OrdnettCheckBox.IsChecked == true) _ordnettDownload = true;
-                if (VsCodeCheckBox.IsChecked == true) _vsCodeDownload = true;
-                if (ChromeCheckBox.IsChecked == true) _chromeDownload = true;
-                if (FirefoxCheckBox.IsChecked == true) _firefoxDownload = true;
-                if (PythonCheckBox.IsChecked == true) _pythonDownload = true;
-                if (GeoGebraCheckBox.IsChecked == true) _geoGebraDownload = true;
-                if (WebShortcutKICheckBox.IsChecked == true) _webShortcutKi = true;
-                if (EjectDiskCheckBox.IsChecked == true) _ejectDisk = true;
+                if (OfficeCheckBox.IsChecked == true)
+                    _officeDownload = true;
+                if (TeamsCheckBox.IsChecked == true)
+                    _teamsDownload = true;
+                if (OrdnettCheckBox.IsChecked == true)
+                    _ordnettDownload = true;
+                if (VsCodeCheckBox.IsChecked == true)
+                    _vsCodeDownload = true;
+                if (ChromeCheckBox.IsChecked == true)
+                    _chromeDownload = true;
+                if (FirefoxCheckBox.IsChecked == true)
+                    _firefoxDownload = true;
+                if (PythonCheckBox.IsChecked == true)
+                    _pythonDownload = true;
+                if (GeoGebraCheckBox.IsChecked == true)
+                    _geoGebraDownload = true;
+                if (WebShortcutKICheckBox.IsChecked == true)
+                    _webShortcutKi = true;
+                if (EjectDiskCheckBox.IsChecked == true)
+                    _ejectDisk = true;
 
                 InstallPrograms();
             }
@@ -98,43 +110,51 @@ namespace ProgramApp
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
                 };
 
                 if (_officeDownload)
                 {
                     ProgressBarInstall.Value = 0;
-                    cmdText = $"/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml";
+                    cmdText =
+                        $"/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                 }
 
                 if (_teamsDownload)
                 {
                     ProgressBarInstall.Value = 0;
-                    cmdText = $"/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{_currentDriveLetter}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"";
+                    cmdText =
+                        $"/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{_currentDriveLetter}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                 }
 
                 if (_ordnettDownload)
                 {
                     ProgressBarInstall.Value = 0;
-                    cmdText = $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb";
+                    cmdText =
+                        $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                 }
 
                 if (_vsCodeDownload)
                 {
                     ProgressBarInstall.Value = 0;
-                    cmdText = "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode";
+                    cmdText =
+                        "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                 }
 
                 if (_thonnyDownload)
@@ -143,7 +163,8 @@ namespace ProgramApp
                     cmdText = "/c start /wait .\\pkgs\\ThonnyOffline\\thonny-4.0.0 - 64bit.exe /S";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                     System.Diagnostics.Process.Start("https://micropython.org/");
                 }
 
@@ -153,7 +174,8 @@ namespace ProgramApp
                     cmdText = $"/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                 }
 
                 if (_firefoxDownload)
@@ -162,57 +184,67 @@ namespace ProgramApp
                     cmdText = $"/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                 }
 
                 if (_pythonDownload)
                 {
                     ProgressBarInstall.Value = 0;
-                    cmdText = $"/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1";
+                    cmdText =
+                        $"/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                 }
 
                 if (_geoGebraDownload)
                 {
                     ProgressBarInstall.Value = 0;
-                    cmdText = $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb";
+                    cmdText =
+                        $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb";
                     processStartInfo.Arguments = cmdText;
                     var process = Process.Start(processStartInfo);
-                    if (process != null) process.WaitForExit();
+                    if (process != null)
+                        process.WaitForExit();
                 }
 
                 if (_webShortcut)
                 {
                     ProgressBarInstall.Value = 0;
-                    cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\SharePoint.url\"); $s.TargetPath = 'https://innlandet.sharepoint.com'; $s.Save()";
+                    cmdText =
+                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\SharePoint.url\"); $s.TargetPath = 'https://innlandet.sharepoint.com'; $s.Save()";
                     System.Diagnostics.Process.Start("powershell.exe", cmdText);
 
-                    cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\VismaInSchool.url\"); $s.TargetPath = 'https://elverum-vgs.inschool.visma.no/Login.jsp'; $s.Save()";
+                    cmdText =
+                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\VismaInSchool.url\"); $s.TargetPath = 'https://elverum-vgs.inschool.visma.no/Login.jsp'; $s.Save()";
                     System.Diagnostics.Process.Start("powershell.exe", cmdText);
 
-                    cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\ElverumVGS.url\"); $s.TargetPath = 'http://elverum.vgs.no'; $s.Save()";
+                    cmdText =
+                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\ElverumVGS.url\"); $s.TargetPath = 'http://elverum.vgs.no'; $s.Save()";
                     System.Diagnostics.Process.Start("powershell.exe", cmdText);
                 }
 
                 if (_webShortcutKi)
                 {
                     ProgressBarInstall.Value = 0;
-                    cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereInnlandet.url\"); $s.TargetPath = 'https://www.karriereinnlandet.no/'; $s.Save()";
+                    cmdText =
+                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereInnlandet.url\"); $s.TargetPath = 'https://www.karriereinnlandet.no/'; $s.Save()";
                     System.Diagnostics.Process.Start("powershell.exe", cmdText);
 
-                    cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereInnsia.url\"); $s.TargetPath = 'https://innlandet.sharepoint.com/sites/Voksnedeltakere'; $s.Save()";
+                    cmdText =
+                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereInnsia.url\"); $s.TargetPath = 'https://innlandet.sharepoint.com/sites/Voksnedeltakere'; $s.Save()";
                     System.Diagnostics.Process.Start("powershell.exe", cmdText);
 
-                    cmdText = "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereVisma.url\"); $s.TargetPath = 'https://karriere-innlandet.inschool.visma.no/'; $s.Save()";
+                    cmdText =
+                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereVisma.url\"); $s.TargetPath = 'https://karriere-innlandet.inschool.visma.no/'; $s.Save()";
                     System.Diagnostics.Process.Start("powershell.exe", cmdText);
                 }
 
                 if (_ejectDisk)
                 {
                     Environment.Exit(0);
-
                 }
 
                 ProgressBarInstall.Value = 100;
@@ -331,7 +363,10 @@ namespace ProgramApp
         {
             try
             {
-                System.Diagnostics.Process.Start("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth");
+                System.Diagnostics.Process.Start(
+                    "cmd.exe",
+                    "DISM.exe /Online /Cleanup-image /Restorehealth"
+                );
             }
             catch (Exception ex)
             {
