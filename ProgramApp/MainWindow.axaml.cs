@@ -1,36 +1,181 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-
+#nullable enable
 namespace ProgramApp
 {
     public partial class MainWindow : Window
     {
-        private bool _officeDownload;
-        private bool _teamsDownload;
-        private bool _ordnettDownload;
-        private bool _vsCodeDownload;
-        private bool _thonnyDownload;
-        private bool _chromeDownload;
-        private bool _firefoxDownload;
-        private bool _pythonDownload;
-        private bool _geoGebraDownload;
-        private bool _webShortcut;
-        private bool _webShortcutKi;
-        private bool _ejectDisk;
+        // Configuration fields
+        private readonly Dictionary<string, bool> _installOptions = new Dictionary<string, bool>();
         private string _currentDriveLetter = "D:";
 
-        // Add these fields for search and sort
+        // Program definitions - easy to add new programs here
+        private readonly Dictionary<string, ProgramInfo> _programs = new Dictionary<
+            string,
+            ProgramInfo
+        >
+        {
+            {
+                "Office",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml",
+                    RequiresRemovableDrive = false,
+                }
+            },
+            {
+                "Teams",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{0}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"",
+                    RequiresRemovableDrive = true,
+                }
+            },
+            {
+                "Ordnett",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c msiexec /i \"{0}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb",
+                    RequiresRemovableDrive = true,
+                }
+            },
+            {
+                "VsCode",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode",
+                    RequiresRemovableDrive = false,
+                }
+            },
+            {
+                "Thonny",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c start /wait .\\pkgs\\ThonnyOffline\\thonny-4.0.0 - 64bit.exe /S",
+                    RequiresRemovableDrive = false,
+                    PostInstallAction = () => Process.Start("https://micropython.org/"),
+                }
+            },
+            {
+                "Chrome",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe",
+                    RequiresRemovableDrive = false,
+                }
+            },
+            {
+                "Firefox",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S",
+                    RequiresRemovableDrive = false,
+                }
+            },
+            {
+                "Python",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1",
+                    RequiresRemovableDrive = false,
+                }
+            },
+            {
+                "GeoGebra",
+                new ProgramInfo
+                {
+                    CommandTemplate =
+                        "/c msiexec /i \"{0}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb",
+                    RequiresRemovableDrive = true,
+                }
+            },
+        };
+
+        // Web shortcut definitions - easy to add new ones
+        private readonly Dictionary<string, List<WebShortcut>> _shortcutGroups = new Dictionary<
+            string,
+            List<WebShortcut>
+        >
+        {
+            {
+                "WebShortcut",
+                new List<WebShortcut>
+                {
+                    new WebShortcut
+                    {
+                        Name = "SharePoint",
+                        Url = "https://innlandet.sharepoint.com",
+                    },
+                    new WebShortcut
+                    {
+                        Name = "VismaInSchool",
+                        Url = "https://elverum-vgs.inschool.visma.no/Login.jsp",
+                    },
+                    new WebShortcut { Name = "ElverumVGS", Url = "http://elverum.vgs.no" },
+                }
+            },
+            {
+                "WebShortcutKi",
+                new List<WebShortcut>
+                {
+                    new WebShortcut
+                    {
+                        Name = "KarriereInnlandet",
+                        Url = "https://www.karriereinnlandet.no/",
+                    },
+                    new WebShortcut
+                    {
+                        Name = "KarriereInnsia",
+                        Url = "https://innlandet.sharepoint.com/sites/Voksnedeltakere",
+                    },
+                    new WebShortcut
+                    {
+                        Name = "KarriereVisma",
+                        Url = "https://karriere-innlandet.inschool.visma.no/",
+                    },
+                }
+            },
+        };
+
+        // URL mappings for quick fix buttons
+        private readonly Dictionary<string, string> _quickFixUrls = new Dictionary<string, string>
+        {
+            { "Factor", "https://aka.ms/mfasetup" },
+            { "ResetPassword", "https://start.innlandetfylke.no/" },
+            { "PrintService", "https://innlandetfylke.eu.uniflowonline.com/" },
+        };
+
+        // Command mappings for system operation buttons
+        private readonly Dictionary<string, (string executable, string arguments)> _systemCommands =
+            new Dictionary<string, (string, string)>
+            {
+                { "Dism", ("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth") },
+                { "SfcScan", ("cmd.exe", "sfc /Scannow") },
+                { "DiskCleanup", ("cleanmgr.exe", "") },
+            };
 
         public MainWindow()
         {
             InitializeComponent();
-            Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
-            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            CenterWindowAtTop();
+        }
 
+        private void CenterWindowAtTop()
+        {
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
             this.Opened += (sender, e) =>
             {
                 var screen =
@@ -38,267 +183,169 @@ namespace ProgramApp
                     ?? throw new InvalidOperationException("No primary screen detected.");
                 var screenWidth = screen.Bounds.Width;
                 var windowWidth = this.Width;
-
                 this.Position = new PixelPoint((int)((screenWidth - windowWidth) / 2), 0);
             };
         }
+
+        #region Installation Methods
 
         public void InstallButton(object sender, RoutedEventArgs e)
         {
             try
             {
                 ProgressBarInstall.Value = 0;
-                _officeDownload = false;
-                _teamsDownload = false;
-                _ordnettDownload = false;
-                _vsCodeDownload = false;
-                _thonnyDownload = false;
-                _chromeDownload = false;
-                _firefoxDownload = false;
-                _pythonDownload = false;
-                _geoGebraDownload = false;
-                _webShortcut = false;
-                _webShortcutKi = false;
-                _ejectDisk = false;
-
-                if (OfficeCheckBox.IsChecked == true)
-                    _officeDownload = true;
-                if (TeamsCheckBox.IsChecked == true)
-                    _teamsDownload = true;
-                if (OrdnettCheckBox.IsChecked == true)
-                    _ordnettDownload = true;
-                if (VsCodeCheckBox.IsChecked == true)
-                    _vsCodeDownload = true;
-                if (ChromeCheckBox.IsChecked == true)
-                    _chromeDownload = true;
-                if (FirefoxCheckBox.IsChecked == true)
-                    _firefoxDownload = true;
-                if (PythonCheckBox.IsChecked == true)
-                    _pythonDownload = true;
-                if (GeoGebraCheckBox.IsChecked == true)
-                    _geoGebraDownload = true;
-                if (WebShortcutKICheckBox.IsChecked == true)
-                    _webShortcutKi = true;
-                if (EjectDiskCheckBox.IsChecked == true)
-                    _ejectDisk = true;
-
+                CollectInstallOptions();
                 InstallPrograms();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in InstallButton: {ex.Message}");
+                LogError("InstallButton", ex);
             }
+        }
+
+        private void CollectInstallOptions()
+        {
+            // Clear all options
+            _installOptions.Clear();
+
+            // Add all checkbox values
+            _installOptions["Office"] = OfficeCheckBox.IsChecked == true;
+            _installOptions["Teams"] = TeamsCheckBox.IsChecked == true;
+            _installOptions["Ordnett"] = OrdnettCheckBox.IsChecked == true;
+            _installOptions["VsCode"] = VsCodeCheckBox.IsChecked == true;
+            _installOptions["Thonny"] = ThonnyCheckBox.IsChecked == true;
+            _installOptions["Chrome"] = ChromeCheckBox.IsChecked == true;
+            _installOptions["Firefox"] = FirefoxCheckBox.IsChecked == true;
+            _installOptions["Python"] = PythonCheckBox.IsChecked == true;
+            _installOptions["GeoGebra"] = GeoGebraCheckBox.IsChecked == true;
+            _installOptions["WebShortcut"] = WebShortcutCheckBox.IsChecked == true;
+            _installOptions["WebShortcutKi"] = WebShortcutKICheckBox.IsChecked == true;
+            _installOptions["EjectDisk"] = EjectDiskCheckBox.IsChecked == true;
         }
 
         private void InstallPrograms()
         {
             try
             {
-                foreach (var drive in DriveInfo.GetDrives())
+                DetectRemovableDrive();
+
+                // Install selected programs
+                foreach (var program in _programs)
                 {
-                    if (drive.IsReady && drive.DriveType == DriveType.Removable)
+                    if (_installOptions.TryGetValue(program.Key, out bool isSelected) && isSelected)
                     {
-                        _currentDriveLetter = drive.Name;
-                        break;
+                        InstallProgram(program.Key, program.Value);
                     }
                 }
 
-                string cmdText = "";
+                // Create shortcuts
+                foreach (var group in _shortcutGroups)
+                {
+                    if (_installOptions.TryGetValue(group.Key, out bool isSelected) && isSelected)
+                    {
+                        CreateShortcuts(group.Value);
+                    }
+                }
+
+                // Handle eject disk option
+                if (_installOptions.TryGetValue("EjectDisk", out bool shouldEject) && shouldEject)
+                {
+                    Environment.Exit(0);
+                }
+
+                // Finish up
+                ProgressBarInstall.Value = 100;
+                ResetCheckboxes();
+            }
+            catch (Exception ex)
+            {
+                LogError("InstallPrograms", ex);
+            }
+        }
+
+        private void DetectRemovableDrive()
+        {
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                if (drive.IsReady && drive.DriveType == DriveType.Removable)
+                {
+                    _currentDriveLetter = drive.Name;
+                    break;
+                }
+            }
+        }
+
+        private void InstallProgram(string programName, ProgramInfo program)
+        {
+            try
+            {
+                ProgressBarInstall.Value = 0;
+
+                string cmdText = program.RequiresRemovableDrive
+                    ? string.Format(program.CommandTemplate, _currentDriveLetter)
+                    : program.CommandTemplate;
+
                 ProcessStartInfo processStartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
+                    Arguments = cmdText,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     CreateNoWindow = true,
                 };
 
-                if (_officeDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText =
-                        $"/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                }
+                var process = Process.Start(processStartInfo);
+                if (process != null)
+                    process.WaitForExit();
 
-                if (_teamsDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText =
-                        $"/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{_currentDriveLetter}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                }
-
-                if (_ordnettDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText =
-                        $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                }
-
-                if (_vsCodeDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText =
-                        "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                }
-
-                if (_thonnyDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText = "/c start /wait .\\pkgs\\ThonnyOffline\\thonny-4.0.0 - 64bit.exe /S";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                    System.Diagnostics.Process.Start("https://micropython.org/");
-                }
-
-                if (_chromeDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText = $"/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                }
-
-                if (_firefoxDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText = $"/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                }
-
-                if (_pythonDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText =
-                        $"/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                }
-
-                if (_geoGebraDownload)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText =
-                        $"/c msiexec /i \"{_currentDriveLetter}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb";
-                    processStartInfo.Arguments = cmdText;
-                    var process = Process.Start(processStartInfo);
-                    if (process != null)
-                        process.WaitForExit();
-                }
-
-                if (_webShortcut)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText =
-                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\SharePoint.url\"); $s.TargetPath = 'https://innlandet.sharepoint.com'; $s.Save()";
-                    System.Diagnostics.Process.Start("powershell.exe", cmdText);
-
-                    cmdText =
-                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\VismaInSchool.url\"); $s.TargetPath = 'https://elverum-vgs.inschool.visma.no/Login.jsp'; $s.Save()";
-                    System.Diagnostics.Process.Start("powershell.exe", cmdText);
-
-                    cmdText =
-                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\ElverumVGS.url\"); $s.TargetPath = 'http://elverum.vgs.no'; $s.Save()";
-                    System.Diagnostics.Process.Start("powershell.exe", cmdText);
-                }
-
-                if (_webShortcutKi)
-                {
-                    ProgressBarInstall.Value = 0;
-                    cmdText =
-                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereInnlandet.url\"); $s.TargetPath = 'https://www.karriereinnlandet.no/'; $s.Save()";
-                    System.Diagnostics.Process.Start("powershell.exe", cmdText);
-
-                    cmdText =
-                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereInnsia.url\"); $s.TargetPath = 'https://innlandet.sharepoint.com/sites/Voksnedeltakere'; $s.Save()";
-                    System.Diagnostics.Process.Start("powershell.exe", cmdText);
-
-                    cmdText =
-                        "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\KarriereVisma.url\"); $s.TargetPath = 'https://karriere-innlandet.inschool.visma.no/'; $s.Save()";
-                    System.Diagnostics.Process.Start("powershell.exe", cmdText);
-                }
-
-                if (_ejectDisk)
-                {
-                    Environment.Exit(0);
-                }
-
-                ProgressBarInstall.Value = 100;
-                OfficeCheckBox.IsChecked = false;
-                TeamsCheckBox.IsChecked = false;
-                OrdnettCheckBox.IsChecked = false;
-                VsCodeCheckBox.IsChecked = false;
-                ChromeCheckBox.IsChecked = false;
-                FirefoxCheckBox.IsChecked = false;
-                PythonCheckBox.IsChecked = false;
-                GeoGebraCheckBox.IsChecked = false;
-                WebShortcutKICheckBox.IsChecked = false;
-                EjectDiskCheckBox.IsChecked = false;
+                // Run any post-install action if defined
+                program.PostInstallAction?.Invoke();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in InstallPrograms: {ex.Message}");
+                LogError($"InstallProgram[{programName}]", ex);
             }
         }
 
-        private void EjectDrive()
+        private void CreateShortcuts(List<WebShortcut> shortcuts)
         {
-            // try
-            // {
-            //     foreach (var drive in DriveInfo.GetDrives())
-            //     {
-            //         if (drive.IsReady && drive.DriveType == DriveType.Removable)
-            //         {
-            //             string driveLetter = drive.Name.Substring(0, 2);
-            //             ProcessStartInfo processStartInfo = new ProcessStartInfo
-            //             {
-            //                 FileName = "cmd.exe",
-            //                 Arguments = $"/c echo {driveLetter} & echo y | diskpart /s eject.txt",
-            //                 UseShellExecute = false,
-            //                 RedirectStandardOutput = true,
-            //                 RedirectStandardError = true,
-            //                 CreateNoWindow = true
-            //             };
+            try
+            {
+                ProgressBarInstall.Value = 0;
 
-            //             var process = Process.Start(processStartInfo);
-            //             if (process != null)
-            //             {
-            //                 process.WaitForExit();
-            //                 Console.WriteLine($"Ejected drive: {driveLetter}");
-            //             }
-            //             break;
-            //         }
-            //     }
-            // }
-            // catch (Exception ex)
-            // {
-            //     Console.WriteLine($"Error ejecting drive: {ex.Message}");
-            // }
+                foreach (var shortcut in shortcuts)
+                {
+                    string cmdText =
+                        $"$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\{shortcut.Name}.url\"); $s.TargetPath = '{shortcut.Url}'; $s.Save()";
+                    Process.Start("powershell.exe", cmdText);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError("CreateShortcuts", ex);
+            }
         }
+
+        private void ResetCheckboxes()
+        {
+            OfficeCheckBox.IsChecked = false;
+            TeamsCheckBox.IsChecked = false;
+            OrdnettCheckBox.IsChecked = false;
+            VsCodeCheckBox.IsChecked = false;
+            ThonnyCheckBox.IsChecked = false;
+            ChromeCheckBox.IsChecked = false;
+            FirefoxCheckBox.IsChecked = false;
+            PythonCheckBox.IsChecked = false;
+            GeoGebraCheckBox.IsChecked = false;
+            WebShortcutCheckBox.IsChecked = false;
+            // WebShortcutKICheckBox.IsChecked = false;
+            EjectDiskCheckBox.IsChecked = false;
+        }
+
+        #endregion
+
+        #region Search and Sort
 
         public void SearchButton_Click(object sender, RoutedEventArgs e)
         {
@@ -312,150 +359,151 @@ namespace ProgramApp
 
         private void FilterSoftwareList()
         {
-            // Implement filtering logic based on _searchText
+            // Implement filtering logic
             // Update the UI to show only the filtered items
         }
 
         private void SortSoftwareList()
         {
-            // Implement sorting logic based on _sortByCategory
+            // Implement sorting logic
             // Update the UI to show the sorted items
         }
 
-        //Fixes
-        public void FaktorKnapp(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Quick Fix Buttons
+
+        // Generic handler for all URL-based quick fix buttons
+        public void OpenWebPage(object sender, RoutedEventArgs e)
         {
             try
             {
-                System.Diagnostics.Process.Start("https://aka.ms/mfasetup");
+                if (sender is Button button && button.Name != null)
+                {
+                    string buttonName = button.Name.Replace("Button", "");
+                    if (_quickFixUrls.TryGetValue(buttonName, out string url))
+                    {
+                        Process.Start(url);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in FaktorKnapp: {ex.Message}");
+                LogError("OpenWebPage", ex);
             }
         }
 
-        public void ResetPassord(object sender, RoutedEventArgs e)
+        // Legacy methods for backward compatibility
+        public void FaktorKnapp(object sender, RoutedEventArgs e) =>
+            OpenUrl("https://aka.ms/mfasetup");
+
+        public void ResetPassord(object sender, RoutedEventArgs e) =>
+            OpenUrl("https://start.innlandetfylke.no/");
+
+        public void SkrivUt(object sender, RoutedEventArgs e) =>
+            OpenUrl("https://innlandetfylke.eu.uniflowonline.com/");
+
+        private void OpenUrl(string url)
         {
             try
             {
-                System.Diagnostics.Process.Start("https://start.innlandetfylke.no/");
+                Process.Start(url);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in ResetPassord: {ex.Message}");
+                LogError($"OpenUrl[{url}]", ex);
             }
         }
 
-        public void SkrivUt(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region System Operations
+
+        // Generic handler for system commands
+        public void RunSystemCommand(object sender, RoutedEventArgs e)
         {
             try
             {
-                System.Diagnostics.Process.Start("https://innlandetfylke.eu.uniflowonline.com/");
+                if (sender is Button button && button.Name != null)
+                {
+                    string commandName = button.Name.Replace("Button", "");
+                    if (_systemCommands.TryGetValue(commandName, out var command))
+                    {
+                        Process.Start(command.executable, command.arguments);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in SkrivUt: {ex.Message}");
+                LogError("RunSystemCommand", ex);
             }
         }
 
-        public void Dism(object sender, RoutedEventArgs e)
+        // Legacy methods for backward compatibility
+        public void Dism(object sender, RoutedEventArgs e) =>
+            RunCommand("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth");
+
+        public void SfcScan(object sender, RoutedEventArgs e) =>
+            RunCommand("cmd.exe", "sfc /Scannow");
+
+        public void DiskCleanup(object sender, RoutedEventArgs e) => RunCommand("cleanmgr.exe", "");
+
+        private void RunCommand(string executable, string arguments)
         {
             try
             {
-                System.Diagnostics.Process.Start(
-                    "cmd.exe",
-                    "DISM.exe /Online /Cleanup-image /Restorehealth"
-                );
+                Process.Start(executable, arguments);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in Dism: {ex.Message}");
+                LogError($"RunCommand[{executable} {arguments}]", ex);
             }
         }
 
-        public void UpdatePc(object sender, RoutedEventArgs e)
+        // Placeholder methods for unimplemented features
+        public void UpdatePc(object sender, RoutedEventArgs e) =>
+            LogInfo("UpdatePc not implemented");
+
+        public void RemoveAdd(object sender, RoutedEventArgs e) =>
+            LogInfo("RemoveAdd not implemented");
+
+        public void BackupUserData(object sender, RoutedEventArgs e) =>
+            LogInfo("BackupUserData not implemented");
+
+        public void RefreshSystemInfo(object sender, RoutedEventArgs e) =>
+            LogInfo("RefreshSystemInfo not implemented");
+
+        public void RunAllChecks(object sender, RoutedEventArgs e) =>
+            LogInfo("RunAllChecks not implemented");
+
+        #endregion
+
+        #region Utilities
+
+        private void LogError(string method, Exception ex)
         {
-            try
-            {
-                //Update PC FUNCTION
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in UpdatePc: {ex.Message}");
-            }
+            Console.WriteLine($"Error in {method}: {ex.Message}");
         }
 
-        public void RemoveAdd(object sender, RoutedEventArgs e)
+        private void LogInfo(string message)
         {
-            try
-            {
-                //Remove ADD
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in RemoveAdd: {ex.Message}");
-            }
+            Console.WriteLine($"Info: {message}");
         }
 
-        public void SfcScan(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start("cmd.exe", $"sfc /Scannow");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in SfcScan: {ex.Message}");
-            }
-        }
+        #endregion
+    }
 
-        public void DiskCleanup(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start("cleanmgr.exe");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in DiskCleanup: {ex.Message}");
-            }
-        }
+    // Helper classes to make the code more maintainable
+    public class ProgramInfo
+    {
+        public string CommandTemplate { get; set; }
+        public bool RequiresRemovableDrive { get; set; }
+        public Action PostInstallAction { get; set; }
+    }
 
-        public void BackupUserData(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Backup user data function
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in BackupUserData: {ex.Message}");
-            }
-        }
-
-        public void RefreshSystemInfo(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Refresh system info function
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in RefreshSystemInfo: {ex.Message}");
-            }
-        }
-
-        public void RunAllChecks(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Run all checks function
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in RunAllChecks: {ex.Message}");
-            }
-        }
+    public class WebShortcut
+    {
+        public string Name { get; set; }
+        public string Url { get; set; }
     }
 }

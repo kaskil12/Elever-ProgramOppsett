@@ -668,8 +668,87 @@
                                                     VerticalAlignment="Top" />
                                             </Grid>
                                         </Border>
+                                        <!--thonny-->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#e0e0e0"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/ThonnyIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Thonny" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Programming language with scientific libraries"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Version: 3.12.2" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="ThonnyCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top" />
+                                            </Grid>
+                                        </Border>
+                                        <!--webshorcuts-->
+                                        <Border
+                                            Width="180"
+                                            Height="120"
+                                            Margin="5"
+                                            Background="#e0e0e0"
+                                            CornerRadius="4">
+                                            <Grid>
+                                                <StackPanel Margin="12">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Margin="0,0,10,0"
+                                                            Source="Assets/WebShortcutIcon.png" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontWeight="Medium"
+                                                            Text="Web Shortcuts" />
+                                                    </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="12"
+                                                        Opacity="0.8"
+                                                        Text="Enterprise web portal shortcuts"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontSize="11"
+                                                        Opacity="0.7"
+                                                        Text="Elvis &amp; Karriere links" />
+                                                </StackPanel>
+                                                <CheckBox
+                                                    x:Name="WebShortcutCheckBox"
+                                                    Margin="0,8,8,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    IsChecked="True" />
+                                            </Grid>
+                                        </Border>
 
-                                        <!--  Web Shortcuts  -->
+                                        <!--  Web Shortcuts KI  -->
                                         <Border
                                             Width="180"
                                             Height="120"
