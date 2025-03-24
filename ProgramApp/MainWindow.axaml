@@ -29,7 +29,7 @@
             <Setter Property="FontSize" Value="15" />
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="Padding" Value="16,10" />
-            <Setter Property="Background" Value="#0055b8" />
+            <Setter Property="Background" Value="#009d4f" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="CornerRadius" Value="4" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -57,6 +57,7 @@
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="Margin" Value="5,10,5,10" />
             <Setter Property="Foreground" Value="#3d4543" />
+            <Setter Property="BorderBrush" Value="Black" />
         </Style>
 
         <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
@@ -83,7 +84,7 @@
         </Style>
 
         <Style Selector="ProgressBar">
-            <Setter Property="Height" Value="8" />
+            <Setter Property="Height" Value="18" />
             <Setter Property="Foreground" Value="#0055b8" />
             <Setter Property="Background" Value="#cfd2d3" />
         </Style>
@@ -208,7 +209,7 @@
                                         Text="Foreslåtte Programvare er valgt ut spesefikt for utdanning."
                                         TextWrapping="Wrap" />
                                 </StackPanel>
-                                
+
                             </Grid>
                         </Border>
                     </StackPanel>
@@ -364,7 +365,7 @@
                                                         <TextBlock
                                                             VerticalAlignment="Center"
                                                             FontWeight="Medium"
-                                                            Text="Microsoft Office" />
+                                                            Text="Office" />
                                                     </StackPanel>
                                                     <TextBlock
                                                         Margin="0,8,0,0"
@@ -405,7 +406,7 @@
                                                         <TextBlock
                                                             VerticalAlignment="Center"
                                                             FontWeight="Medium"
-                                                            Text="Microsoft Teams" />
+                                                            Text="Teams" />
                                                     </StackPanel>
                                                     <TextBlock
                                                         Margin="0,8,0,0"
@@ -421,7 +422,7 @@
                                                 </StackPanel>
                                                 <CheckBox
                                                     x:Name="TeamsCheckBox"
-                                                    Margin="0,8,8,0"
+                                                    Margin="8,8,8,8"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     IsChecked="True" />
@@ -566,7 +567,7 @@
                                                         <TextBlock
                                                             VerticalAlignment="Center"
                                                             FontWeight="Medium"
-                                                            Text="Google Chrome" />
+                                                            Text="Chrome" />
                                                     </StackPanel>
                                                     <TextBlock
                                                         Margin="0,8,0,0"
@@ -668,7 +669,7 @@
                                                     VerticalAlignment="Top" />
                                             </Grid>
                                         </Border>
-                                        <!--thonny-->
+                                        <!--  thonny  -->
                                         <Border
                                             Width="180"
                                             Height="120"
@@ -707,7 +708,7 @@
                                                     VerticalAlignment="Top" />
                                             </Grid>
                                         </Border>
-                                        <!--webshorcuts-->
+                                        <!--  webshorcuts  -->
                                         <Border
                                             Width="180"
                                             Height="120"
@@ -744,7 +745,7 @@
                                                     Margin="0,8,8,0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
-                                                    IsChecked="True" />
+                                                    IsChecked="False" />
                                             </Grid>
                                         </Border>
 
@@ -785,7 +786,7 @@
                                                     Margin="0,8,8,0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
-                                                    IsChecked="True" />
+                                                    IsChecked="False" />
                                             </Grid>
                                         </Border>
                                     </WrapPanel>
@@ -811,7 +812,8 @@
                         <CheckBox
                             x:Name="EjectDiskCheckBox"
                             Margin="0"
-                            Content="Lukk etter installasjon" />
+                            Content="Lukk etter installasjon"
+                            IsChecked="True" />
                     </StackPanel>
 
                     <Grid Grid.Row="3">
@@ -847,14 +849,14 @@
                             <Button
                                 Width="120"
                                 Margin="0,0,10,0"
-                                Background="Transparent"
+                                Background=""
                                 Classes="primary"
                                 Content="Cancel" />
                             <Button
                                 Width="150"
                                 Classes="primary"
                                 Click="InstallButton"
-                                Content="Installer" />
+                                Content="Innstaller" />
                         </StackPanel>
                     </Grid>
                 </Grid>
