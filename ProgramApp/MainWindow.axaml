@@ -916,17 +916,12 @@
                                                     Height="16"
                                                     Margin="0,0,10,0"
                                                     Source="Assets/ScanIcon.png" />
-                                                <TextBlock Text="System Fil Sjekker (SFC)" />
+                                                <TextBlock Foreground="White" Text="System Fil Sjekker (SFC)" />
                                             </StackPanel>
                                         </Button>
                                         <Button Classes="primary" Click="Dism">
                                             <StackPanel Orientation="Horizontal">
-                                                <!-- <Image
-                                                    Width="16"
-                                                    Height="16"
-                                                    Margin="0,0,10,0"
-                                                    Source="Assets/DismIcon.png" />-->
-                                                <TextBlock Text="Deployment Image Servicing (DISM)" />
+                                                <TextBlock Foreground="White" Text="Deployment Image Servicing (DISM)" />
                                             </StackPanel>
                                         </Button>
                                         <Button Classes="primary" Click="UpdatePc">
@@ -936,7 +931,7 @@
                                                     Height="16"
                                                     Margin="0,0,10,0"
                                                     Source="Assets/UpdateIcon.png" />
-                                                <TextBlock Text="Se etter oppdateringer" />
+                                                <TextBlock Foreground="White" Text="Se etter oppdateringer" />
                                             </StackPanel>
                                         </Button>
                                         <Button Classes="primary" Click="RemoveAdd">
@@ -946,7 +941,7 @@
                                                     Height="16"
                                                     Margin="0,0,10,0"
                                                     Source="Assets/CleanupIcon.png" />
-                                                <TextBlock Text="Fjern reklame" />
+                                                <TextBlock Foreground="White" Text="Fjern reklame" />
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>
@@ -1048,7 +1043,7 @@
                                                     Height="16"
                                                     Margin="0,0,10,0"
                                                     Source="Assets/SecurityIcon.png" />
-                                                <TextBlock Text="Sett opp 2 FaktorKnapp" />
+                                                <TextBlock Foreground="White" Text="Sett opp 2 FaktorKnapp" />
                                             </StackPanel>
                                         </Button>
                                         <Button Classes="primary" Click="ResetPassord">
@@ -1058,7 +1053,7 @@
                                                     Height="16"
                                                     Margin="0,0,10,0"
                                                     Source="Assets/PasswordIcon.png" />
-                                                <TextBlock Text="Tilbakestill Passord" />
+                                                <TextBlock Foreground="White" Text="Tilbakestill Passord" />
                                             </StackPanel>
                                         </Button>
                                         <Button Classes="primary" Click="SkrivUt">
@@ -1068,7 +1063,7 @@
                                                     Height="16"
                                                     Margin="0,0,10,0"
                                                     Source="Assets/PrintIcon.png" />
-                                                <TextBlock Text="Print Bruker Konfigurasjon" />
+                                                <TextBlock Foreground="White" Text="Print Bruker Konfigurasjon" />
                                             </StackPanel>
                                         </Button>
                                         <Button Classes="primary" Click="BackupUserData">
@@ -1078,7 +1073,7 @@
                                                     Height="16"
                                                     Margin="0,0,10,0"
                                                     Source="Assets/BackupIcon.png" />
-                                                <TextBlock Text="Sikkerhetskopier bruker data" />
+                                                <TextBlock Foreground="White" Text="Sikkerhetskopier bruker data" />
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>
