@@ -10,11 +10,9 @@ namespace ProgramApp
 {
     public partial class MainWindow : Window
     {
-        // Configuration fields
         private readonly Dictionary<string, bool> _installOptions = new Dictionary<string, bool>();
         private string _currentDriveLetter = "D:";
 
-        // Program definitions - easy to add new programs here
         private readonly Dictionary<string, ProgramInfo> _programs = new Dictionary<
             string,
             ProgramInfo
@@ -104,7 +102,6 @@ namespace ProgramApp
             },
         };
 
-        // Web shortcut definitions - easy to add new ones
         private readonly Dictionary<string, List<WebShortcut>> _shortcutGroups = new Dictionary<
             string,
             List<WebShortcut>
@@ -150,7 +147,6 @@ namespace ProgramApp
             },
         };
 
-        // URL mappings for quick fix buttons
         private readonly Dictionary<string, string> _quickFixUrls = new Dictionary<string, string>
         {
             { "Factor", "https://aka.ms/mfasetup" },
@@ -158,7 +154,6 @@ namespace ProgramApp
             { "PrintService", "https://innlandetfylke.eu.uniflowonline.com/" },
         };
 
-        // Command mappings for system operation buttons
         private readonly Dictionary<string, (string executable, string arguments)> _systemCommands =
             new Dictionary<string, (string, string)>
             {
@@ -205,10 +200,8 @@ namespace ProgramApp
 
         private void CollectInstallOptions()
         {
-            // Clear all options
             _installOptions.Clear();
 
-            // Add all checkbox values
             _installOptions["Office"] = OfficeCheckBox.IsChecked == true;
             _installOptions["Teams"] = TeamsCheckBox.IsChecked == true;
             _installOptions["Ordnett"] = OrdnettCheckBox.IsChecked == true;
@@ -229,7 +222,6 @@ namespace ProgramApp
             {
                 DetectRemovableDrive();
 
-                // Install selected programs
                 foreach (var program in _programs)
                 {
                     if (_installOptions.TryGetValue(program.Key, out bool isSelected) && isSelected)
@@ -238,7 +230,6 @@ namespace ProgramApp
                     }
                 }
 
-                // Create shortcuts
                 foreach (var group in _shortcutGroups)
                 {
                     if (_installOptions.TryGetValue(group.Key, out bool isSelected) && isSelected)
@@ -247,7 +238,6 @@ namespace ProgramApp
                     }
                 }
 
-                // Handle eject disk option
                 if (_installOptions.TryGetValue("EjectDisk", out bool shouldEject) && shouldEject)
                 {
                     Environment.Exit(0);
@@ -299,7 +289,6 @@ namespace ProgramApp
                 if (process != null)
                     process.WaitForExit();
 
-                // Run any post-install action if defined
                 program.PostInstallAction?.Invoke();
             }
             catch (Exception ex)
@@ -357,23 +346,14 @@ namespace ProgramApp
             SortSoftwareList();
         }
 
-        private void FilterSoftwareList()
-        {
-            // Implement filtering logic
-            // Update the UI to show only the filtered items
-        }
+        private void FilterSoftwareList() { }
 
-        private void SortSoftwareList()
-        {
-            // Implement sorting logic
-            // Update the UI to show the sorted items
-        }
+        private void SortSoftwareList() { }
 
         #endregion
 
         #region Quick Fix Buttons
 
-        // Generic handler for all URL-based quick fix buttons
         public void OpenWebPage(object sender, RoutedEventArgs e)
         {
             try
@@ -381,7 +361,7 @@ namespace ProgramApp
                 if (sender is Button button && button.Name != null)
                 {
                     string buttonName = button.Name.Replace("Button", "");
-                    if (_quickFixUrls.TryGetValue(buttonName, out string url))
+                    if (_quickFixUrls.TryGetValue(buttonName, out string? url))
                     {
                         Process.Start(url);
                     }
@@ -393,7 +373,6 @@ namespace ProgramApp
             }
         }
 
-        // Legacy methods for backward compatibility
         public void FaktorKnapp(object sender, RoutedEventArgs e) =>
             OpenUrl("https://aka.ms/mfasetup");
 
@@ -419,7 +398,6 @@ namespace ProgramApp
 
         #region System Operations
 
-        // Generic handler for system commands
         public void RunSystemCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -439,7 +417,6 @@ namespace ProgramApp
             }
         }
 
-        // Legacy methods for backward compatibility
         public void Dism(object sender, RoutedEventArgs e) =>
             RunCommand("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth");
 
@@ -460,7 +437,6 @@ namespace ProgramApp
             }
         }
 
-        // Placeholder methods for unimplemented features
         public void UpdatePc(object sender, RoutedEventArgs e) =>
             LogInfo("UpdatePc not implemented");
 
@@ -493,17 +469,16 @@ namespace ProgramApp
         #endregion
     }
 
-    // Helper classes to make the code more maintainable
     public class ProgramInfo
     {
-        public string CommandTemplate { get; set; }
+        public required string CommandTemplate { get; set; }
         public bool RequiresRemovableDrive { get; set; }
-        public Action PostInstallAction { get; set; }
+        public Action? PostInstallAction { get; set; }
     }
 
     public class WebShortcut
     {
-        public string Name { get; set; }
-        public string Url { get; set; }
+        public required string Name { get; set; }
+        public required string Url { get; set; }
     }
 }

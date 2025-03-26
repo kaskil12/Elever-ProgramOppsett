@@ -951,7 +951,7 @@
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Foreground="#4B6EAF"
-                                        Text="System Informasjon" />
+                                        Text="System-informasjon" />
 
                                     <Border
                                         Padding="10"
@@ -1083,7 +1083,7 @@
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Foreground="#4B6EAF"
-                                        Text="Bruker Informasjon" />
+                                        Text="Bruker-informasjon" />
 
                                     <Border
                                         Padding="10"
