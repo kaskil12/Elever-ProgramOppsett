@@ -941,7 +941,7 @@
                                                     Height="16"
                                                     Margin="0,0,10,0"
                                                     Source="Assets/CleanupIcon.png" />
-                                                <TextBlock Foreground="White" Text="Fjern reklame" />
+                                                <TextBlock Foreground="White" Text="Fiks Office programmer" />
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>

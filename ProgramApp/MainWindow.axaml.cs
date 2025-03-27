@@ -440,8 +440,53 @@ namespace ProgramApp
         public void UpdatePc(object sender, RoutedEventArgs e) =>
             LogInfo("UpdatePc not implemented");
 
-        public void RemoveAdd(object sender, RoutedEventArgs e) =>
-            LogInfo("RemoveAdd not implemented");
+        public void RemoveAdd(object sender, RoutedEventArgs e)
+        {
+            string[] processesToKill = new string[]
+            {
+                "WINWORD",
+                "EXCEL",
+                "POWERPNT",
+                "OneDrive",
+                "Publisher",
+                "Teams",
+                "msedge",
+            };
+
+            string aadFilePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Packages",
+                "Microsoft.AAD.BrokerPlugin_cw5n1h2txyewy"
+            );
+
+            try
+            {
+                foreach (var processName in processesToKill)
+                {
+                    var processes = Process.GetProcessesByName(processName);
+                    foreach (var process in processes)
+                    {
+                        process.Kill();
+                        process.WaitForExit();
+                        Console.WriteLine($"{processName} terminated.");
+                    }
+                }
+
+                if (Directory.Exists(aadFilePath))
+                {
+                    Directory.Delete(aadFilePath, true);
+                    Console.WriteLine("✅ AAD file successfully deleted.");
+                }
+                else
+                {
+                    Console.WriteLine("⚠️ AAD file not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error: {ex.Message}");
+            }
+        }
 
         public void BackupUserData(object sender, RoutedEventArgs e) =>
             LogInfo("BackupUserData not implemented");
