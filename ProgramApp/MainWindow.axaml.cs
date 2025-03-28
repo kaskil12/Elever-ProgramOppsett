@@ -467,14 +467,14 @@ namespace ProgramApp
                 "Publisher",
                 "Teams",
                 "msedge",
-                "Arbeids- eller skolekonto",
+                "Microsoft.AAD.BrokerPlugin",
                 "Microsoft Office Click-to-Run (SxS)",
                 "Office",
                 "Microsoft Teams",
                 "Send to OneNote Tool",
                 "OneNote",
                 "Microsoft Edge",
-                "Arbeids- eller skolekonto (2)",
+                "Microsoft.AAD.BrokerPlugin.exe",
             };
 
             string aadFilePath = Path.Combine(
