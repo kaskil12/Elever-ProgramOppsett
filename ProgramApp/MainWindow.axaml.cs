@@ -181,20 +181,20 @@ namespace ProgramApp
                 this.Position = new PixelPoint((int)((screenWidth - windowWidth) / 2), 0);
             };
         }
-        #region LoadPrograms
+        // #region LoadPrograms
         //load programs from programs.json
-        private void LoadPrograms()
-        {
-            var programs = File.ReadAllText("programs.json");
-            var programList = JsonSerializer.Deserialize<List<ProgramInfo>>(programs);
-        }
-        private void LoadShortcuts()
-        {
-            var shortcuts = File.ReadAllText("shortcuts.json");
-            var shortcutList = JsonSerializer.Deserialize<List<WebShortcut>>(shortcuts);
-        }
+        // private void LoadPrograms()
+        // {
+        //     var programs = File.ReadAllText("programs.json");
+        //     var programList = JsonSerializer.Deserialize<List<ProgramInfo>>(programs);
+        // }
+        // private void LoadShortcuts()
+        // {
+        //     var shortcuts = File.ReadAllText("shortcuts.json");
+        //     var shortcutList = JsonSerializer.Deserialize<List<WebShortcut>>(shortcuts);
+        // }
 
-        #endregion
+        // #endregion
         #region Installation Methods
 
         public void InstallButton(object sender, RoutedEventArgs e)
@@ -251,14 +251,15 @@ namespace ProgramApp
                     }
                 }
 
-                if (_installOptions.TryGetValue("EjectDisk", out bool shouldEject) && shouldEject)
-                {
-                    Environment.Exit(0);
-                }
 
                 // Finish up
                 ProgressBarInstall.Value = 100;
                 ResetCheckboxes();
+                if (_installOptions.TryGetValue("EjectDisk", out bool shouldEject) && shouldEject)
+                {
+                    Console.WriteLine("Ejecting disk...");
+                    Environment.Exit(0);
+                }
             }
             catch (Exception ex)
             {
