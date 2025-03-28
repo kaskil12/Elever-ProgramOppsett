@@ -12,6 +12,7 @@ namespace ProgramApp
     {
         private readonly Dictionary<string, bool> _installOptions = new Dictionary<string, bool>();
         private string _currentDriveLetter = "D:";
+        private string logFilePath = "./log.txt";
 
         private readonly Dictionary<string, ProgramInfo> _programs = new Dictionary<
             string,
@@ -207,7 +208,8 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                LogError("InstallButton", ex);
+                File.WriteAllText(logFilePath, ex.ToString());
+
             }
         }
 
@@ -263,7 +265,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                LogError("InstallPrograms", ex);
+                File.WriteAllText(logFilePath, ex.ToString());
             }
         }
 
@@ -307,7 +309,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                LogError($"InstallProgram[{programName}]", ex);
+                File.WriteAllText(logFilePath, ex.ToString());
             }
         }
 
@@ -326,7 +328,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                LogError("CreateShortcuts", ex);
+                File.WriteAllText(logFilePath, ex.ToString());
             }
         }
 
@@ -383,7 +385,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                LogError("OpenWebPage", ex);
+                File.WriteAllText(logFilePath, ex.ToString());
             }
         }
 
@@ -498,7 +500,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Error: {ex.Message}");
+                File.WriteAllText(logFilePath, ex.ToString());
             }
         }
 
