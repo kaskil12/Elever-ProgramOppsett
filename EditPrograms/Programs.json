@@ -1,0 +1,58 @@
+{
+    "programs": [
+        {
+            "name": "Office",
+            "icon": "OfficeIcon.png",
+            "description": "Word, Excel, PowerPoint, Outlook",
+            "version": "2025 Enterprise",
+            "commandTemplate": "/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml",
+            "requiresRemovableDrive": false,
+            "defaultChecked": true
+        },
+        {
+            "name": "Teams",
+            "icon": "TeamsIcon.png", 
+            "description": "Collaboration and communication platform",
+            "version": "2025 Enterprise",
+            "commandTemplate": "/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{0}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"",
+            "requiresRemovableDrive": true,
+            "defaultChecked": true
+        }
+    ],
+    "webShortcuts": [
+        {
+            "group": "WebShortcut",
+            "shortcuts": [
+                {
+                    "name": "SharePoint",
+                    "url": "https://innlandet.sharepoint.com"
+                },
+                {
+                    "name": "VismaInSchool",
+                    "url": "https://elverum-vgs.inschool.visma.no/Login.jsp"
+                },
+                {
+                    "name": "ElverumVGS",
+                    "url": "http://elverum.vgs.no"
+                }
+            ]
+        },
+        {
+            "group": "WebShortcutKi",
+            "shortcuts": [
+                {
+                    "name": "KarriereInnlandet",
+                    "url": "https://www.karriereinnlandet.no/"
+                },
+                {
+                    "name": "KarriereInnsia",
+                    "url": "https://innlandet.sharepoint.com/sites/Voksnedeltakere"
+                },
+                {
+                    "name": "KarriereVisma", 
+                    "url": "https://karriere-innlandet.inschool.visma.no/"
+                }
+            ]
+        }
+    ]
+}

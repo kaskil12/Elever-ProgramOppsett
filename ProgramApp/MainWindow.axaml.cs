@@ -181,7 +181,20 @@ namespace ProgramApp
                 this.Position = new PixelPoint((int)((screenWidth - windowWidth) / 2), 0);
             };
         }
+        #region LoadPrograms
+        //load programs from programs.json
+        private void LoadPrograms()
+        {
+            var programs = File.ReadAllText("programs.json");
+            var programList = JsonSerializer.Deserialize<List<ProgramInfo>>(programs);
+        }
+        private void LoadShortcuts()
+        {
+            var shortcuts = File.ReadAllText("shortcuts.json");
+            var shortcutList = JsonSerializer.Deserialize<List<WebShortcut>>(shortcuts);
+        }
 
+        #endregion
         #region Installation Methods
 
         public void InstallButton(object sender, RoutedEventArgs e)
