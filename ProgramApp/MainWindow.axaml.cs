@@ -467,6 +467,14 @@ namespace ProgramApp
                 "Publisher",
                 "Teams",
                 "msedge",
+                "Arbeids- eller skolekonto",
+                "Microsoft Office Click-to-Run (SxS)",
+                "Office",
+                "Microsoft Teams",
+                "Send to OneNote Tool",
+                "OneNote",
+                "Microsoft Edge",
+                "Arbeids- eller skolekonto (2)",
             };
 
             string aadFilePath = Path.Combine(
@@ -492,10 +500,12 @@ namespace ProgramApp
                 {
                     Directory.Delete(aadFilePath, true);
                     Console.WriteLine("✅ AAD file successfully deleted.");
+                    File.WriteAllText(logFilePath, "AAD file deleted successfully.");
                 }
                 else
                 {
                     Console.WriteLine("⚠️ AAD file not found.");
+                    File.WriteAllText(logFilePath, "AAD file not found.");
                 }
             }
             catch (Exception ex)
