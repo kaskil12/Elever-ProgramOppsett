@@ -475,6 +475,12 @@ namespace ProgramApp
                 "OneNote",
                 "Microsoft Edge",
                 "Microsoft.AAD.BrokerPlugin.exe",
+                "AADBrokerPlugin",
+                "AADBrokerPlugin.exe",
+                "Arbeids- eller skolekonto",
+                "Microsoft Office Click-to-Run",
+                "Microsoft Office Click-to-Run Service Monitor",
+                "Arbeids- eller skolekonto (2)",
             };
 
             string aadFilePath = Path.Combine(
@@ -520,8 +526,22 @@ namespace ProgramApp
         public void RefreshSystemInfo(object sender, RoutedEventArgs e) =>
             LogInfo("RefreshSystemInfo not implemented");
 
-        public void RunAllChecks(object sender, RoutedEventArgs e) =>
-            LogInfo("RunAllChecks not implemented");
+        public void RunAllChecks(object sender, RoutedEventArgs e) {
+            try
+            {
+                Dism(sender, e);
+                SfcScan(sender, e);
+                DiskCleanup(sender, e);
+                UpdatePc(sender, e);
+                RemoveAdd(sender, e);
+                BackupUserData(sender, e);
+                RefreshSystemInfo(sender, e);
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(logFilePath, ex.ToString());
+            }
+        }
 
         #endregion
 
