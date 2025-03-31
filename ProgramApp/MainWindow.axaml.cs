@@ -5,155 +5,16 @@ using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using ProgramLib;
 #nullable enable
 namespace ProgramApp
 {
     public partial class MainWindow : Window
     {
         private readonly Dictionary<string, bool> _installOptions = new Dictionary<string, bool>();
-        private string _currentDriveLetter = "D:";
         private string logFilePath = "./log.txt";
 
-        private readonly Dictionary<string, ProgramInfo> _programs = new Dictionary<
-            string,
-            ProgramInfo
-        >
-        {
-            {
-                "Office",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml",
-                    RequiresRemovableDrive = false,
-                }
-            },
-            {
-                "Teams",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{0}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"",
-                    RequiresRemovableDrive = true,
-                }
-            },
-            {
-                "Ordnett",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c msiexec /i \"{0}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb",
-                    RequiresRemovableDrive = true,
-                }
-            },
-            {
-                "VsCode",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode",
-                    RequiresRemovableDrive = false,
-                }
-            },
-            {
-                "Thonny",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c start /wait .\\pkgs\\ThonnyOffline\\thonny-4.0.0 - 64bit.exe /S",
-                    RequiresRemovableDrive = false,
-                    PostInstallAction = () => Process.Start("https://micropython.org/"),
-                }
-            },
-            {
-                "Chrome",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe",
-                    RequiresRemovableDrive = false,
-                }
-            },
-            {
-                "Firefox",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S",
-                    RequiresRemovableDrive = false,
-                }
-            },
-            {
-                "Python",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1",
-                    RequiresRemovableDrive = false,
-                }
-            },
-            {
-                "GeoGebra",
-                new ProgramInfo
-                {
-                    CommandTemplate =
-                        "/c msiexec /i \"{0}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb",
-                    RequiresRemovableDrive = true,
-                }
-            },
-        };
 
-        private readonly Dictionary<string, List<WebShortcut>> _shortcutGroups = new Dictionary<
-            string,
-            List<WebShortcut>
-        >
-        {
-            {
-                "WebShortcut",
-                new List<WebShortcut>
-                {
-                    new WebShortcut
-                    {
-                        Name = "SharePoint",
-                        Url = "https://innlandet.sharepoint.com",
-                    },
-                    new WebShortcut
-                    {
-                        Name = "VismaInSchool",
-                        Url = "https://elverum-vgs.inschool.visma.no/Login.jsp",
-                    },
-                    new WebShortcut { Name = "ElverumVGS", Url = "http://elverum.vgs.no" },
-                }
-            },
-            {
-                "WebShortcutKi",
-                new List<WebShortcut>
-                {
-                    new WebShortcut
-                    {
-                        Name = "KarriereInnlandet",
-                        Url = "https://www.karriereinnlandet.no/",
-                    },
-                    new WebShortcut
-                    {
-                        Name = "KarriereInnsia",
-                        Url = "https://innlandet.sharepoint.com/sites/Voksnedeltakere",
-                    },
-                    new WebShortcut
-                    {
-                        Name = "KarriereVisma",
-                        Url = "https://karriere-innlandet.inschool.visma.no/",
-                    },
-                }
-            },
-        };
-
-        private readonly Dictionary<string, string> _quickFixUrls = new Dictionary<string, string>
-        {
-            { "Factor", "https://aka.ms/mfasetup" },
-            { "ResetPassword", "https://start.innlandetfylke.no/" },
-            { "PrintService", "https://innlandetfylke.eu.uniflowonline.com/" },
-        };
 
         private readonly Dictionary<string, (string executable, string arguments)> _systemCommands =
             new Dictionary<string, (string, string)>
@@ -182,20 +43,7 @@ namespace ProgramApp
                 this.Position = new PixelPoint((int)((screenWidth - windowWidth) / 2), 0);
             };
         }
-        // #region LoadPrograms
-        //load programs from programs.json
-        // private void LoadPrograms()
-        // {
-        //     var programs = File.ReadAllText("programs.json");
-        //     var programList = JsonSerializer.Deserialize<List<ProgramInfo>>(programs);
-        // }
-        // private void LoadShortcuts()
-        // {
-        //     var shortcuts = File.ReadAllText("shortcuts.json");
-        //     var shortcutList = JsonSerializer.Deserialize<List<WebShortcut>>(shortcuts);
-        // }
 
-        // #endregion
         #region Installation Methods
 
         public void InstallButton(object sender, RoutedEventArgs e)
@@ -235,21 +83,21 @@ namespace ProgramApp
         {
             try
             {
-                DetectRemovableDrive();
+                Usb.DetectRemovableDrive();
 
-                foreach (var program in _programs)
+                foreach (var program in Installer._programs)
                 {
                     if (_installOptions.TryGetValue(program.Key, out bool isSelected) && isSelected)
                     {
-                        InstallProgram(program.Key, program.Value);
+                        Installer.InstallProgram(program.Key, program.Value);
                     }
                 }
 
-                foreach (var group in _shortcutGroups)
+                foreach (var group in Installer._shortcutGroups)
                 {
                     if (_installOptions.TryGetValue(group.Key, out bool isSelected) && isSelected)
                     {
-                        CreateShortcuts(group.Value);
+                        Installer.CreateShortcuts(group.Value);
                     }
                 }
 
@@ -261,69 +109,6 @@ namespace ProgramApp
                 {
                     Console.WriteLine("Ejecting disk...");
                     Environment.Exit(0);
-                }
-            }
-            catch (Exception ex)
-            {
-                File.WriteAllText(logFilePath, ex.ToString());
-            }
-        }
-
-        private void DetectRemovableDrive()
-        {
-            foreach (var drive in DriveInfo.GetDrives())
-            {
-                if (drive.IsReady && drive.DriveType == DriveType.Removable)
-                {
-                    _currentDriveLetter = drive.Name;
-                    break;
-                }
-            }
-        }
-
-        private void InstallProgram(string programName, ProgramInfo program)
-        {
-            try
-            {
-                ProgressBarInstall.Value = 0;
-
-                string cmdText = program.RequiresRemovableDrive
-                    ? string.Format(program.CommandTemplate, _currentDriveLetter)
-                    : program.CommandTemplate;
-
-                ProcessStartInfo processStartInfo = new ProcessStartInfo
-                {
-                    FileName = "cmd.exe",
-                    Arguments = cmdText,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                };
-
-                var process = Process.Start(processStartInfo);
-                if (process != null)
-                    process.WaitForExit();
-
-                program.PostInstallAction?.Invoke();
-            }
-            catch (Exception ex)
-            {
-                File.WriteAllText(logFilePath, ex.ToString());
-            }
-        }
-
-        private void CreateShortcuts(List<WebShortcut> shortcuts)
-        {
-            try
-            {
-                ProgressBarInstall.Value = 0;
-
-                foreach (var shortcut in shortcuts)
-                {
-                    string cmdText =
-                        $"$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\{shortcut.Name}.url\"); $s.TargetPath = '{shortcut.Url}'; $s.Save()";
-                    Process.Start("powershell.exe", cmdText);
                 }
             }
             catch (Exception ex)
@@ -368,70 +153,35 @@ namespace ProgramApp
 
         #endregion
 
-        #region Quick Fix Buttons
-
-        public void OpenWebPage(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (sender is Button button && button.Name != null)
-                {
-                    string buttonName = button.Name.Replace("Button", "");
-                    if (_quickFixUrls.TryGetValue(buttonName, out string? url))
-                    {
-                        Process.Start(url);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                File.WriteAllText(logFilePath, ex.ToString());
-            }
-        }
 
         public void FaktorKnapp(object sender, RoutedEventArgs e) =>
-            OpenUrl("https://aka.ms/mfasetup");
+            Fixes.OpenUrl("https://aka.ms/mfasetup");
 
         public void ResetPassord(object sender, RoutedEventArgs e) =>
-            OpenUrl("https://start.innlandetfylke.no/");
+            Fixes.OpenUrl("https://start.innlandetfylke.no/");
 
         public void SkrivUt(object sender, RoutedEventArgs e) =>
-            OpenUrl("https://innlandetfylke.eu.uniflowonline.com/");
-
-        private void OpenUrl(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-            catch (Exception ex)
-            {
-                LogError($"OpenUrl[{url}]", ex);
-            }
-        }
-
-        #endregion
-
+            Fixes.OpenUrl("https://innlandetfylke.eu.uniflowonline.com/");
         #region System Operations
 
-        public void RunSystemCommand(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (sender is Button button && button.Name != null)
-                {
-                    string commandName = button.Name.Replace("Button", "");
-                    if (_systemCommands.TryGetValue(commandName, out var command))
-                    {
-                        Process.Start(command.executable, command.arguments);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogError("RunSystemCommand", ex);
-            }
-        }
+        // public void RunSystemCommand(object sender, RoutedEventArgs e)
+        // {
+        //     try
+        //     {
+        //         if (sender is Button button && button.Name != null)
+        //         {
+        //             string commandName = button.Name.Replace("Button", "");
+        //             if (_systemCommands.TryGetValue(commandName, out var command))
+        //             {
+        //                 Process.Start(command.executable, command.arguments);
+        //             }
+        //         }
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         Log.LogError("RunSystemCommand", ex);
+        //     }
+        // }
 
         public void Dism(object sender, RoutedEventArgs e) =>
             RunCommand("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth");
@@ -454,7 +204,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                LogError($"RunCommand[{executable} {arguments}]", ex);
+                Log.LogError($"RunCommand[{executable} {arguments}]", ex);
             }
         }
         public void RemoveAdd(object sender, RoutedEventArgs e)
@@ -522,10 +272,10 @@ namespace ProgramApp
         }
 
         public void BackupUserData(object sender, RoutedEventArgs e) =>
-            LogInfo("BackupUserData not implemented");
+            Log.LogInfo("BackupUserData not implemented");
 
         public void RefreshSystemInfo(object sender, RoutedEventArgs e) =>
-            LogInfo("RefreshSystemInfo not implemented");
+            Log.LogInfo("RefreshSystemInfo not implemented");
 
         public void RunAllChecks(object sender, RoutedEventArgs e)
         {
@@ -547,31 +297,9 @@ namespace ProgramApp
 
         #endregion
 
-        #region Utilities
-
-        private void LogError(string method, Exception ex)
-        {
-            Console.WriteLine($"Error in {method}: {ex.Message}");
-        }
-
-        private void LogInfo(string message)
-        {
-            Console.WriteLine($"Info: {message}");
-        }
-
-        #endregion
     }
 
-    public class ProgramInfo
-    {
-        public required string CommandTemplate { get; set; }
-        public bool RequiresRemovableDrive { get; set; }
-        public Action? PostInstallAction { get; set; }
-    }
 
-    public class WebShortcut
-    {
-        public required string Name { get; set; }
-        public required string Url { get; set; }
-    }
+
+
 }
