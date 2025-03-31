@@ -505,7 +505,8 @@
                                                     x:Name="GeoGebraCheckBox"
                                                     Margin="0,8,8,0"
                                                     HorizontalAlignment="Right"
-                                                    VerticalAlignment="Top" />
+                                                    VerticalAlignment="Top"
+                                                    IsChecked="True" />
                                             </Grid>
                                         </Border>
 
@@ -545,7 +546,8 @@
                                                     x:Name="OrdnettCheckBox"
                                                     Margin="0,8,8,0"
                                                     HorizontalAlignment="Right"
-                                                    VerticalAlignment="Top" />
+                                                    VerticalAlignment="Top"
+                                                    IsChecked="True" />
                                             </Grid>
                                         </Border>
 
