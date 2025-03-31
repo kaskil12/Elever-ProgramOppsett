@@ -440,6 +440,11 @@ namespace ProgramApp
             RunCommand("cmd.exe", "sfc /Scannow");
 
         public void DiskCleanup(object sender, RoutedEventArgs e) => RunCommand("cleanmgr.exe", "");
+        public void UpdatePc(object sender, RoutedEventArgs e)
+        {
+            // RunCommand("powershell", "Start-Process \"ms-settings:windowsupdate\"");
+            RunCommand("powershell", "Start-Process powershell.exe -Verb RunAs -ArgumentList \"-NoProfile -ExecutionPolicy Bypass -Command `\\\"Start-Process ms-settings:windowsupdate; Install-PackageProvider NuGet -Force; Install-Module PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot\\\"\"");
+        }
 
         private void RunCommand(string executable, string arguments)
         {
@@ -452,10 +457,6 @@ namespace ProgramApp
                 LogError($"RunCommand[{executable} {arguments}]", ex);
             }
         }
-
-        public void UpdatePc(object sender, RoutedEventArgs e) =>
-            LogInfo("UpdatePc not implemented");
-
         public void RemoveAdd(object sender, RoutedEventArgs e)
         {
             string[] processesToKill = new string[]
@@ -526,7 +527,8 @@ namespace ProgramApp
         public void RefreshSystemInfo(object sender, RoutedEventArgs e) =>
             LogInfo("RefreshSystemInfo not implemented");
 
-        public void RunAllChecks(object sender, RoutedEventArgs e) {
+        public void RunAllChecks(object sender, RoutedEventArgs e)
+        {
             try
             {
                 Dism(sender, e);

@@ -19,12 +19,14 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ProgramApp
-build_property.ProjectDir = C:\Users\kaspe\OneDrive\Documents\GitHub\Elever-ProgramOppsett\ProgramApp\
+build_property.ProjectDir = C:\Users\kasper\OneDrive - Innlandet fylkeskommune\Dokumenter\GitHub\Elever-ProgramOppsett\ProgramApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/kaspe/OneDrive/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/App.axaml]
+[C:/Users/kasper/OneDrive - Innlandet fylkeskommune/Dokumenter/GitHub/Elever-ProgramOppsett/ProgramApp/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kaspe/OneDrive/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/MainWindow.axaml]
+[C:/Users/kasper/OneDrive - Innlandet fylkeskommune/Dokumenter/GitHub/Elever-ProgramOppsett/ProgramApp/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
