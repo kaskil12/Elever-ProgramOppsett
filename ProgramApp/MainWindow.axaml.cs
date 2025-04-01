@@ -85,7 +85,7 @@ namespace ProgramApp
             {
                 Usb.DetectRemovableDrive();
 
-                foreach (var program in Installer._programs)
+                foreach (var program in Programs._programs)
                 {
                     if (_installOptions.TryGetValue(program.Key, out bool isSelected) && isSelected)
                     {
@@ -209,66 +209,7 @@ namespace ProgramApp
         }
         public void RemoveAdd(object sender, RoutedEventArgs e)
         {
-            string[] processesToKill = new string[]
-            {
-                "WINWORD",
-                "EXCEL",
-                "POWERPNT",
-                "OneDrive",
-                "Publisher",
-                "Teams",
-                "msedge",
-                "Microsoft.AAD.BrokerPlugin",
-                "Microsoft Office Click-to-Run (SxS)",
-                "Office",
-                "Microsoft Teams",
-                "Send to OneNote Tool",
-                "OneNote",
-                "Microsoft Edge",
-                "Microsoft.AAD.BrokerPlugin.exe",
-                "AADBrokerPlugin",
-                "AADBrokerPlugin.exe",
-                "Arbeids- eller skolekonto",
-                "Microsoft Office Click-to-Run",
-                "Microsoft Office Click-to-Run Service Monitor",
-                "Arbeids- eller skolekonto (2)",
-            };
-
-            string aadFilePath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "Packages",
-                "Microsoft.AAD.BrokerPlugin_cw5n1h2txyewy"
-            );
-
-            try
-            {
-                foreach (var processName in processesToKill)
-                {
-                    var processes = Process.GetProcessesByName(processName);
-                    foreach (var process in processes)
-                    {
-                        process.Kill();
-                        process.WaitForExit();
-                        Console.WriteLine($"{processName} terminated.");
-                    }
-                }
-
-                if (Directory.Exists(aadFilePath))
-                {
-                    Directory.Delete(aadFilePath, true);
-                    Console.WriteLine("✅ AAD file successfully deleted.");
-                    File.WriteAllText(logFilePath, "AAD file deleted successfully.");
-                }
-                else
-                {
-                    Console.WriteLine("⚠️ AAD file not found.");
-                    File.WriteAllText(logFilePath, "AAD file not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                File.WriteAllText(logFilePath, ex.ToString());
-            }
+            Fixes.RemoveAdd(sender, e);
         }
 
         public void BackupUserData(object sender, RoutedEventArgs e) =>
