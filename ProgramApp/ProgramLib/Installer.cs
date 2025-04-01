@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using System.Text.Json;
 #nullable enable
 
 namespace ProgramLib
@@ -15,65 +16,13 @@ namespace ProgramLib
         public string _currentDriveLetter = string.Empty;
         // #region LoadPrograms
         //load programs from programs.json
-        // private void LoadPrograms()
-        // {
-        //     var programs = File.ReadAllText("programs.json");
-        //     var programList = JsonSerializer.Deserialize<List<ProgramInfo>>(programs);
-        // }
-        // private void LoadShortcuts()
-        // {
-        //     var shortcuts = File.ReadAllText("shortcuts.json");
-        //     var shortcutList = JsonSerializer.Deserialize<List<WebShortcut>>(shortcuts);
-        // }
+        private void LoadPrograms()
+        {
+            var programs = File.ReadAllText("programs.json");
+            var programList = JsonSerializer.Deserialize<List<ProgramInfo>>(programs);
+        }
 
         // #endregion
-        #region ProgramInfo
-
-        public static readonly Dictionary<string, List<WebShortcut>> _shortcutGroups = new Dictionary<
-            string,
-            List<WebShortcut>
-        >
-        {
-            {
-                "WebShortcut",
-                new List<WebShortcut>
-                {
-                    new WebShortcut
-                    {
-                        Name = "SharePoint",
-                        Url = "https://innlandet.sharepoint.com",
-                    },
-                    new WebShortcut
-                    {
-                        Name = "VismaInSchool",
-                        Url = "https://elverum-vgs.inschool.visma.no/Login.jsp",
-                    },
-                    new WebShortcut { Name = "ElverumVGS", Url = "http://elverum.vgs.no" },
-                }
-            },
-            {
-                "WebShortcutKi",
-                new List<WebShortcut>
-                {
-                    new WebShortcut
-                    {
-                        Name = "KarriereInnlandet",
-                        Url = "https://www.karriereinnlandet.no/",
-                    },
-                    new WebShortcut
-                    {
-                        Name = "KarriereInnsia",
-                        Url = "https://innlandet.sharepoint.com/sites/Voksnedeltakere",
-                    },
-                    new WebShortcut
-                    {
-                        Name = "KarriereVisma",
-                        Url = "https://karriere-innlandet.inschool.visma.no/",
-                    },
-                }
-            },
-        };
-        #endregion
         #region InstallPrograms
         public static void InstallProgram(string programName, ProgramInfo program)
         {
@@ -105,29 +54,6 @@ namespace ProgramLib
             }
         }
         #endregion
-        public static void CreateShortcuts(List<WebShortcut> shortcuts)
-        {
-            try
-            {
-
-                foreach (var shortcut in shortcuts)
-                {
-                    string cmdText =
-                        $"$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\\Desktop\\{shortcut.Name}.url\"); $s.TargetPath = '{shortcut.Url}'; $s.Save()";
-                    Process.Start("powershell.exe", cmdText);
-                }
-            }
-            catch (Exception ex)
-            {
-                File.WriteAllText(Usb.logFilePath, ex.ToString());
-            }
-        }
-    }
-   
-    public class WebShortcut
-    {
-        public required string Name { get; set; }
-        public required string Url { get; set; }
     }
 
 }

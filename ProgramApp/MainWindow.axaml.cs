@@ -12,8 +12,6 @@ namespace ProgramApp
     public partial class MainWindow : Window
     {
         private readonly Dictionary<string, bool> _installOptions = new Dictionary<string, bool>();
-        private string logFilePath = "./log.txt";
-
 
 
         private readonly Dictionary<string, (string executable, string arguments)> _systemCommands =
@@ -56,7 +54,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                File.WriteAllText(logFilePath, ex.ToString());
+                File.WriteAllText(Usb.logFilePath, ex.ToString());
 
             }
         }
@@ -74,8 +72,6 @@ namespace ProgramApp
             _installOptions["Firefox"] = FirefoxCheckBox.IsChecked == true;
             _installOptions["Python"] = PythonCheckBox.IsChecked == true;
             _installOptions["GeoGebra"] = GeoGebraCheckBox.IsChecked == true;
-            _installOptions["WebShortcut"] = WebShortcutCheckBox.IsChecked == true;
-            _installOptions["WebShortcutKi"] = WebShortcutKICheckBox.IsChecked == true;
             _installOptions["EjectDisk"] = EjectDiskCheckBox.IsChecked == true;
         }
 
@@ -93,15 +89,6 @@ namespace ProgramApp
                     }
                 }
 
-                foreach (var group in Installer._shortcutGroups)
-                {
-                    if (_installOptions.TryGetValue(group.Key, out bool isSelected) && isSelected)
-                    {
-                        Installer.CreateShortcuts(group.Value);
-                    }
-                }
-
-
                 // Finish up
                 ProgressBarInstall.Value = 100;
                 ResetCheckboxes();
@@ -113,7 +100,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                File.WriteAllText(logFilePath, ex.ToString());
+                File.WriteAllText(Usb.logFilePath, ex.ToString());
             }
         }
 
@@ -128,8 +115,6 @@ namespace ProgramApp
             FirefoxCheckBox.IsChecked = false;
             PythonCheckBox.IsChecked = false;
             GeoGebraCheckBox.IsChecked = false;
-            WebShortcutCheckBox.IsChecked = false;
-            // WebShortcutKICheckBox.IsChecked = false;
             EjectDiskCheckBox.IsChecked = false;
         }
 
@@ -232,7 +217,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                File.WriteAllText(logFilePath, ex.ToString());
+                File.WriteAllText(Usb.logFilePath, ex.ToString());
             }
         }
 
