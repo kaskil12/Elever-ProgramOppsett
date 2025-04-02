@@ -1,5 +1,8 @@
-dotnet publish -c Release -r win-x64 --self-contained
 
+dotnet publish -c Release -r win-x64 --self-contained
+or
+set path to build folder in makefile and do if using a usb:
+make all
 To add new programs in the future, you just need to:
 
 Add a new entry to the _programs dictionary with the program details
