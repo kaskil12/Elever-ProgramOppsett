@@ -1,0 +1,48 @@
+{
+    "Office": {
+      "CommandTemplate": "/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml",
+      "RequiresRemovableDrive": false,
+      "Icon": "office.ico"
+    },
+    "Teams": {
+      "CommandTemplate": "/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{0}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"",
+      "RequiresRemovableDrive": true,
+      "Icon": "teams.ico"
+    },
+    "Ordnett": {
+      "CommandTemplate": "/c msiexec /i \"{0}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb",
+      "RequiresRemovableDrive": true,
+      "Icon": "ordnett.ico"
+    },
+    "VsCode": {
+      "CommandTemplate": "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode",
+      "RequiresRemovableDrive": false,
+      "Icon": "vscode.ico"
+    },
+    "Thonny": {
+      "CommandTemplate": "/c start /wait .\\pkgs\\ThonnyOffline\\thonny-4.0.0 - 64bit.exe /S",
+      "RequiresRemovableDrive": false,
+      "Icon": "thonny.ico",
+      "PostInstallUrl": "https://micropython.org/"
+    },
+    "Chrome": {
+      "CommandTemplate": "/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe",
+      "RequiresRemovableDrive": false,
+      "Icon": "chrome.ico"
+    },
+    "Firefox": {
+      "CommandTemplate": "/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S",
+      "RequiresRemovableDrive": false,
+      "Icon": "firefox.ico"
+    },
+    "Python": {
+      "CommandTemplate": "/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1",
+      "RequiresRemovableDrive": false,
+      "Icon": "python.ico"
+    },
+    "GeoGebra": {
+      "CommandTemplate": "/c msiexec /i \"{0}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb",
+      "RequiresRemovableDrive": true,
+      "Icon": "geogebra.ico"
+    }
+  }

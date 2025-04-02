@@ -15,12 +15,6 @@ namespace ProgramLib
     {
         public string _currentDriveLetter = string.Empty;
         // #region LoadPrograms
-        //load programs from programs.json
-        private void LoadPrograms()
-        {
-            var programs = File.ReadAllText("programs.json");
-            var programList = JsonSerializer.Deserialize<List<ProgramInfo>>(programs);
-        }
 
         // #endregion
         #region InstallPrograms
