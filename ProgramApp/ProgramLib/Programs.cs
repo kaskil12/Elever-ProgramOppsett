@@ -17,9 +17,7 @@ public class Programs
 
     public void LoadPrograms()
     {
-        var programsJson = File.ReadAllText(
-            "C:/Users/kaspe/OneDrive/Documents/GitHub/Elever-ProgramOppsett/ProgramApp/ProgramLib/programs.json"
-        );
+        var programsJson = File.ReadAllText("Assets/programs.json");
 
         Dictionary<string, ProgramInfo>? programList = JsonSerializer.Deserialize(
             programsJson,
