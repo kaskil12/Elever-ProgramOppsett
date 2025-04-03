@@ -14,7 +14,7 @@ internal partial class AppJsonContext : JsonSerializerContext { }
 
 public class Programs
 {
-    string programsJson = "./programs.json";
+    string programsJson;
     public static bool isOnNetwork;
 
     string programsPath;
@@ -35,6 +35,7 @@ public class Programs
 
         if (!File.Exists(programsPath) && Usb.isUsbDrive == false)
         {
+            Log.LogInfo("Downloading new json for PC...");
             programsPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "programs.json"
@@ -63,6 +64,10 @@ public class Programs
                                 $"Failed to download programs.json. Exit code: {process.ExitCode}"
                             );
                         }
+                        else
+                        {
+                            Log.LogInfo("Json Installed for PC");
+                        }
                     }
                 }
             }
@@ -78,7 +83,7 @@ public class Programs
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "programs.json"
             );
-            Log.LogInfo("Downloading new json for PC");
+            Log.LogInfo("Updating json for PC...");
             var processStartInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
@@ -101,6 +106,10 @@ public class Programs
                             $"Failed to download programs.json. Exit code: {process.ExitCode}"
                         );
                     }
+                    else
+                    {
+                        Log.LogInfo("Json Updated for PC");
+                    }
                 }
             }
         }
@@ -109,7 +118,7 @@ public class Programs
             programsPath = Path.Combine($"{Usb._currentDriveLetter}", "pkgs", "programs.json");
             if (isOnNetwork)
             {
-                Log.LogInfo("Downloading new json for usb");
+                Log.LogInfo("Downloading new json for usb...");
                 var processStartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
@@ -120,7 +129,6 @@ public class Programs
                     RedirectStandardError = true,
                     CreateNoWindow = true,
                 };
-
                 using (var process = Process.Start(processStartInfo))
                 {
                     if (process != null)
@@ -131,6 +139,10 @@ public class Programs
                             throw new Exception(
                                 $"Failed to download programs.json. Exit code: {process.ExitCode}"
                             );
+                        }
+                        else
+                        {
+                            Log.LogInfo("Json installed for usb");
                         }
                     }
                 }

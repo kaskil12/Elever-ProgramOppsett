@@ -7,7 +7,7 @@ namespace ProgramLib
     public class Usb
     {
         public static bool isUsbDrive = true;
-        public static string _currentDriveLetter = "D:";
+        public static string _currentDriveLetter = "C:";
 
         public static void DetectRemovableDrive()
         {
@@ -23,7 +23,6 @@ namespace ProgramLib
                 {
                     _currentDriveLetter = "C:";
                     isUsbDrive = false;
-                    Log.LogInfo("No drive found. defaulting to C:");
                 }
             }
             Log.LogInfo(_currentDriveLetter);

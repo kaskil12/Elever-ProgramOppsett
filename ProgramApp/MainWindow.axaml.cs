@@ -68,14 +68,21 @@ namespace ProgramApp
                     iconPath = "Assets/TeamsIcon.png";
                 }
 
-                var iconImage = new Image
+                try
                 {
-                    Width = 24,
-                    Height = 24,
-                    Margin = new Thickness(0, 0, 10, 0),
-                    Source = new Avalonia.Media.Imaging.Bitmap(iconPath),
-                };
-                headerPanel.Children.Add(iconImage);
+                    var iconImage = new Image
+                    {
+                        Width = 24,
+                        Height = 24,
+                        Margin = new Thickness(0, 0, 10, 0),
+                        Source = new Avalonia.Media.Imaging.Bitmap(iconPath),
+                    };
+                    headerPanel.Children.Add(iconImage);
+                }
+                catch (Exception ex)
+                {
+                    Log.LogError("DisplayPrograms", ex);
+                }
 
                 var titleBlock = new TextBlock
                 {
@@ -218,7 +225,7 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Log.logFilePath, ex.ToString());
+                Log.LogError("", ex);
             }
         }
 
@@ -272,7 +279,8 @@ namespace ProgramApp
             );
         }
 
-        public void RefreshFunction(object sender, RoutedEventArgs e) {
+        public void RefreshFunction(object sender, RoutedEventArgs e)
+        {
             Programs programs = new Programs();
             var programContainer = this.FindControl<WrapPanel>("ProgramContainer");
             if (programContainer != null)
@@ -291,7 +299,7 @@ namespace ProgramApp
             }
             programs.LoadPrograms();
             DisplayPrograms();
-         }
+        }
 
         private void RunCommand(string executable, string arguments)
         {

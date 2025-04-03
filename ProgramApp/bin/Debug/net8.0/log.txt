@@ -1,1 +1,101 @@
-Downloading new json for PC
+Is usb, D:\pkgs\programs.jsonNo drive found. defaulting to C:
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+No drive found. defaulting to C:
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Duplicate program key detected: Office. Skipping.
+Duplicate program key detected: Teams. Skipping.
+Duplicate program key detected: Ordnett. Skipping.
+Duplicate program key detected: VsCode. Skipping.
+Duplicate program key detected: Thonny. Skipping.
+Duplicate program key detected: Chrome. Skipping.
+Duplicate program key detected: Firefox. Skipping.
+Duplicate program key detected: Python. Skipping.
+Duplicate program key detected: GeoGebra. Skipping.
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Duplicate program key detected: Office. Skipping.
+Duplicate program key detected: Teams. Skipping.
+Duplicate program key detected: Ordnett. Skipping.
+Duplicate program key detected: VsCode. Skipping.
+Duplicate program key detected: Thonny. Skipping.
+Duplicate program key detected: Chrome. Skipping.
+Duplicate program key detected: Firefox. Skipping.
+Duplicate program key detected: Python. Skipping.
+Duplicate program key detected: GeoGebra. Skipping.
+Duplicate program key detected: Meowsicle. Skipping.
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Duplicate program key detected: Office. Skipping.
+Duplicate program key detected: Teams. Skipping.
+Duplicate program key detected: Ordnett. Skipping.
+Duplicate program key detected: VsCode. Skipping.
+Duplicate program key detected: Thonny. Skipping.
+Duplicate program key detected: Chrome. Skipping.
+Duplicate program key detected: Firefox. Skipping.
+Duplicate program key detected: Python. Skipping.
+Duplicate program key detected: GeoGebra. Skipping.
+Duplicate program key detected: Meowsicle. Skipping.
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Duplicate program key detected: Office. Skipping.
+Duplicate program key detected: Teams. Skipping.
+Duplicate program key detected: Ordnett. Skipping.
+Duplicate program key detected: VsCode. Skipping.
+Duplicate program key detected: Thonny. Skipping.
+Duplicate program key detected: Chrome. Skipping.
+Duplicate program key detected: Firefox. Skipping.
+Duplicate program key detected: Python. Skipping.
+Duplicate program key detected: GeoGebra. Skipping.
+Duplicate program key detected: Meowsicle. Skipping.
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Duplicate program key detected: Office. Skipping.
+Duplicate program key detected: Teams. Skipping.
+Duplicate program key detected: Ordnett. Skipping.
+Duplicate program key detected: VsCode. Skipping.
+Duplicate program key detected: Thonny. Skipping.
+Duplicate program key detected: Chrome. Skipping.
+Duplicate program key detected: Firefox. Skipping.
+Duplicate program key detected: Python. Skipping.
+Duplicate program key detected: GeoGebra. Skipping.
+Duplicate program key detected: Meowsicle. Skipping.
+No drive found. defaulting to C:
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+No drive found. defaulting to C:
+D:\
+Installing Ordnett
+Command: /c msiexec /i "D:\\pkgs\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
