@@ -23,12 +23,10 @@ namespace ProgramLib
                 {
                     _currentDriveLetter = "C:";
                     isUsbDrive = false;
-                    File.WriteAllText(
-                        Log.logFilePath,
-                        $"No removable drive found. Defaulting to C: drive."
-                    );
+                    Log.LogInfo("No drive found. defaulting to C:");
                 }
             }
+            Log.LogInfo(_currentDriveLetter);
         }
     }
 }

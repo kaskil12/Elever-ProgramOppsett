@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -14,20 +15,70 @@ internal partial class AppJsonContext : JsonSerializerContext { }
 public class Programs
 {
     string programsJson = "./programs.json";
+    public static bool isOnNetwork;
+
     string programsPath;
+
     public static readonly Dictionary<string, ProgramInfo> _programs =
         new Dictionary<string, ProgramInfo>();
 
     public void LoadPrograms()
     {
+        CheckNetwork();
+        Log.LogInfo("Network: " + isOnNetwork);
+        programsPath = Path.Combine($"{Usb._currentDriveLetter}", "pkgs", "programs.json");
         // var programsJson = File.ReadAllText("./programs.json");
         programsPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "programs.json"
         );
 
-        if (!File.Exists(programsPath))
+        if (!File.Exists(programsPath) && Usb.isUsbDrive == false)
         {
+            programsPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "programs.json"
+            );
+            if (isOnNetwork)
+            {
+                var processStartInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments =
+                        $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/ProgramApp/ProgramLib/programs.json\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true,
+                };
+
+                using (var process = Process.Start(processStartInfo))
+                {
+                    if (process != null)
+                    {
+                        process.WaitForExit();
+                        if (process.ExitCode != 0)
+                        {
+                            throw new Exception(
+                                $"Failed to download programs.json. Exit code: {process.ExitCode}"
+                            );
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Log.LogInfo("No Network and no json file, Connect to network and try again");
+                return;
+            }
+        }
+        else if (File.Exists(programsPath) && Usb.isUsbDrive == false && isOnNetwork)
+        {
+            programsPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "programs.json"
+            );
+            Log.LogInfo("Downloading new json for PC");
             var processStartInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
@@ -53,13 +104,49 @@ public class Programs
                 }
             }
         }
+        else if (Usb.isUsbDrive)
+        {
+            programsPath = Path.Combine($"{Usb._currentDriveLetter}", "pkgs", "programs.json");
+            if (isOnNetwork)
+            {
+                Log.LogInfo("Downloading new json for usb");
+                var processStartInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments =
+                        $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/ProgramApp/ProgramLib/programs.json\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true,
+                };
+
+                using (var process = Process.Start(processStartInfo))
+                {
+                    if (process != null)
+                    {
+                        process.WaitForExit();
+                        if (process.ExitCode != 0)
+                        {
+                            throw new Exception(
+                                $"Failed to download programs.json. Exit code: {process.ExitCode}"
+                            );
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Log.LogInfo("No network detected");
+            }
+
+            Log.LogInfo("Is usb, " + programsPath.ToString());
+        }
 
         if (!File.Exists(programsPath) || new FileInfo(programsPath).Length == 0)
         {
             throw new Exception("Failed to download or validate programs.json");
         }
-
-        programsJson = File.ReadAllText(programsPath);
 
         programsJson = File.ReadAllText(programsPath);
 
@@ -72,14 +159,21 @@ public class Programs
         {
             foreach (var program in programList)
             {
-                _programs.Add(program.Key, program.Value);
-                Log.LogInfo($"Loaded program: {program.Key}");
-                Log.LogInfo($"Command: {program.Value.CommandTemplate}");
-                Log.LogInfo($"Requires Removable Drive: {program.Value.RequiresRemovableDrive}");
-                Log.LogInfo($"Icon: {program.Value.Icon}");
-                Log.LogInfo($"Description: {program.Value.Description}");
-                Log.LogInfo($"Version: {program.Value.Version}");
-                Log.LogInfo($"PostInstallAction: {program.Value.PostInstallAction}");
+                if (!_programs.ContainsKey(program.Key))
+                {
+                    _programs.Add(program.Key, program.Value);
+                }
+                else
+                {
+                    Log.LogInfo($"Duplicate program key detected: {program.Key}. Skipping.");
+                }
+                // Log.LogInfo($"Loaded program: {program.Key}");
+                // Log.LogInfo($"Command: {program.Value.CommandTemplate}");
+                // Log.LogInfo($"Requires Removable Drive: {program.Value.RequiresRemovableDrive}");
+                // Log.LogInfo($"Icon: {program.Value.Icon}");
+                // Log.LogInfo($"Description: {program.Value.Description}");
+                // Log.LogInfo($"Version: {program.Value.Version}");
+                // Log.LogInfo($"PostInstallAction: {program.Value.PostInstallAction}");
             }
         }
         else
@@ -87,6 +181,12 @@ public class Programs
             Log.LogError("LoadPrograms", new Exception("Failed to deserialize programs.json"));
             throw new Exception("Failed to load programs.json");
         }
+    }
+
+    public static bool CheckNetwork()
+    {
+        isOnNetwork = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        return isOnNetwork;
     }
 
     public Dictionary<string, ProgramInfo> GetProgramList()

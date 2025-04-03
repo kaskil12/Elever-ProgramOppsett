@@ -411,7 +411,8 @@
                                 Margin="0,0,10,0"
                                 Background=""
                                 Classes="primary"
-                                Content="Cancel" />
+                                Click="RefreshFunction"
+                                Content="Refresh" />
                             <Button
                                 Width="150"
                                 Classes="primary"

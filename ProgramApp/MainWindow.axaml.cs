@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -19,6 +20,7 @@ namespace ProgramApp
         {
             InitializeComponent();
             CenterWindowAtTop();
+            Usb.DetectRemovableDrive();
             Programs program = new Programs();
             program.LoadPrograms();
             DisplayPrograms();
@@ -269,6 +271,27 @@ namespace ProgramApp
                 "Start-Process powershell.exe -Verb RunAs -ArgumentList \"-NoProfile -ExecutionPolicy Bypass -Command `\\\"Start-Process ms-settings:windowsupdate; Install-PackageProvider NuGet -Force; Install-Module PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot\\\"\""
             );
         }
+
+        public void RefreshFunction(object sender, RoutedEventArgs e) {
+            Programs programs = new Programs();
+            var programContainer = this.FindControl<WrapPanel>("ProgramContainer");
+            if (programContainer != null)
+            {
+                foreach (var child in programContainer.Children)
+                {
+                    if (child is Border border && border.Child is Grid grid)
+                    {
+                        var checkBox = grid.Children.FirstOrDefault(c => c is CheckBox);
+                        if (checkBox != null)
+                        {
+                            grid.Children.Remove(checkBox);
+                        }
+                    }
+                }
+            }
+            programs.LoadPrograms();
+            DisplayPrograms();
+         }
 
         private void RunCommand(string executable, string arguments)
         {
