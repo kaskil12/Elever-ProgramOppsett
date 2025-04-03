@@ -363,7 +363,7 @@
                         <CheckBox
                             x:Name="CreateDesktopShortcutsCheckBox"
                             Margin="0,0,15,0"
-                            Content="Oprett skrivebord snarveier"
+                            Content="Opprett skrivebord snarveier"
                             IsChecked="True" />
                         <CheckBox
                             x:Name="LaunchOnCompleteCheckBox"
@@ -416,7 +416,7 @@
                                 Width="150"
                                 Classes="primary"
                                 Click="InstallButton"
-                                Content="Innstaller" />
+                                Content="Installer" />
                         </StackPanel>
                     </Grid>
                 </Grid>
