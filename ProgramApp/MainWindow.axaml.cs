@@ -14,6 +14,7 @@ namespace ProgramApp
 {
     public partial class MainWindow : Window
     {
+        string iconPath;
         private readonly Dictionary<string, bool> _installOptions = new Dictionary<string, bool>();
 
         public MainWindow()
@@ -61,8 +62,17 @@ namespace ProgramApp
                 var stackPanel = new StackPanel { Margin = new Thickness(12) };
 
                 var headerPanel = new StackPanel { Orientation = Orientation.Horizontal };
-
-                var iconPath = $"Assets/{programInfo.Icon}";
+                if (Usb.isUsbDrive)
+                {
+                    iconPath = $"pkgs/Assets/{programInfo.Icon}";
+                }
+                else
+                {
+                    iconPath = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        "Assets"
+                    );
+                }
                 if (!File.Exists(iconPath))
                 {
                     iconPath = "Assets/TeamsIcon.png";
