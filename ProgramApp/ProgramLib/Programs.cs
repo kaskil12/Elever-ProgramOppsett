@@ -38,6 +38,7 @@ public class Programs
             Log.LogInfo("Downloading new json for PC...");
             programsPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Assets",
                 "programs.json"
             );
             if (isOnNetwork)
@@ -46,7 +47,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                        $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/ProgramApp/ProgramLib/programs.json\"",
+                        $"/c curl -L -o \"{programsPath}\" \"https://github.com/kaskil12/Elever-ProgramOppsett/tree/main/Assets",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -81,6 +82,7 @@ public class Programs
         {
             programsPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Assets",
                 "programs.json"
             );
             Log.LogInfo("Updating json for PC...");
@@ -88,7 +90,7 @@ public class Programs
             {
                 FileName = "cmd.exe",
                 Arguments =
-                    $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/ProgramApp/ProgramLib/programs.json\"",
+                    $"/c curl -L -o \"{programsPath}\" \"https://github.com/kaskil12/Elever-ProgramOppsett/tree/main/Assets",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -123,7 +125,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                        $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/ProgramApp/ProgramLib/programs.json\"",
+                        $"/c curl -L -o \"{programsPath}\" \"https://github.com/kaskil12/Elever-ProgramOppsett/tree/main/Assets",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
