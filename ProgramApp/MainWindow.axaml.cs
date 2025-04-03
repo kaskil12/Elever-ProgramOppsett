@@ -5,6 +5,8 @@ using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
+using Avalonia.Media;
 using ProgramLib;
 #nullable enable
 namespace ProgramApp
@@ -13,21 +15,127 @@ namespace ProgramApp
     {
         private readonly Dictionary<string, bool> _installOptions = new Dictionary<string, bool>();
 
-
-        private readonly Dictionary<string, (string executable, string arguments)> _systemCommands =
-            new Dictionary<string, (string, string)>
-            {
-                { "Dism", ("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth") },
-                { "SfcScan", ("cmd.exe", "sfc /Scannow") },
-                { "DiskCleanup", ("cleanmgr.exe", "") },
-            };
-
         public MainWindow()
         {
             InitializeComponent();
             CenterWindowAtTop();
+            Programs program = new Programs();
+            program.LoadPrograms();
+            DisplayPrograms();
         }
 
+        #region Display Programs
+        //Program Boxes. This is where the function boxes are created and displayed.
+        public void DisplayPrograms()
+        {
+            var programContainer = this.FindControl<WrapPanel>("ProgramContainer");
+            if (programContainer == null)
+            {
+                Log.LogError(
+                    "DisplayPrograms",
+                    new Exception("Could not find WrapPanel container")
+                );
+                return;
+            }
+
+            programContainer.Children.Clear();
+
+            foreach (var program in Programs._programs)
+            {
+                string programName = program.Key;
+                var programInfo = program.Value;
+
+                var border = new Border
+                {
+                    Width = 180,
+                    Height = 120,
+                    Margin = new Thickness(5),
+                    Background = new SolidColorBrush(Color.Parse("#e0e0e0")),
+                    CornerRadius = new CornerRadius(4),
+                };
+
+                var grid = new Grid();
+
+                var stackPanel = new StackPanel { Margin = new Thickness(12) };
+
+                var headerPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+                var iconPath = $"Assets/{programInfo.Icon}";
+                if (!File.Exists(iconPath))
+                {
+                    iconPath = "Assets/TeamsIcon.png";
+                }
+
+                var iconImage = new Image
+                {
+                    Width = 24,
+                    Height = 24,
+                    Margin = new Thickness(0, 0, 10, 0),
+                    Source = new Avalonia.Media.Imaging.Bitmap(iconPath),
+                };
+                headerPanel.Children.Add(iconImage);
+
+                var titleBlock = new TextBlock
+                {
+                    Text = programName,
+                    FontWeight = FontWeight.Medium,
+                    VerticalAlignment = VerticalAlignment.Center,
+                };
+                headerPanel.Children.Add(titleBlock);
+
+                stackPanel.Children.Add(headerPanel);
+
+                var descBlock = new TextBlock
+                {
+                    Text = programInfo.Description,
+                    Margin = new Thickness(0, 8, 0, 0),
+                    FontSize = 12,
+                    Opacity = 0.8,
+                    TextWrapping = TextWrapping.Wrap,
+                };
+                stackPanel.Children.Add(descBlock);
+
+                var versionBlock = new TextBlock
+                {
+                    Text = $"Version: {programInfo.Version}",
+                    Margin = new Thickness(0, 8, 0, 0),
+                    FontSize = 11,
+                    Opacity = 0.7,
+                };
+                stackPanel.Children.Add(versionBlock);
+
+                grid.Children.Add(stackPanel);
+
+                var checkbox = new CheckBox
+                {
+                    Name = $"{programName}CheckBox",
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Margin = new Thickness(0, 8, 8, 0),
+                };
+
+                var field = this.GetType()
+                    .GetField(
+                        $"{programName}CheckBox",
+                        System.Reflection.BindingFlags.Instance
+                            | System.Reflection.BindingFlags.NonPublic
+                            | System.Reflection.BindingFlags.Public
+                    );
+                if (field != null)
+                {
+                    field.SetValue(this, checkbox);
+                }
+
+                grid.Children.Add(checkbox);
+
+                border.Child = grid;
+
+                programContainer.Children.Add(border);
+            }
+        }
+        #endregion
+
+        // Center the window at the top of the screen
         private void CenterWindowAtTop()
         {
             this.WindowStartupLocation = WindowStartupLocation.Manual;
@@ -54,25 +162,34 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Usb.logFilePath, ex.ToString());
-
+                File.WriteAllText(Log.logFilePath, ex.ToString());
             }
         }
 
         private void CollectInstallOptions()
         {
-            _installOptions.Clear();
+            var programContainer = this.FindControl<WrapPanel>("ProgramContainer");
+            if (programContainer == null)
+            {
+                Log.LogError(
+                    "CollectInstallOptions",
+                    new Exception("Could not find WrapPanel container")
+                );
+                return;
+            }
 
-            _installOptions["Office"] = OfficeCheckBox.IsChecked == true;
-            _installOptions["Teams"] = TeamsCheckBox.IsChecked == true;
-            _installOptions["Ordnett"] = OrdnettCheckBox.IsChecked == true;
-            _installOptions["VsCode"] = VsCodeCheckBox.IsChecked == true;
-            _installOptions["Thonny"] = ThonnyCheckBox.IsChecked == true;
-            _installOptions["Chrome"] = ChromeCheckBox.IsChecked == true;
-            _installOptions["Firefox"] = FirefoxCheckBox.IsChecked == true;
-            _installOptions["Python"] = PythonCheckBox.IsChecked == true;
-            _installOptions["GeoGebra"] = GeoGebraCheckBox.IsChecked == true;
-            _installOptions["EjectDisk"] = EjectDiskCheckBox.IsChecked == true;
+            foreach (var child in programContainer.Children)
+            {
+                if (child is Border border && border.Child is Grid grid)
+                {
+                    var checkBox = grid.Children[1] as CheckBox;
+                    if (checkBox != null)
+                    {
+                        string programName = checkBox.Name.Replace("CheckBox", "");
+                        _installOptions[programName] = checkBox.IsChecked ?? false;
+                    }
+                }
+            }
         }
 
         private void InstallPrograms()
@@ -89,38 +206,24 @@ namespace ProgramApp
                     }
                 }
 
-                // Finish up
                 ProgressBarInstall.Value = 100;
-                ResetCheckboxes();
+                // ResetCheckboxes();
                 if (_installOptions.TryGetValue("EjectDisk", out bool shouldEject) && shouldEject)
                 {
-                    Console.WriteLine("Ejecting disk...");
+                    Log.LogInfo("Ejecting disk...");
                     Environment.Exit(0);
                 }
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Usb.logFilePath, ex.ToString());
+                File.WriteAllText(Log.logFilePath, ex.ToString());
             }
-        }
-
-        private void ResetCheckboxes()
-        {
-            OfficeCheckBox.IsChecked = false;
-            TeamsCheckBox.IsChecked = false;
-            OrdnettCheckBox.IsChecked = false;
-            VsCodeCheckBox.IsChecked = false;
-            ThonnyCheckBox.IsChecked = false;
-            ChromeCheckBox.IsChecked = false;
-            FirefoxCheckBox.IsChecked = false;
-            PythonCheckBox.IsChecked = false;
-            GeoGebraCheckBox.IsChecked = false;
-            EjectDiskCheckBox.IsChecked = false;
         }
 
         #endregion
 
         #region Search and Sort
+        // Search and Sort buttons. They are not implemented yet.
 
         public void SearchButton_Click(object sender, RoutedEventArgs e)
         {
@@ -138,7 +241,7 @@ namespace ProgramApp
 
         #endregion
 
-
+        // Quick Fixes in the fixes tab
         public void FaktorKnapp(object sender, RoutedEventArgs e) =>
             Fixes.OpenUrl("https://aka.ms/mfasetup");
 
@@ -147,26 +250,8 @@ namespace ProgramApp
 
         public void SkrivUt(object sender, RoutedEventArgs e) =>
             Fixes.OpenUrl("https://innlandetfylke.eu.uniflowonline.com/");
-        #region System Operations
 
-        // public void RunSystemCommand(object sender, RoutedEventArgs e)
-        // {
-        //     try
-        //     {
-        //         if (sender is Button button && button.Name != null)
-        //         {
-        //             string commandName = button.Name.Replace("Button", "");
-        //             if (_systemCommands.TryGetValue(commandName, out var command))
-        //             {
-        //                 Process.Start(command.executable, command.arguments);
-        //             }
-        //         }
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         Log.LogError("RunSystemCommand", ex);
-        //     }
-        // }
+        #region System Operations
 
         public void Dism(object sender, RoutedEventArgs e) =>
             RunCommand("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth");
@@ -175,10 +260,14 @@ namespace ProgramApp
             RunCommand("cmd.exe", "sfc /Scannow");
 
         public void DiskCleanup(object sender, RoutedEventArgs e) => RunCommand("cleanmgr.exe", "");
+
         public void UpdatePc(object sender, RoutedEventArgs e)
         {
             // RunCommand("powershell", "Start-Process \"ms-settings:windowsupdate\"");
-            RunCommand("powershell", "Start-Process powershell.exe -Verb RunAs -ArgumentList \"-NoProfile -ExecutionPolicy Bypass -Command `\\\"Start-Process ms-settings:windowsupdate; Install-PackageProvider NuGet -Force; Install-Module PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot\\\"\"");
+            RunCommand(
+                "powershell",
+                "Start-Process powershell.exe -Verb RunAs -ArgumentList \"-NoProfile -ExecutionPolicy Bypass -Command `\\\"Start-Process ms-settings:windowsupdate; Install-PackageProvider NuGet -Force; Install-Module PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot\\\"\""
+            );
         }
 
         private void RunCommand(string executable, string arguments)
@@ -192,6 +281,7 @@ namespace ProgramApp
                 Log.LogError($"RunCommand[{executable} {arguments}]", ex);
             }
         }
+
         public void RemoveAdd(object sender, RoutedEventArgs e)
         {
             Fixes.RemoveAdd(sender, e);
@@ -217,15 +307,10 @@ namespace ProgramApp
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Usb.logFilePath, ex.ToString());
+                File.WriteAllText(Log.logFilePath, ex.ToString());
             }
         }
 
         #endregion
-
     }
-
-
-
-
 }

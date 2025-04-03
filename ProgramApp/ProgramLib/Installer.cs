@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using System.Text.Json;
 #nullable enable
 
 namespace ProgramLib
@@ -14,18 +14,11 @@ namespace ProgramLib
     public class Installer
     {
         public string _currentDriveLetter = string.Empty;
-        // #region LoadPrograms
-        //load programs from programs.json
-        private void LoadPrograms()
-        {
-            var programs = File.ReadAllText("programs.json");
-            var programList = JsonSerializer.Deserialize<List<ProgramInfo>>(programs);
-        }
 
-        // #endregion
         #region InstallPrograms
         public static void InstallProgram(string programName, ProgramInfo program)
         {
+            Log.LogInfo($"Installing {programName}");
             try
             {
                 string cmdText = program.RequiresRemovableDrive
@@ -41,7 +34,7 @@ namespace ProgramLib
                     RedirectStandardError = true,
                     CreateNoWindow = true,
                 };
-
+                Log.LogInfo($"Command: {cmdText}");
                 var process = Process.Start(processStartInfo);
                 if (process != null)
                     process.WaitForExit();
@@ -50,10 +43,9 @@ namespace ProgramLib
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Usb.logFilePath, ex.ToString());
+                File.WriteAllText(Log.logFilePath, ex.ToString());
             }
         }
         #endregion
     }
-
 }

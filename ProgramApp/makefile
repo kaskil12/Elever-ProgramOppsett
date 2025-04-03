@@ -22,8 +22,8 @@ deploy:
 	powershell -Command "$$drives = Get-WmiObject Win32_LogicalDisk | Where-Object { $$_.DriveType -eq 2 } | Select-Object -ExpandProperty DeviceID; if ($$drives) { foreach ($$drive in $$drives) { if (Test-Path '$(SOURCE_EXE)') { Copy-Item -Path '$(SOURCE_EXE)' -Destination \"$$drive\\ProgramApp.exe\" -Force; echo \"Deployed to $$drive\" } else { echo \"Source executable not found!\" } } } else { echo \"No USB drives detected!\" }"
 	@echo Deployment completed.
 
-# Clean build artifacts
-clean:
-	@echo Cleaning build artifacts...
-	cd $(PROJECT_PATH) && dotnet clean -c Release
-	@echo Clean completed.
+# # Clean build artifacts
+# clean:
+# 	@echo Cleaning build artifacts...
+# 	cd $(PROJECT_PATH) && dotnet clean -c Release
+# 	@echo Clean completed.

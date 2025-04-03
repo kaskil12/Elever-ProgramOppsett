@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using System.IO;
+
 namespace ProgramLib
 {
     public class Fixes
@@ -15,6 +16,7 @@ namespace ProgramLib
             { "ResetPassword", "https://start.innlandetfylke.no/" },
             { "PrintService", "https://innlandetfylke.eu.uniflowonline.com/" },
         };
+
         public void OpenWebPage(object sender, RoutedEventArgs e)
         {
             try
@@ -30,9 +32,11 @@ namespace ProgramLib
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Usb.logFilePath, ex.ToString());
+                Log.LogError($"OpenWebPage[{sender}]", ex);
+                File.WriteAllText(Log.logFilePath, ex.ToString());
             }
         }
+
         public static void RemoveAdd(object sender, RoutedEventArgs e)
         {
             string[] processesToKill = new string[]
@@ -75,29 +79,30 @@ namespace ProgramLib
                     {
                         process.Kill();
                         process.WaitForExit();
-                        Console.WriteLine($"{processName} terminated.");
+                        Log.LogInfo($"Killed process: {processName}");
                     }
                 }
 
                 if (Directory.Exists(aadFilePath))
                 {
                     Directory.Delete(aadFilePath, true);
-                    Console.WriteLine("✅ AAD file successfully deleted.");
-                    File.WriteAllText(Usb.logFilePath, "AAD file deleted successfully.");
+                    Log.LogInfo($"Deleted directory: {aadFilePath}");
                 }
                 else
                 {
                     Console.WriteLine("⚠️ AAD file not found.");
-                    File.WriteAllText(Usb.logFilePath, "AAD file not found.");
+                    Log.LogInfo($"AAD file not found: {aadFilePath}");
                 }
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Usb.logFilePath, ex.ToString());
+                Log.LogError($"RemoveAdd[{sender}]", ex);
+            }
+            finally
+            {
+                Log.LogInfo("Finished killing processes and deleting AAD file.");
             }
         }
-
-
 
         public static void OpenUrl(string url)
         {
@@ -108,6 +113,17 @@ namespace ProgramLib
             catch (Exception ex)
             {
                 Log.LogError($"OpenUrl[{url}]", ex);
+            }
+        }
+       public static void RunCommand(string executable, string arguments)
+        {
+            try
+            {
+                Process.Start(executable, arguments);
+            }
+            catch (Exception ex)
+            {
+                Log.LogError($"RunCommand[{executable} {arguments}]", ex);
             }
         }
     }
