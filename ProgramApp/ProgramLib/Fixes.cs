@@ -115,5 +115,16 @@ namespace ProgramLib
                 Log.LogError($"OpenUrl[{url}]", ex);
             }
         }
+       public static void RunCommand(string executable, string arguments)
+        {
+            try
+            {
+                Process.Start(executable, arguments);
+            }
+            catch (Exception ex)
+            {
+                Log.LogError($"RunCommand[{executable} {arguments}]", ex);
+            }
+        }
     }
 }

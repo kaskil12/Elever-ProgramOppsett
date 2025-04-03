@@ -253,25 +253,6 @@ namespace ProgramApp
 
         #region System Operations
 
-        // public void RunSystemCommand(object sender, RoutedEventArgs e)
-        // {
-        //     try
-        //     {
-        //         if (sender is Button button && button.Name != null)
-        //         {
-        //             string commandName = button.Name.Replace("Button", "");
-        //             if (_systemCommands.TryGetValue(commandName, out var command))
-        //             {
-        //                 Process.Start(command.executable, command.arguments);
-        //             }
-        //         }
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         Log.LogError("RunSystemCommand", ex);
-        //     }
-        // }
-
         public void Dism(object sender, RoutedEventArgs e) =>
             RunCommand("cmd.exe", "DISM.exe /Online /Cleanup-image /Restorehealth");
 

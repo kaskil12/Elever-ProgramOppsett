@@ -12,12 +12,33 @@ internal partial class AppJsonContext : JsonSerializerContext { }
 
 public class Programs
 {
+    string programsJson = "./programs.json";
+    string programsPath = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "programs.json"
+    );
     public static readonly Dictionary<string, ProgramInfo> _programs =
         new Dictionary<string, ProgramInfo>();
 
     public void LoadPrograms()
     {
-        var programsJson = File.ReadAllText("Assets/programs.json");
+        // var programsJson = File.ReadAllText("./programs.json");
+
+        if (File.Exists(programsPath))
+        {
+            programsJson = File.ReadAllText(programsPath);
+        }
+        else
+        {
+            string localAppData = Environment.GetFolderPath(
+                Environment.SpecialFolder.LocalApplicationData
+            );
+            Fixes.RunCommand(
+                "cmd.exe",
+                $"curl -L -o \"{localAppData}/programs.json\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/ProgramApp/ProgramLib/programs.json\""
+            );
+            programsJson = File.ReadAllText(programsPath);
+        }
 
         Dictionary<string, ProgramInfo>? programList = JsonSerializer.Deserialize(
             programsJson,
