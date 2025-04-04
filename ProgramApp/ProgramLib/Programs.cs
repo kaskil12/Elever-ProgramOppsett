@@ -28,8 +28,16 @@ public class Programs
         Log.LogInfo("Network: " + isOnNetwork);
         programsPath = Path.Combine($"{Usb._currentDriveLetter}", "pkgs", "programs.json");
         // var programsJson = File.ReadAllText("./programs.json");
+        try{
+
+        System.IO.Directory.CreateDirectory($"{Environment.SpecialFolder.LocalApplicationData}IKTHub");
+        Log.LogInfo("Created Directory");
+        }catch(Exception e){
+            Log.LogError("Directory Creation Failed: ", e);
+        }
         programsPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "IKTHub",
             "programs.json"
         );
 
@@ -38,7 +46,7 @@ public class Programs
             Log.LogInfo("Downloading new json for PC...");
             programsPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "Assets",
+                "IKTHub",
                 "programs.json"
             );
             if (isOnNetwork)
@@ -47,7 +55,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                        $"/c curl -L -o \"{programsPath}\" \"https://github.com/kaskil12/Elever-ProgramOppsett/tree/main/Assets",
+                        $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/programs.json\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -82,7 +90,7 @@ public class Programs
         {
             programsPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "Assets",
+                "IKTHub",
                 "programs.json"
             );
             Log.LogInfo("Updating json for PC...");
@@ -90,7 +98,7 @@ public class Programs
             {
                 FileName = "cmd.exe",
                 Arguments =
-                    $"/c curl -L -o \"{programsPath}\" \"https://github.com/kaskil12/Elever-ProgramOppsett/tree/main/Assets",
+                    $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/programs.json\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -125,7 +133,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                        $"/c curl -L -o \"{programsPath}\" \"https://github.com/kaskil12/Elever-ProgramOppsett/tree/main/Assets",
+                        $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/programs.json\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,

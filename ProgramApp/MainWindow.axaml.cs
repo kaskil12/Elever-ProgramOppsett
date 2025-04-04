@@ -65,13 +65,76 @@ namespace ProgramApp
                 if (Usb.isUsbDrive)
                 {
                     iconPath = $"pkgs/Assets/{programInfo.Icon}";
+                    if (Programs.isOnNetwork && !File.Exists(iconPath))
+                    {
+                        var processStartInfo = new ProcessStartInfo
+                        {
+                            FileName = "cmd.exe",
+                            Arguments =
+                                $"/c curl -L -o \"{iconPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/{programInfo.Icon}\"",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true,
+                        };
+
+                        using (var process = Process.Start(processStartInfo))
+                        {
+                            if (process != null)
+                            {
+                                process.WaitForExit();
+                                if (process.ExitCode != 0)
+                                {
+                                    throw new Exception(
+                                        $"Failed to download programs.json. Exit code: {process.ExitCode}"
+                                    );
+                                }
+                                else
+                                {
+                                    Log.LogInfo("Json Installed for PC");
+                                }
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     iconPath = Path.Combine(
                         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                        "Assets"
+                        "IKTHub",
+                        $"{programInfo.Icon}"
                     );
+                    if (Programs.isOnNetwork && !File.Exists(iconPath))
+                    {
+                        var processStartInfo = new ProcessStartInfo
+                        {
+                            FileName = "cmd.exe",
+                            Arguments =
+                                $"/c curl -L -o \"{iconPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/{programInfo.Icon}\"",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true,
+                        };
+
+                        using (var process = Process.Start(processStartInfo))
+                        {
+                            if (process != null)
+                            {
+                                process.WaitForExit();
+                                if (process.ExitCode != 0)
+                                {
+                                    throw new Exception(
+                                        $"Failed to download programs.json. Exit code: {process.ExitCode}"
+                                    );
+                                }
+                                else
+                                {
+                                    Log.LogInfo("Json Installed for PC");
+                                }
+                            }
+                        }
+                    }
                 }
                 if (!File.Exists(iconPath))
                 {
