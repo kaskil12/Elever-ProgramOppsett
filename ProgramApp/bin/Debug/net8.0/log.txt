@@ -2219,4 +2219,9 @@ Created Directory
 Updating json for PC...
 Json Updated for PC
 Icons Installed for PC
+Error in DisplayPrograms GeogebraIcon.png: Unable to load bitmap from provided dataC:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
 Error in DisplayPrograms GeogebraIcon.png: Unable to load bitmap from provided data
