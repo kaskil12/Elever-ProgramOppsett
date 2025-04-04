@@ -70,5 +70,13 @@
       "Version": "2021",
       "Description": "GeoGebra is a mathematics software",
       "PostInstallCommand": "https://micropython.org/"
+    },
+    "Lingdys": {
+      "CommandTemplate": "/c msiexec /i \"{0}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb",
+      "RequiresRemovableDrive": true,
+      "Icon": "GeogebraIcon.png",
+      "Version": "2021",
+      "Description": "GeoGebra is a mathematics software",
+      "PostInstallCommand": "https://micropython.org/"
     }
   }
