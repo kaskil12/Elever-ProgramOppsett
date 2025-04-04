@@ -86,12 +86,12 @@ namespace ProgramApp
                                 if (process.ExitCode != 0)
                                 {
                                     throw new Exception(
-                                        $"Failed to download programs.json. Exit code: {process.ExitCode}"
+                                        $"Failed to download Icons. Exit code: {process.ExitCode}"
                                     );
                                 }
                                 else
                                 {
-                                    Log.LogInfo("Json Installed for PC");
+                                    Log.LogInfo("Icon Installed for Usb");
                                 }
                             }
                         }
@@ -125,12 +125,12 @@ namespace ProgramApp
                                 if (process.ExitCode != 0)
                                 {
                                     throw new Exception(
-                                        $"Failed to download programs.json. Exit code: {process.ExitCode}"
+                                        $"Failed to download Icons. Exit code: {process.ExitCode}"
                                     );
                                 }
                                 else
                                 {
-                                    Log.LogInfo("Json Installed for PC");
+                                    Log.LogInfo("Icons Installed for PC");
                                 }
                             }
                         }

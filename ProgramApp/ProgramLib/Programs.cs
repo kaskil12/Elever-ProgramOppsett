@@ -28,11 +28,17 @@ public class Programs
         Log.LogInfo("Network: " + isOnNetwork);
         programsPath = Path.Combine($"{Usb._currentDriveLetter}", "pkgs", "programs.json");
         // var programsJson = File.ReadAllText("./programs.json");
-        try{
-
-        System.IO.Directory.CreateDirectory($"{Environment.SpecialFolder.LocalApplicationData}IKTHub");
-        Log.LogInfo("Created Directory");
-        }catch(Exception e){
+        try
+        {
+            string folderPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "IKTHub"
+            );
+            Directory.CreateDirectory(folderPath);
+            Log.LogInfo("Created Directory");
+        }
+        catch (Exception e)
+        {
             Log.LogError("Directory Creation Failed: ", e);
         }
         programsPath = Path.Combine(

@@ -26,7 +26,7 @@
     "VsCode": {
       "CommandTemplate": "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode",
       "RequiresRemovableDrive": false,
-      "Icon": "VscodeIcon.png",
+      "Icon": "VSCodeIcon.png",
       "Version": "2021",
       "Description": "Visual Studio Code is a code editor",
       "PostInstallCommand": "https://micropython.org/"
