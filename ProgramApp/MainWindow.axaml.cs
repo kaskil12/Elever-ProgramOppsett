@@ -154,7 +154,7 @@ namespace ProgramApp
                 }
                 catch (Exception ex)
                 {
-                    Log.LogError("DisplayPrograms", ex);
+                    Log.LogError("DisplayPrograms " + $"{programInfo.Icon}", ex);
                 }
 
                 var titleBlock = new TextBlock

@@ -2186,4 +2186,37 @@ Network: True
 Created Directory
 Updating json for PC...
 Json Updated for PC
-Error in DisplayPrograms: Unable to load bitmap from provided dataError in DisplayPrograms: Unable to load bitmap from provided data
+Error in DisplayPrograms: Unable to load bitmap from provided dataError in DisplayPrograms: Unable to load bitmap from provided dataC:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+Error in DisplayPrograms: Unable to load bitmap from provided dataError in DisplayPrograms: Unable to load bitmap from provided dataC:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+Error in DisplayProgramsVSCodeIcon.png: Unable to load bitmap from provided dataError in DisplayProgramsGeogebraIcon.png: Unable to load bitmap from provided dataC:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+Icons Installed for PC
+Icons Installed for PC
+Error in DisplayPrograms GeogebraIcon.png: Unable to load bitmap from provided dataC:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+Error in DisplayPrograms GeogebraIcon.png: Unable to load bitmap from provided dataC:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+Icons Installed for PC
+Error in DisplayPrograms GeogebraIcon.png: Unable to load bitmap from provided data
