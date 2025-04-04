@@ -64,7 +64,7 @@ namespace ProgramApp
                 var headerPanel = new StackPanel { Orientation = Orientation.Horizontal };
                 if (Usb.isUsbDrive)
                 {
-                    iconPath = $"pkgs/Assets/{programInfo.Icon}";
+                    iconPath = $"{Usb._currentDriveLetter}pkgs/Assets/{programInfo.Icon}";
                     if (Programs.isOnNetwork && !File.Exists(iconPath))
                     {
                         var processStartInfo = new ProcessStartInfo

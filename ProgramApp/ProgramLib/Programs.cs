@@ -28,24 +28,32 @@ public class Programs
         Log.LogInfo("Network: " + isOnNetwork);
         programsPath = Path.Combine($"{Usb._currentDriveLetter}", "pkgs", "programs.json");
         // var programsJson = File.ReadAllText("./programs.json");
-        try
+        if (!Usb.isUsbDrive)
         {
-            string folderPath = Path.Combine(
+            try
+            {
+                string folderPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "IKTHub"
+                );
+                Directory.CreateDirectory(folderPath);
+                Log.LogInfo("Created Directory");
+            }
+            catch (Exception e)
+            {
+                Log.LogError("Directory Creation Failed: ", e);
+            }
+            programsPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "IKTHub"
+                "IKTHub",
+                "programs.json"
             );
-            Directory.CreateDirectory(folderPath);
-            Log.LogInfo("Created Directory");
         }
-        catch (Exception e)
+        else
         {
-            Log.LogError("Directory Creation Failed: ", e);
+            string folderPath = Path.Combine(Usb._currentDriveLetter, "pkgs", "Assets");
+            Directory.CreateDirectory(folderPath);
         }
-        programsPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "IKTHub",
-            "programs.json"
-        );
 
         if (!File.Exists(programsPath) && Usb.isUsbDrive == false)
         {
@@ -89,7 +97,10 @@ public class Programs
             else
             {
                 Log.LogInfo("No Network and no json file, Connect to network and try again");
-                return;
+                if (!File.Exists(programsPath))
+                {
+                    return;
+                }
             }
         }
         else if (File.Exists(programsPath) && Usb.isUsbDrive == false && isOnNetwork)
@@ -165,7 +176,11 @@ public class Programs
             }
             else
             {
-                Log.LogInfo("No network detected");
+                Log.LogInfo("No network detected so usb not updated/Installed");
+                if (!File.Exists(programsPath))
+                {
+                    return;
+                }
             }
 
             Log.LogInfo("Is usb, " + programsPath.ToString());

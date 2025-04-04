@@ -2236,3 +2236,222 @@ Created Directory
 Updating json for PC...
 Json Updated for PC
 Icons Installed for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+D:\
+Network: True
+Created Directory
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Created Directory
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+D:\
+Network: True
+Created Directory
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: False
+Created Directory
+No network detected
+Is usb, D:\pkgs\programs.json
+C:
+Network: False
+Created Directory
+C:
+Network: False
+Created Directory
+C:
+Network: False
+Created Directory
+Downloading new json for PC...
+No Network and no json file, Connect to network and try again
+D:\
+Network: False
+Created Directory
+No network detected
+Is usb, D:\pkgs\programs.json
+D:\
+Network: False
+Created Directory
+No network detected
+Is usb, D:\pkgs\programs.json
+D:\
+Network: False
+Created Directory
+No network detected
+D:\
+Network: True
+Created Directory
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+D:\
+Network: True
+Created Directory
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: False
+Created Directory
+No network detected
+D:\
+Network: True
+Created Directory
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: False
+Created Directory
+No network detected so usb not updated/Installed
+Is usb, D:\pkgs\programs.json
+D:\
+Network: False
+Created Directory
+No network detected so usb not updated/Installed
+Network: False
+Created Directory
+No network detected so usb not updated/Installed
+Network: True
+Created Directory
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: False
+No network detected so usb not updated/Installed
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+Icon Installed for Usb
+D:\
+Network: False
+No network detected so usb not updated/Installed
+Is usb, D:\pkgs\programs.json
+D:\
+Installing Ordnett
+Command: /c msiexec /i "D:\\pkgs\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb
+C:
+Network: False
+Created Directory
+Downloading new json for PC...
+No Network and no json file, Connect to network and try again
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+C:
+Network: False
+Created Directory
+C:
+Network: False
+Created Directory
+C:
+Installing Ordnett
+Command: /c msiexec /i "C:\pkgs\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb
+C:
+Network: False
+Created Directory
+Downloading new json for PC...
+No Network and no json file, Connect to network and try again
+C:
+Network: False
+Created Directory
+Downloading new json for PC...
+No Network and no json file, Connect to network and try again
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: False
+Created Directory
+C:
+Network: False
+Created Directory
+C:
+Installing Ordnett
+Command: /c msiexec /i "C:\pkgs\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb
