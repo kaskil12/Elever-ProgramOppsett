@@ -2455,3 +2455,83 @@ Created Directory
 C:
 Installing Ordnett
 Command: /c msiexec /i "C:\pkgs\OrdnettOffline\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi" ALLUSERS=2 /qb
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json

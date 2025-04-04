@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ProgramvareBiblotek"
-    Width="900"
-    Height="1100"
+    Width="850"
+    Height="870"
     d:DesignHeight="650"
     d:DesignWidth="900"
     Background="White"
@@ -100,7 +100,7 @@
         <!--  Header Banner  -->
         <Border
             Grid.Row="0"
-            Height="80"
+            Height="65"
             Background="{StaticResource HeaderGradient}"
             BoxShadow="0 2 10 0 #15000000">
             <Grid>
@@ -182,7 +182,7 @@
                             Text="Velg programmvare å installere fra Bibloteket."
                             TextWrapping="Wrap" />
 
-                        <Border
+                        <!-- <Border
                             Margin="0,0,0,15"
                             Padding="15"
                             Background="#cfd2d3"
@@ -211,7 +211,7 @@
                                 </StackPanel>
 
                             </Grid>
-                        </Border>
+                        </Border>-->
                     </StackPanel>
 
                     <ScrollViewer
@@ -732,7 +732,7 @@
         <!--  Footer  -->
         <Border
             Grid.Row="2"
-            Height="50"
+            Height="35"
             Padding="10"
             Background="#252526">
             <Grid>
