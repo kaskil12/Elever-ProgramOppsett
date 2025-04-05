@@ -2535,3 +2535,28 @@ Network: True
 Downloading new json for usb...
 Json installed for usb
 Is usb, D:\pkgs\programs.json
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC

@@ -270,4 +270,3 @@ C:\Users\kaspe\OneDrive\Documents\GitHub\Elever-ProgramOppsett\ProgramApp\obj\De
 C:\Users\kaspe\OneDrive\Documents\GitHub\Elever-ProgramOppsett\ProgramApp\obj\Debug\net8.0\ProgramApp.csproj.Up2Date
 C:\Users\kaspe\OneDrive\Documents\GitHub\Elever-ProgramOppsett\ProgramApp\obj\Debug\net8.0\ProgramApp.genruntimeconfig.cache
 C:\Users\kaspe\OneDrive\Documents\GitHub\Elever-ProgramOppsett\ProgramApp\obj\Debug\net8.0\ref\ProgramApp.dll
-C:\Users\kaspe\OneDrive\Documents\GitHub\Elever-ProgramOppsett\ProgramApp\bin\Debug\net8.0\Assets\programs.json

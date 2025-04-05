@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="ProgramvareBiblotek"
+    Title="IKTHub"
     Width="850"
     Height="870"
     d:DesignHeight="650"
@@ -118,12 +118,12 @@
                             FontSize="24"
                             FontWeight="SemiBold"
                             Foreground="#3d4543"
-                            Text="ProgramvareBiblotek" />
+                            Text="IKTHub" />
                         <TextBlock
                             Margin="0,2,0,0"
                             FontSize="14"
                             Foreground="#6f7271"
-                            Text="Apper For utdanning" />
+                            Text="App for alt teknisk" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel
@@ -740,11 +740,13 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Opacity="0.7"
-                    Text="ProgramvareBiblotek v1.0.0" />
+                    Foreground="White"
+                    Text="IKTHub v1.0.0" />
                 <TextBlock
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Opacity="0.7"
+                    Foreground="White"
                     Text="© 2025 Kasper. Alle rettigheter reservert." />
             </Grid>
         </Border>
