@@ -290,7 +290,7 @@ namespace ProgramApp
 
                 ProgressBarInstall.Value = 100;
                 // ResetCheckboxes();
-                if (_installOptions.TryGetValue("EjectDisk", out bool shouldEject) && shouldEject)
+                if (EjectDiskCheckBox?.IsChecked == true)
                 {
                     Log.LogInfo("Ejecting disk...");
                     Environment.Exit(0);

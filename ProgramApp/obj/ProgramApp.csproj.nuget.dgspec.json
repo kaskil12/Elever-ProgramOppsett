@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kaspe\\OneDrive\\Documents\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj": {}
+    "C:\\Users\\kasper\\OneDrive - Innlandet fylkeskommune\\Dokumenter\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kaspe\\OneDrive\\Documents\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj": {
+    "C:\\Users\\kasper\\OneDrive - Innlandet fylkeskommune\\Dokumenter\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kaspe\\OneDrive\\Documents\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj",
+        "projectUniqueName": "C:\\Users\\kasper\\OneDrive - Innlandet fylkeskommune\\Dokumenter\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj",
         "projectName": "ProgramApp",
-        "projectPath": "C:\\Users\\kaspe\\OneDrive\\Documents\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj",
-        "packagesPath": "C:\\Users\\kaspe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kaspe\\OneDrive\\Documents\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\obj\\",
+        "projectPath": "C:\\Users\\kasper\\OneDrive - Innlandet fylkeskommune\\Dokumenter\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\ProgramApp.csproj",
+        "packagesPath": "C:\\Users\\kasper\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kasper\\OneDrive - Innlandet fylkeskommune\\Dokumenter\\GitHub\\Elever-ProgramOppsett\\ProgramApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kaspe\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\kasper\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -48,10 +49,6 @@
               "version": "[11.1.0, )"
             },
             "Avalonia.Desktop": {
-              "target": "Package",
-              "version": "[11.1.0, )"
-            },
-            "Avalonia.Diagnostics": {
               "target": "Package",
               "version": "[11.1.0, )"
             },
@@ -66,7 +63,7 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.10, )",
+              "version": "[8.0.11, )",
               "autoReferenced": true
             }
           },
@@ -81,12 +78,47 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }
