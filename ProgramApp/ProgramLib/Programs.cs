@@ -69,7 +69,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                        $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/programs.json\"",
+                        $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get programs.json {programsPath.Replace("\\", "/")}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -115,7 +115,7 @@ public class Programs
             {
                 FileName = "cmd.exe",
                 Arguments =
-                    $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/programs.json\"",
+                    $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get programs.json {programsPath.Replace("\\", "/")}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -150,7 +150,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                        $"/c curl -L -o \"{programsPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/programs.json\"",
+                        $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get programs.json {programsPath.Replace("\\", "/")}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,

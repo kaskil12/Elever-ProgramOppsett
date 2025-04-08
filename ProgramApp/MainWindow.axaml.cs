@@ -71,7 +71,7 @@ namespace ProgramApp
                         {
                             FileName = "cmd.exe",
                             Arguments =
-                                $"/c curl -L -o \"{iconPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/{programInfo.Icon}\"",
+                                $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get {programInfo.Icon} {iconPath.Replace("\\", "/")}\"",
                             UseShellExecute = false,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
@@ -110,7 +110,7 @@ namespace ProgramApp
                         {
                             FileName = "cmd.exe",
                             Arguments =
-                                $"/c curl -L -o \"{iconPath}\" \"https://raw.githubusercontent.com/kaskil12/Elever-ProgramOppsett/main/Assets/{programInfo.Icon}\"",
+                                $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get {programInfo.Icon} {iconPath.Replace("\\", "/")}\"",
                             UseShellExecute = false,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
