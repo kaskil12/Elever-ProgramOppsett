@@ -2576,3 +2576,104 @@ C:
 Network: True
 Created Directory
 Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+File not found or empty: C:\Users\kasper\AppData\Local\IKTHub\programs.json
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+File not found or empty: C:\Users\kasper\AppData\Local\IKTHub\programs.json
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+File not found or empty: C:\Users\kasper\AppData\Local\IKTHub\programs.json
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+File not found or empty: C:\Users\kasper\AppData\Local\IKTHub\programs.json
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+File not found or empty: C:\Users\kasper\AppData\Local\IKTHub\programs.json
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+C:
+Network: True
+Created Directory
+Downloading new json for PC...
+Json Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC
+Icons Installed for PC

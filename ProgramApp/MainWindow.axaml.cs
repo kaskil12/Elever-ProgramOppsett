@@ -71,7 +71,7 @@ namespace ProgramApp
                         {
                             FileName = "cmd.exe",
                             Arguments =
-                                $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get {programInfo.Icon} {iconPath.Replace("\\", "/")}\"",
+                               $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/\"{programInfo.Icon}\" -o \"{iconPath}\"",
                             UseShellExecute = false,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
@@ -110,7 +110,7 @@ namespace ProgramApp
                         {
                             FileName = "cmd.exe",
                             Arguments =
-                                $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get {programInfo.Icon} {iconPath.Replace("\\", "/")}\"",
+                                $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/\"{programInfo.Icon}\" -o \"{iconPath}\"",
                             UseShellExecute = false,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,

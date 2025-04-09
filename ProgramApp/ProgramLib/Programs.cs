@@ -69,7 +69,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                        $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get programs.json {programsPath.Replace("\\", "/")}\"",
+                       $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{programsPath}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -115,7 +115,7 @@ public class Programs
             {
                 FileName = "cmd.exe",
                 Arguments =
-                    $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get programs.json {programsPath.Replace("\\", "/")}\"",
+                    $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{programsPath}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -150,7 +150,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                        $"/c sftp server@10.230.64.55 <<< \"cd IKTHubFttp && get programs.json {programsPath.Replace("\\", "/")}\"",
+                        $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{programsPath}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -188,6 +188,7 @@ public class Programs
 
         if (!File.Exists(programsPath) || new FileInfo(programsPath).Length == 0)
         {
+            Log.LogInfo($"File not found or empty: {programsPath}");
             throw new Exception("Failed to download or validate programs.json");
         }
 
