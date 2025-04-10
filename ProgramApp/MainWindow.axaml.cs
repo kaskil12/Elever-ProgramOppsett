@@ -25,6 +25,8 @@ namespace ProgramApp
             Programs program = new Programs();
             program.LoadPrograms();
             DisplayPrograms();
+            Fixes.LoadFixes();
+            DisplayFixes();
         }
 
         #region Display Programs
@@ -71,7 +73,7 @@ namespace ProgramApp
                         {
                             FileName = "cmd.exe",
                             Arguments =
-                               $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/\"{programInfo.Icon}\" -o \"{iconPath}\"",
+                                $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/\"{programInfo.Icon}\" -o \"{iconPath}\"",
                             UseShellExecute = false,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
@@ -213,6 +215,84 @@ namespace ProgramApp
                 border.Child = grid;
 
                 programContainer.Children.Add(border);
+            }
+        }
+        #endregion
+        #region DisplayFixes
+        private void DisplayFixes()
+        {
+            var fixContainer = this.FindControl<WrapPanel>("FixContainer");
+            if (fixContainer == null)
+            {
+                Log.LogError("DisplayFixes", new Exception("Could not find FixContainer"));
+                return;
+            }
+
+            fixContainer.Children.Clear();
+
+            foreach (var fix in Fixes.FixesList)
+            {
+                var border = new Border
+                {
+                    Width = 220,
+                    Height = 150,
+                    Margin = new Thickness(5),
+                    Background = new SolidColorBrush(Color.Parse("#f4f4f4")),
+                    CornerRadius = new CornerRadius(10),
+                };
+
+                var grid = new Grid();
+                var stackPanel = new StackPanel { Margin = new Thickness(12) };
+
+                var title = new TextBlock
+                {
+                    Text = fix.Key,
+                    FontWeight = FontWeight.Bold,
+                    FontSize = 16,
+                    Margin = new Thickness(0, 0, 0, 4),
+                };
+
+                var description = new TextBlock
+                {
+                    Text = fix.Value.Description,
+                    FontSize = 13,
+                    Opacity = 0.8,
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(0, 0, 0, 10),
+                };
+
+                var runButton = new Button
+                {
+                    Content = "Kjør",
+                    Background = new SolidColorBrush(Color.Parse("#4CAF50")),
+                    Foreground = Brushes.White,
+                    BorderBrush = null,
+                    Padding = new Thickness(10, 6),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    CornerRadius = new CornerRadius(8),
+                };
+
+                runButton.Click += (_, _) =>
+                {
+                    try
+                    {
+                        RunCommand("cmd.exe", fix.Value.Command);
+                        Log.LogInfo($"Ran fix: {fix.Key}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.LogError($"Failed to run fix: {fix.Key}", ex);
+                    }
+                };
+
+                stackPanel.Children.Add(title);
+                stackPanel.Children.Add(description);
+                stackPanel.Children.Add(runButton);
+
+                grid.Children.Add(stackPanel);
+                border.Child = grid;
+
+                fixContainer.Children.Add(border);
             }
         }
         #endregion

@@ -2677,3 +2677,31 @@ Icons Installed for PC
 Icons Installed for PC
 Icons Installed for PC
 Icons Installed for PC
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Error in DisplayFixes: Could not find FixContainerD:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\fixes.json
