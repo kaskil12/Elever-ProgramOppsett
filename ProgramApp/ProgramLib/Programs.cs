@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -18,6 +20,7 @@ public class Programs
     public static bool isOnNetwork;
 
     string programsPath;
+    public static string ServerIP = "10.230.64.55";
 
     public static readonly Dictionary<string, ProgramInfo> _programs =
         new Dictionary<string, ProgramInfo>();
@@ -69,7 +72,7 @@ public class Programs
                 {
                     FileName = "cmd.exe",
                     Arguments =
-                       $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{programsPath}\"",
+                        $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{programsPath}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -230,6 +233,16 @@ public class Programs
     public static bool CheckNetwork()
     {
         isOnNetwork = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        var sender = new Ping();
+        var result = sender.Send($"{ServerIP}");
+        if (result.Status == IPStatus.Success)
+        {
+            isOnNetwork = true;
+        }
+        else
+        {
+            isOnNetwork = false;
+        }
         return isOnNetwork;
     }
 

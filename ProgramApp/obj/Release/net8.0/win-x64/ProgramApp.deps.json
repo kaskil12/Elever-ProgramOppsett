@@ -66,6 +66,10 @@
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1124.51707"
           },
+          "System.Diagnostics.DiagnosticSource.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1124.51707"
+          },
           "System.Diagnostics.Process.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1124.51707"
@@ -102,7 +106,15 @@
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1124.51707"
           },
+          "System.Net.NameResolution.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1124.51707"
+          },
           "System.Net.NetworkInformation.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1124.51707"
+          },
+          "System.Net.Ping.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1124.51707"
           },
