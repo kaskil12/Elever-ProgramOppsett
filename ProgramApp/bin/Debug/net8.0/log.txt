@@ -2705,3 +2705,59 @@ Is usb, D:\pkgs\programs.json
 Downloading new json for usb...
 Json installed for usb
 Is usb, D:\pkgs\fixes.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\fixes.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\fixes.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+ Fixes : Downloading new json for usb...
+ Fixes : Json installed for usb
+ Fixes : Is usb, D:\pkgs\fixes.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+ Fixes : Downloading new json for usb...
+ Fixes : Json installed for usb
+ Fixes : Is usb, D:\pkgs\fixes.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+ Fixes : Downloading new json for usb...
+ Fixes : Json installed for usb
+ Fixes : Is usb, D:\pkgs\fixes.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+ Fixes : Downloading new json for usb...
+ Fixes : Json installed for usb
+ Fixes : Is usb, D:\pkgs\fixes.json
+D:\
+Network: True
+Downloading new json for usb...
+Json installed for usb
+Is usb, D:\pkgs\programs.json
+ Fixes : Downloading new json for usb...
+ Fixes : Json installed for usb
+ Fixes : Is usb, D:\pkgs\fixes.json

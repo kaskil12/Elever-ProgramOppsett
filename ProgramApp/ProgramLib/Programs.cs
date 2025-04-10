@@ -12,7 +12,7 @@ using System.Threading;
 namespace ProgramLib;
 
 [JsonSerializable(typeof(Dictionary<string, ProgramInfo>))]
-internal partial class AppJsonContext : JsonSerializerContext { }
+internal partial class ProgramJsonContexts : JsonSerializerContext { }
 
 public class Programs
 {
@@ -199,7 +199,7 @@ public class Programs
 
         Dictionary<string, ProgramInfo>? programList = JsonSerializer.Deserialize(
             programsJson,
-            AppJsonContext.Default.DictionaryStringProgramInfo
+            ProgramJsonContexts.Default.DictionaryStringProgramInfo
         );
 
         if (programList != null)

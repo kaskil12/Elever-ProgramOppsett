@@ -424,54 +424,113 @@
             </TabItem>
 
             <TabItem Header="System verktøy">
-                <Grid Margin="20" RowDefinitions="Auto,*,Auto">
-                    <StackPanel Grid.Row="0">
-                        <TextBlock
-                            Margin="0,5,0,15"
-                            FontSize="22"
-                            FontWeight="SemiBold"
-                            Foreground="#cfd2d3"
-                            Text="System verktøy" />
-                        <TextBlock
-                            Margin="0,0,0,20"
-                            FontSize="14"
-                            Opacity="0.9"
-                            Text="Utfør systemverktøy og sjekker for å optimalisere system ytelse og sikkerhet."
-                            TextWrapping="Wrap" />
-                    </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                    <Border
+                        Grid.Column="0"
+                        Padding="15"
+                        Background="#f0f2f5">
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,15"
+                                FontSize="18"
+                                FontWeight="SemiBold"
+                                Foreground="#333333"
+                                Text="Filter" />
 
-                            <!--  System Tools  -->
+                            <TextBox
+                                Name="SearchTools"
+                                Margin="0,0,0,20"
+                                Watermark="Søk verktøy..." />
+
+                            <Button
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Classes="primary"
+                                Content="Alle verktøy" />
+
+                            <Button
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Content="Ytelse" />
+
+                            <Button
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Content="Sikkerhet" />
+
+                            <Button
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Content="Diskverktøy" />
+
+                            <Button
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Content="Nettverk" />
+
+                            <Button
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Content="Oppdateringer" />
+                        </StackPanel>
+                    </Border>
+
+                    <Grid
+                        Grid.Column="1"
+                        Margin="20"
+                        RowDefinitions="Auto,*,Auto">
+                        <StackPanel Grid.Row="0">
+                            <TextBlock
+                                Margin="0,5,0,15"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                Foreground="#333333"
+                                Text="System verktøy" />
+                            <TextBlock
+                                Margin="0,0,0,20"
+                                FontSize="14"
+                                Foreground="#555555"
+                                Opacity="0.9"
+                                Text="Utfør systemverktøy og sjekker for å optimalisere system ytelse og sikkerhet."
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                             <WrapPanel
                                 x:Name="FixContainer"
-                                Grid.Row="1"
+                                Margin="0,0,0,15"
                                 Orientation="Horizontal" />
-                        </Grid>
-                    </ScrollViewer>
+                        </ScrollViewer>
 
-                    <StackPanel
-                        Grid.Row="2"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal">
-                        <Button
-                            Width="120"
-                            Margin="0,0,10,0"
-                            Classes="primary"
-                            Click="RefreshSystemInfo"
-                            Content="Oppdater" />
-                        <Button
-                            Width="150"
-                            Classes="primary"
-                            Click="RunAllChecks"
-                            Content="Kjør alle skjekker" />
-                    </StackPanel>
+                        <StackPanel
+                            Grid.Row="2"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                            <Button
+                                Width="120"
+                                Margin="0,0,10,0"
+                                Classes="primary"
+                                Click="RefreshSystemInfo"
+                                Content="Oppdater" />
+                            <Button
+                                Width="150"
+                                Classes="primary"
+                                Click="RunAllChecks"
+                                Content="Kjør alle skjekker" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

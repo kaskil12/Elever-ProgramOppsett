@@ -12,6 +12,7 @@ using Avalonia.Interactivity;
 namespace ProgramLib;
 
 [JsonSerializable(typeof(Dictionary<string, FixesInfo>))]
+internal partial class FixesJsonContext : JsonSerializerContext { }
 public class Fixes
 {
     public static string fixesPath = string.Empty;
@@ -39,7 +40,7 @@ public class Fixes
                     "IKTHub"
                 );
                 Directory.CreateDirectory(folderPath);
-                Log.LogInfo("Created Directory");
+                Log.LogInfo($" Fixes : Created Directory");
             }
             catch (Exception e)
             {
@@ -59,7 +60,7 @@ public class Fixes
 
         if (!File.Exists(fixesPath) && Usb.isUsbDrive == false)
         {
-            Log.LogInfo("Downloading new json for PC...");
+            Log.LogInfo($" Fixes : Downloading new json for PC...");
             fixesPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "IKTHub",
@@ -91,14 +92,14 @@ public class Fixes
                         }
                         else
                         {
-                            Log.LogInfo("Json Installed for PC");
+                            Log.LogInfo($" Fixes : Json Installed for PC");
                         }
                     }
                 }
             }
             else
             {
-                Log.LogInfo("No Network and no json file, Connect to network and try again");
+                Log.LogInfo($" Fixes : No Network and no json file, Connect to network and try again");
                 if (!File.Exists(fixesPath))
                 {
                     return;
@@ -112,7 +113,7 @@ public class Fixes
                 "IKTHub",
                 "fixes.json"
             );
-            Log.LogInfo("Updating json for PC...");
+            Log.LogInfo($" Fixes : Updating json for PC...");
             var processStartInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
@@ -137,7 +138,7 @@ public class Fixes
                     }
                     else
                     {
-                        Log.LogInfo("Json Updated for PC");
+                        Log.LogInfo($" Fixes : Json Updated for PC");
                     }
                 }
             }
@@ -147,7 +148,7 @@ public class Fixes
             fixesPath = Path.Combine($"{Usb._currentDriveLetter}", "pkgs", "fixes.json");
             if (Programs.isOnNetwork)
             {
-                Log.LogInfo("Downloading new json for usb...");
+                Log.LogInfo($" Fixes : Downloading new json for usb...");
                 var processStartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
@@ -171,39 +172,39 @@ public class Fixes
                         }
                         else
                         {
-                            Log.LogInfo("Json installed for usb");
+                            Log.LogInfo($" Fixes : Json installed for usb");
                         }
                     }
                 }
             }
             else
             {
-                Log.LogInfo("No network detected so usb not updated/Installed");
+                Log.LogInfo($" Fixes : No network detected so usb not updated/Installed");
                 if (!File.Exists(fixesPath))
                 {
                     return;
                 }
             }
 
-            Log.LogInfo("Is usb, " + fixesPath.ToString());
+            Log.LogInfo($" Fixes : Is usb, " + fixesPath.ToString());
         }
 
         if (!File.Exists(fixesPath) || new FileInfo(fixesPath).Length == 0)
         {
-            Log.LogInfo($"File not found or empty: {fixesPath}");
+            Log.LogInfo($" Fixes : File not found or empty: {fixesPath}");
             throw new Exception("Failed to download or validate fixes.json");
         }
 
         fixesJson = File.ReadAllText(fixesPath);
 
-        Dictionary<string, ProgramInfo>? programList = JsonSerializer.Deserialize(
+        Dictionary<string, FixesInfo>? FixesLists = JsonSerializer.Deserialize(
             fixesJson,
-            AppJsonContext.Default.DictionaryStringProgramInfo
+            FixesJsonContext.Default.DictionaryStringFixesInfo
         );
 
-        if (programList != null)
+        if (FixesLists != null)
         {
-            foreach (var fixes in FixesList)
+            foreach (var fixes in FixesLists)
             {
                 if (!FixesList.ContainsKey(fixes.Key))
                 {
@@ -211,15 +212,15 @@ public class Fixes
                 }
                 else
                 {
-                    Log.LogInfo($"Duplicate program key detected: {fixes.Key}. Skipping.");
+                    Log.LogInfo($" Fixes : Duplicate program key detected: {fixes.Key}. Skipping.");
                 }
-                // Log.LogInfo($"Loaded program: {program.Key}");
-                // Log.LogInfo($"Command: {program.Value.CommandTemplate}");
-                // Log.LogInfo($"Requires Removable Drive: {program.Value.RequiresRemovableDrive}");
-                // Log.LogInfo($"Icon: {program.Value.Icon}");
-                // Log.LogInfo($"Description: {program.Value.Description}");
-                // Log.LogInfo($"Version: {program.Value.Version}");
-                // Log.LogInfo($"PostInstallAction: {program.Value.PostInstallAction}");
+                // Log.LogInfo($" Fixes : Loaded program: {program.Key}");
+                // Log.LogInfo($" Fixes : Command: {program.Value.CommandTemplate}");
+                // Log.LogInfo($" Fixes : Requires Removable Drive: {program.Value.RequiresRemovableDrive}");
+                // Log.LogInfo($" Fixes : Icon: {program.Value.Icon}");
+                // Log.LogInfo($" Fixes : Description: {program.Value.Description}");
+                // Log.LogInfo($" Fixes : Version: {program.Value.Version}");
+                // Log.LogInfo($" Fixes : PostInstallAction: {program.Value.PostInstallAction}");
             }
         }
         else
@@ -291,19 +292,19 @@ public class Fixes
                 {
                     process.Kill();
                     process.WaitForExit();
-                    Log.LogInfo($"Killed process: {processName}");
+                    Log.LogInfo($" Fixes : Killed process: {processName}");
                 }
             }
 
             if (Directory.Exists(aadFilePath))
             {
                 Directory.Delete(aadFilePath, true);
-                Log.LogInfo($"Deleted directory: {aadFilePath}");
+                Log.LogInfo($" Fixes : Deleted directory: {aadFilePath}");
             }
             else
             {
                 Console.WriteLine("⚠️ AAD file not found.");
-                Log.LogInfo($"AAD file not found: {aadFilePath}");
+                Log.LogInfo($" Fixes : AAD file not found: {aadFilePath}");
             }
         }
         catch (Exception ex)
@@ -312,7 +313,7 @@ public class Fixes
         }
         finally
         {
-            Log.LogInfo("Finished killing processes and deleting AAD file.");
+            Log.LogInfo($" Fixes : Finished killing processes and deleting AAD file.");
         }
     }
 
