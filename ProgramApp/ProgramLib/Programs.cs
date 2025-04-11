@@ -8,7 +8,6 @@ using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ProgramLib;
 
@@ -69,33 +68,13 @@ public class Programs
             );
             if (isOnNetwork)
             {
-                var processStartInfo = new ProcessStartInfo
+                if (InstallJsonPrograms(programsPath))
                 {
-                    FileName = "cmd.exe",
-                    Arguments =
-                        $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{programsPath}\"",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                };
-
-                using (var process = Process.Start(processStartInfo))
+                    Log.LogInfo("Json Installed for PC");
+                }
+                else
                 {
-                    if (process != null)
-                    {
-                        process.WaitForExit();
-                        if (process.ExitCode != 0)
-                        {
-                            throw new Exception(
-                                $"Failed to download programs.json. Exit code: {process.ExitCode}"
-                            );
-                        }
-                        else
-                        {
-                            Log.LogInfo("Json Installed for PC");
-                        }
-                    }
+                    Log.LogInfo("Failed to install json for PC");
                 }
             }
             else
@@ -115,67 +94,39 @@ public class Programs
                 "programs.json"
             );
             Log.LogInfo("Updating json for PC...");
-            var processStartInfo = new ProcessStartInfo
+            if (InstallJsonPrograms(programsPath))
             {
-                FileName = "cmd.exe",
-                Arguments =
-                    $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{programsPath}\"",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-            };
-
-            using (var process = Process.Start(processStartInfo))
+                Log.LogInfo("Json updated for PC");
+            }
+            else
             {
-                if (process != null)
-                {
-                    process.WaitForExit();
-                    if (process.ExitCode != 0)
-                    {
-                        throw new Exception(
-                            $"Failed to download programs.json. Exit code: {process.ExitCode}"
-                        );
-                    }
-                    else
-                    {
-                        Log.LogInfo("Json Updated for PC");
-                    }
-                }
+                Log.LogInfo("Failed to updated json for PC");
             }
         }
         else if (Usb.isUsbDrive)
         {
             programsPath = Path.Combine($"{Usb._currentDriveLetter}", "pkgs", "programs.json");
-            if (isOnNetwork)
+            if (!File.Exists(programsPath) && isOnNetwork)
             {
-                Log.LogInfo("Downloading new json for usb...");
-                var processStartInfo = new ProcessStartInfo
+                if (InstallJsonPrograms(programsPath))
                 {
-                    FileName = "cmd.exe",
-                    Arguments =
-                        $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{programsPath}\"",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                };
-                using (var process = Process.Start(processStartInfo))
+                    Log.LogInfo("Json installed for usb");
+                }
+                else
                 {
-                    if (process != null)
-                    {
-                        process.WaitForExit();
-                        if (process.ExitCode != 0)
-                        {
-                            throw new Exception(
-                                $"Failed to download programs.json. Exit code: {process.ExitCode}"
-                            );
-                        }
-                        else
-                        {
-                            Log.LogInfo("Json installed for usb");
-                        }
-                    }
+                    Log.LogInfo("Failed to install json for usb");
+                }
+            }
+            else if (File.Exists(programsPath) && isOnNetwork == true)
+            {
+                Log.LogInfo("Updating json for usb...");
+                if (InstallJsonPrograms(programsPath))
+                {
+                    Log.LogInfo("Json updated for usb");
+                }
+                else
+                {
+                    Log.LogInfo("Failed to update json for usb");
                 }
             }
             else
@@ -205,33 +156,63 @@ public class Programs
 
         if (programList != null)
         {
-            Task.Run(() =>
+            foreach (var program in programList)
             {
-                foreach (var program in programList)
+                if (!_programs.ContainsKey(program.Key))
                 {
-                    if (!_programs.ContainsKey(program.Key))
-                    {
-                        _programs.Add(program.Key, program.Value);
-                    }
-                    else
-                    {
-                        Log.LogInfo($"Duplicate program key detected: {program.Key}. Skipping.");
-                    }
-                    // Log.LogInfo($"Loaded program: {program.Key}");
-                    // Log.LogInfo($"Command: {program.Value.CommandTemplate}");
-                    // Log.LogInfo($"Requires Removable Drive: {program.Value.RequiresRemovableDrive}");
-                    // Log.LogInfo($"Icon: {program.Value.Icon}");
-                    // Log.LogInfo($"Description: {program.Value.Description}");
-                    // Log.LogInfo($"Version: {program.Value.Version}");
-                    // Log.LogInfo($"PostInstallAction: {program.Value.PostInstallAction}");
+                    _programs.Add(program.Key, program.Value);
                 }
-            });
+                else
+                {
+                    Log.LogInfo($"Duplicate program key detected: {program.Key}. Skipping.");
+                }
+                // Log.LogInfo($"Loaded program: {program.Key}");
+                // Log.LogInfo($"Command: {program.Value.CommandTemplate}");
+                // Log.LogInfo($"Requires Removable Drive: {program.Value.RequiresRemovableDrive}");
+                // Log.LogInfo($"Icon: {program.Value.Icon}");
+                // Log.LogInfo($"Description: {program.Value.Description}");
+                // Log.LogInfo($"Version: {program.Value.Version}");
+                // Log.LogInfo($"PostInstallAction: {program.Value.PostInstallAction}");
+            }
         }
         else
         {
             Log.LogError("LoadPrograms", new Exception("Failed to deserialize programs.json"));
             throw new Exception("Failed to load programs.json");
         }
+    }
+
+    public bool InstallJsonPrograms(string path)
+    {
+        var processStartInfo = new ProcessStartInfo
+        {
+            FileName = "cmd.exe",
+            Arguments =
+                $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/programs.json -o \"{path}\"",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true,
+        };
+        using (var process = Process.Start(processStartInfo))
+        {
+            if (process != null)
+            {
+                process.WaitForExit();
+                if (process.ExitCode != 0)
+                {
+                    return false;
+                    throw new Exception(
+                        $"Failed to download programs.json. Exit code: {process.ExitCode}"
+                    );
+                }
+                else
+                {
+                    Log.LogInfo($"Json installed for  {Usb._currentDriveLetter}");
+                }
+            }
+        }
+        return true;
     }
 
     public static bool CheckNetwork()
@@ -270,93 +251,3 @@ public class ProgramInfo
     [JsonIgnore]
     public Action? PostInstallAction { get; set; }
 }
-
-
-//old code for reference
-// public static readonly Dictionary<string, ProgramInfo> _programs = new Dictionary<
-//     string,
-//     ProgramInfo
-// >
-// {
-//     {
-//         "Office",
-//         new ProgramInfo
-//         {
-//             CommandTemplate =
-//                 "/c start /wait .\\pkgs\\OfficeOffline\\setup.exe /configure .\\pkgs\\OfficeOffline\\Elvis.xml",
-//             RequiresRemovableDrive = false,
-//         }
-//     },
-//     {
-//         "Teams",
-//         new ProgramInfo
-//         {
-//             CommandTemplate =
-//                 "/c start /wait .\\pkgs/TeamsOffline\\teamsbootstrapper.exe -p -o \"{0}\\pkgs\\TeamsOffline\\MSTeams-x64.msix\"",
-//             RequiresRemovableDrive = true,
-//         }
-//     },
-//     {
-//         "Ordnett",
-//         new ProgramInfo
-//         {
-//             CommandTemplate =
-//                 "/c msiexec /i \"{0}\\pkgs\\OrdnettOffline\\ordnettpluss-3.3.7-innlandet_fylkeskommune.msi\" ALLUSERS=2 /qb",
-//             RequiresRemovableDrive = true,
-//         }
-//     },
-//     {
-//         "VsCode",
-//         new ProgramInfo
-//         {
-//             CommandTemplate =
-//                 "/c start /wait .\\pkgs\\VsCodeOffline\\VSCodeSetup-x64-1.96.4 /silent /mergetasks=!runcode",
-//             RequiresRemovableDrive = false,
-//         }
-//     },
-//     {
-//         "Thonny",
-//         new ProgramInfo
-//         {
-//             CommandTemplate =
-//                 "/c start /wait .\\pkgs\\ThonnyOffline\\thonny-4.0.0 - 64bit.exe /S",
-//             RequiresRemovableDrive = false,
-//             PostInstallAction = () => Process.Start("https://micropython.org/"),
-//         }
-//     },
-//     {
-//         "Chrome",
-//         new ProgramInfo
-//         {
-//             CommandTemplate =
-//                 "/c start /wait .\\pkgs\\ChromeOffline\\ChromeStandaloneSetup64.exe",
-//             RequiresRemovableDrive = false,
-//         }
-//     },
-//     {
-//         "Firefox",
-//         new ProgramInfo
-//         {
-//             CommandTemplate = "/c start /wait .\\pkgs\\FirefoxOffline\\FireFoxInstall.exe /S",
-//             RequiresRemovableDrive = false,
-//         }
-//     },
-//     {
-//         "Python",
-//         new ProgramInfo
-//         {
-//             CommandTemplate =
-//                 "/c start /wait .\\pkgs\\PythonOffline\\python-3.12.6-amd64.exe /quiet PrependPath=1",
-//             RequiresRemovableDrive = false,
-//         }
-//     },
-//     {
-//         "GeoGebra",
-//         new ProgramInfo
-//         {
-//             CommandTemplate =
-//                 "/c msiexec /i \"{0}\\pkgs\\GeogebraOffline\\GeoGebra-Windows-Installer-6-0-848-0.msi\" ALLUSERS=2 /qb",
-//             RequiresRemovableDrive = true,
-//         }
-//     },
-// };

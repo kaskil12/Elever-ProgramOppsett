@@ -86,10 +86,7 @@ namespace ProgramApp
                     iconPath = $"{Usb._currentDriveLetter}pkgs/Assets/{programInfo.Icon}";
                     if (Programs.isOnNetwork && !File.Exists(iconPath))
                     {
-                        DownloadIcon(
-                            programInfo.Icon,
-                            Path.Combine(iconPath, $"{programInfo.Icon}")
-                        );
+                        DownloadIcon(programInfo.Icon, iconPath);
                         Log.LogInfo("Icon Installed for USB");
                     }
                 }
@@ -102,10 +99,7 @@ namespace ProgramApp
                     );
                     if (Programs.isOnNetwork && !File.Exists(iconPath))
                     {
-                        DownloadIcon(
-                            programInfo.Icon,
-                            Path.Combine(iconPath, "IKTHub", $"{programInfo.Icon}")
-                        );
+                        DownloadIcon(programInfo.Icon, iconPath);
                         Log.LogInfo("Icon Installed for PC");
                     }
                 }
@@ -428,6 +422,12 @@ namespace ProgramApp
 
         public void RefreshFunction(object sender, RoutedEventArgs e)
         {
+            if (Programs.isOnNetwork == false)
+            {
+                Programs.CheckNetwork();
+                Log.LogInfo("Refresh failed : No network");
+                return;
+            }
             Programs programs = new Programs();
             var programContainer = this.FindControl<WrapPanel>("ProgramContainer");
             if (programContainer != null)
