@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
-using Avalonia.Automation;
 using Avalonia.Media;
+using Avalonia.Threading;
 using ProgramLib;
 #nullable enable
 namespace ProgramApp
@@ -23,11 +25,25 @@ namespace ProgramApp
             InitializeComponent();
             CenterWindowAtTop();
             Usb.DetectRemovableDrive();
-            Programs program = new Programs();
-            program.LoadPrograms();
-            DisplayPrograms();
-            Fixes.LoadFixes();
-            DisplayFixes();
+            LoadDataAsync();
+        }
+
+        private async void LoadDataAsync()
+        {
+            Usb.DetectRemovableDrive();
+
+            await Task.Run(() =>
+            {
+                Programs program = new Programs();
+                program.LoadPrograms();
+                Fixes.LoadFixes();
+            });
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                DisplayPrograms();
+                DisplayFixes();
+            });
         }
 
         #region Display Programs
@@ -70,34 +86,11 @@ namespace ProgramApp
                     iconPath = $"{Usb._currentDriveLetter}pkgs/Assets/{programInfo.Icon}";
                     if (Programs.isOnNetwork && !File.Exists(iconPath))
                     {
-                        var processStartInfo = new ProcessStartInfo
-                        {
-                            FileName = "cmd.exe",
-                            Arguments =
-                                $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/\"{programInfo.Icon}\" -o \"{iconPath}\"",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            RedirectStandardError = true,
-                            CreateNoWindow = true,
-                        };
-
-                        using (var process = Process.Start(processStartInfo))
-                        {
-                            if (process != null)
-                            {
-                                process.WaitForExit();
-                                if (process.ExitCode != 0)
-                                {
-                                    throw new Exception(
-                                        $"Failed to download Icons. Exit code: {process.ExitCode}"
-                                    );
-                                }
-                                else
-                                {
-                                    Log.LogInfo("Icon Installed for Usb");
-                                }
-                            }
-                        }
+                        DownloadIcon(
+                            programInfo.Icon,
+                            Path.Combine(iconPath, $"{programInfo.Icon}")
+                        );
+                        Log.LogInfo("Icon Installed for USB");
                     }
                 }
                 else
@@ -109,34 +102,11 @@ namespace ProgramApp
                     );
                     if (Programs.isOnNetwork && !File.Exists(iconPath))
                     {
-                        var processStartInfo = new ProcessStartInfo
-                        {
-                            FileName = "cmd.exe",
-                            Arguments =
-                                $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/\"{programInfo.Icon}\" -o \"{iconPath}\"",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            RedirectStandardError = true,
-                            CreateNoWindow = true,
-                        };
-
-                        using (var process = Process.Start(processStartInfo))
-                        {
-                            if (process != null)
-                            {
-                                process.WaitForExit();
-                                if (process.ExitCode != 0)
-                                {
-                                    throw new Exception(
-                                        $"Failed to download Icons. Exit code: {process.ExitCode}"
-                                    );
-                                }
-                                else
-                                {
-                                    Log.LogInfo("Icons Installed for PC");
-                                }
-                            }
-                        }
+                        DownloadIcon(
+                            programInfo.Icon,
+                            Path.Combine(iconPath, "IKTHub", $"{programInfo.Icon}")
+                        );
+                        Log.LogInfo("Icon Installed for PC");
                     }
                 }
                 if (!File.Exists(iconPath))
@@ -299,6 +269,27 @@ namespace ProgramApp
             }
         }
         #endregion
+        #region Icons downloading
+        private void DownloadIcon(string iconName, string destinationPath)
+        {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments =
+                    $"/C curl -u server:Trinity54 --ftp-port - ftp://10.230.64.55/IKTHub/\"{iconName}\" -o \"{destinationPath}\"",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+            };
+        #endregion
+
+            using var process = Process.Start(processStartInfo);
+            process?.WaitForExit();
+
+            if (process?.ExitCode != 0)
+                throw new Exception($"Failed to download Icons. Exit code: {process.ExitCode}");
+        }
 
         // Center the window at the top of the screen
         private void CenterWindowAtTop()

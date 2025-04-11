@@ -8,6 +8,7 @@ using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ProgramLib;
 
@@ -204,24 +205,27 @@ public class Programs
 
         if (programList != null)
         {
-            foreach (var program in programList)
+            Task.Run(() =>
             {
-                if (!_programs.ContainsKey(program.Key))
+                foreach (var program in programList)
                 {
-                    _programs.Add(program.Key, program.Value);
+                    if (!_programs.ContainsKey(program.Key))
+                    {
+                        _programs.Add(program.Key, program.Value);
+                    }
+                    else
+                    {
+                        Log.LogInfo($"Duplicate program key detected: {program.Key}. Skipping.");
+                    }
+                    // Log.LogInfo($"Loaded program: {program.Key}");
+                    // Log.LogInfo($"Command: {program.Value.CommandTemplate}");
+                    // Log.LogInfo($"Requires Removable Drive: {program.Value.RequiresRemovableDrive}");
+                    // Log.LogInfo($"Icon: {program.Value.Icon}");
+                    // Log.LogInfo($"Description: {program.Value.Description}");
+                    // Log.LogInfo($"Version: {program.Value.Version}");
+                    // Log.LogInfo($"PostInstallAction: {program.Value.PostInstallAction}");
                 }
-                else
-                {
-                    Log.LogInfo($"Duplicate program key detected: {program.Key}. Skipping.");
-                }
-                // Log.LogInfo($"Loaded program: {program.Key}");
-                // Log.LogInfo($"Command: {program.Value.CommandTemplate}");
-                // Log.LogInfo($"Requires Removable Drive: {program.Value.RequiresRemovableDrive}");
-                // Log.LogInfo($"Icon: {program.Value.Icon}");
-                // Log.LogInfo($"Description: {program.Value.Description}");
-                // Log.LogInfo($"Version: {program.Value.Version}");
-                // Log.LogInfo($"PostInstallAction: {program.Value.PostInstallAction}");
-            }
+            });
         }
         else
         {
