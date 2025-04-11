@@ -7,6 +7,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
+using Avalonia.Automation;
 using Avalonia.Media;
 using ProgramLib;
 #nullable enable
@@ -211,6 +212,7 @@ namespace ProgramApp
                 }
 
                 grid.Children.Add(checkbox);
+                AutomationProperties.SetName(checkbox, programName);
 
                 border.Child = grid;
 
@@ -261,6 +263,7 @@ namespace ProgramApp
                     Margin = new Thickness(0, 0, 0, 10),
                 };
 
+                AutomationProperties.SetName(title, fix.Key);
                 var runButton = new Button
                 {
                     Content = "Kjør",

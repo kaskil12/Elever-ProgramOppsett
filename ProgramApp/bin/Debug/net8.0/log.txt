@@ -2761,3 +2761,48 @@ Is usb, D:\pkgs\programs.json
  Fixes : Downloading new json for usb...
  Fixes : Json installed for usb
  Fixes : Is usb, D:\pkgs\fixes.json
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+ Fixes : Created Directory
+ Fixes : Downloading new json for PC...
+ Fixes : Json Installed for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+ Fixes : Created Directory
+ Fixes : Updating json for PC...
+ Fixes : Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+ Fixes : Created Directory
+ Fixes : Updating json for PC...
+ Fixes : Json Updated for PC
+C:
+Network: True
+Created Directory
+Updating json for PC...
+Json Updated for PC
+ Fixes : Created Directory
+ Fixes : Updating json for PC...
+ Fixes : Json Updated for PC
+C:
+Network: False
+Created Directory
+ Fixes : Created Directory
+Ran fix: Fix1
+C:
+Network: False
+Created Directory
+ Fixes : Created Directory
+C:
+Network: False
+Created Directory
+ Fixes : Created Directory
